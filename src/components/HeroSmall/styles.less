@@ -1,0 +1,25 @@
+@import "../../assets/less/vars.less";
+@import "../../assets/less/mixins.less";
+
+.hero-small {
+  z-index: 1;
+  height: auto;
+  text-align: center;
+  background-size: cover;
+  // background-color: @white;
+
+  .mask {
+    z-index: 2;
+    height: 100%;
+    h1 {
+      font-size: 30px;
+      line-height: 1.05;
+      color: @black;
+      margin: 20px 0 25px;
+      @media (min-width: @screen-md) {
+        font-size: 42px;
+        margin: 60px 0 35px;
+      }
+    }
+  }
+}

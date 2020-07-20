@@ -1,0 +1,170 @@
+@import "../../assets/less/vars.less";
+@import "../../assets/less/mixins.less";
+
+@status-bar-initial-height: 6px;
+
+.climate-card {
+  padding: 10px;
+  width: 100%;
+  height: 80px;
+  .explanation {
+    text-align: center;
+    .ant-btn-background-ghost {
+      color: @white;
+      border-color: @white;
+      border-width: 2px;
+      padding: 2px 12px;
+      font-weight: 100;
+    }
+  }
+  .card-wrapper {
+    height: 100%;
+    background: @white;
+    border-radius: 3px;
+    position: relative;
+    z-index: 1;
+    .status-bar {
+      background: #1fab8a;
+      width: 0;
+      height: 100%;
+      position: absolute;
+      z-index: 10;
+      left: 0;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+      transition: height 0.5s ease-in-out;
+      overflow: hidden;
+      .content {
+        margin: 0;
+        opacity: 0;
+        transition: opacity 0.1s ease-in;
+        transition: max-height 0.1s ease-in;
+        max-width: 0;
+        overflow: hidden;
+        padding: 15px;
+        color: @white;
+        h5 {
+          color: @white;
+          font-size: 20px;
+          margin-bottom: 0;
+          .heading-font();
+        }
+        p {
+          padding: 0;
+          font-size: 12px;
+        }
+      }
+    }
+    .card-content {
+      z-index: 9;
+      height: 100%;
+      h5 {
+        font-size: 16px;
+        margin: 0;
+        font-family: "ApercuPro-Regular";
+        @media (min-width: @screen-sm) {
+          // font-size: 36px;
+        }
+      }
+      .stat {
+        font-size: 16px;
+        margin: 18px 18px 0;
+        h5 {
+          .heading-font();
+        }
+      }
+      h6 {
+        font-size: 18px;
+        line-height: 1.1;
+        .heading-font();
+      }
+      p {
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+      }
+      .card-cover {
+        display: inline-block;
+        text-align: left;
+        margin-top: 0;
+        height: 100%;
+        width: 100%;
+        float: left;
+        .img-wrapper {
+          display: flex;
+          justify-content: center; /* align horizontal */
+          align-items: center;
+          height: 100%;
+          img {
+            margin: 0;
+          }
+        }
+        .wrapper {
+          padding-top: 15px;
+          padding-left: 30px;
+          height: 100%;
+          width: 100%;
+        }
+        img {
+          max-height: 80%;
+          max-width: 55%;
+          padding: 0 10px 0;
+          margin-top: 18px;
+        }
+      }
+      .card-body {
+        height: calc(30% - @status-bar-initial-height);
+        padding: 10px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.climate-card.hover {
+  .card-wrapper {
+    .card-content {
+      .card-cover {
+        margin-top: 4px;
+        width: auto;
+        height: auto;
+        .img-wrapper {
+          display: block;
+        }
+      }
+    }
+    .status-bar {
+      width: 10px;
+    }
+  }
+  &:hover {
+    .status-bar {
+      width: 100%;
+      .content {
+        opacity: 1;
+        max-width: 1000px;
+        transition: opacity 0.8s ease-in-out;
+      }
+    }
+  }
+}
+
+.modal-hero {
+  .ant-modal-content {
+    border-radius: 0;
+  }
+  .ant-modal-header {
+    padding: 28px 24px;
+  }
+  .ant-modal-title {
+    .heading-font();
+    font-size: 20px;
+  }
+  .ant-btn.ant-btn-primary {
+    height: 32px;
+  }
+  h3 {
+    font-size: 18px;
+    // margin: 0px 0 20px;
+  }
+}

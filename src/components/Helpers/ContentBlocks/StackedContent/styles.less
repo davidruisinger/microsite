@@ -1,0 +1,96 @@
+@import "../../../../assets/less/vars.less";
+@import "../../../../assets/less/mixins.less";
+
+.stacked-content {
+  padding: 30px 0;
+  @media (min-width: @screen-md) {
+    padding: 60px 0;
+  }
+  h2.section-heading {
+    margin: 0.7em 0 20px;
+    text-align: left;
+    @media (min-width: @screen-md) {
+      text-align: left;
+    }
+  }
+  .heading {
+    padding: 10px 0;
+    @media (min-width: @screen-md) {
+      padding: 10px 60px 20px 0;
+    }
+    .section-heading {
+      text-align: left;
+      margin: 30px 0 30px;
+      p {
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .company-logos {
+    margin-top: -32px;
+    @media (min-width: @screen-md) {
+      padding-right: 40px;
+      margin-top: -35px;
+      .ant-col-md-4 {
+        width: 20%;
+      }
+    }
+    @media (min-width: @screen-lg) {
+      padding-right: 60px;
+    }
+
+    .ant-list-pagination {
+      margin-top: 0;
+      margin-bottom: 15px;
+      .ant-pagination-item {
+        display: none;
+      }
+    }
+    .ant-list-item {
+      padding: 4px;
+      background: @white;
+      text-align: center;
+      box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 4px;
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+  .content-block {
+    .anticon {
+      font-size: 38px;
+    }
+    h5 {
+      margin: 20px 0 0;
+      font-size: 20px;
+      .heading-font();
+      @media (min-width: @screen-md) {
+        margin: 40px 0 10px;
+        // font-size: 30px;
+      }
+    }
+  }
+  .section-text {
+    padding-bottom: 20px;
+    @media (min-width: @screen-md) {
+      text-align: right;
+      padding: 5px 20px;
+    }
+  }
+  .btn-row {
+    padding: 30px 30px 40px;
+    text-align: center;
+  }
+  .bg .image {
+    @media (max-width: @screen-md-max) {
+      height: 200px;
+    }
+  }
+  .company-logo {
+    max-width: 519px;
+    margin-left: -5px;
+  }
+}
