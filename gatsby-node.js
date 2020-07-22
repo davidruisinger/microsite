@@ -32,27 +32,20 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
-        allCompanies {
+        allCompanies(filter: { companyPledgeStatus: { gt: 2 } }) {
           nodes {
             id
-            footprint
+
             url
             companyPledgeStatus
+            name
+            logo
           }
         }
       }
     `).then((result) => {
       // Create custom pages for companies
-      const companiesRaw = result.data.allCompanies.nodes;
-      const companies = companiesRaw.filter((company) => {
-        // make sure that the footprint does not
-        // find its way through into the client
-        // if not allowed, plus filter the by status
-        if (company.hideFootprint) {
-          company.footprint = -1;
-        }
-        return company.companyPledgeStatus > 2;
-      });
+      const companies = result.data.allCompanies.nodes;
 
       companies.forEach((company) => {
         createPage({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { graphql, useStaticQuery, Link } from "gatsby";
-import { Layout, Menu, Drawer, Icon, Button } from "antd";
+import { Layout, Menu, Drawer, Icon, List } from "antd";
 import { TopBar, CustomLink } from "../../Elements";
 import { defaultLangKey } from "../../../data/languages";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
@@ -101,6 +101,7 @@ const RightMenu = ({
 
 const PageHeader = ({ layout, inverse, langsMenu, langKey, data }) => {
   // select the right locale
+  const { nodes: allCompanies } = data.allCompanies;
   const { nodes: intlNodes } = data.allContentfulNavigation;
   const selectedMenu = intlNodes.find((node) => node.node_locale === langKey);
   const { elements } = selectedMenu;
@@ -159,7 +160,23 @@ const PageHeader = ({ layout, inverse, langsMenu, langKey, data }) => {
               onClose={() => setOpenCompanies(false)}
               visible={openCompanies}
             >
-              <h2>Other companies</h2>
+              <div className="title">Other Companies that lead by example</div>
+              <List
+                bordered={false}
+                dataSource={allCompanies}
+                renderItem={(company) => (
+                  <List.Item>
+                    <Link to={`/e/${company.url}`}>
+                      <div className="left-box">
+                        <div className="img-wrapper">
+                          <img src={company.logo} />
+                        </div>
+                      </div>
+                      <div className="right-box">{company.name}</div>
+                    </Link>
+                  </List.Item>
+                )}
+              />
             </Drawer>
           </div>
         </nav>
@@ -171,6 +188,15 @@ const PageHeader = ({ layout, inverse, langsMenu, langKey, data }) => {
 const DataWrapper = (props) => {
   const data = useStaticQuery(graphql`
     query {
+      allCompanies(filter: { companyPledgeStatus: { gt: 2 } }) {
+        nodes {
+          id
+          url
+          companyPledgeStatus
+          name
+          logo
+        }
+      }
       allContentfulNavigation(filter: { menuId: { eq: "mainMenu" } }) {
         nodes {
           id

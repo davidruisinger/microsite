@@ -316,6 +316,47 @@
   }
 }
 
+// xl drawer
+@box-width: 80px;
+.drawer-xl {
+  .title {
+    font-size: 30px;
+    margin: 50px 30px 20px 0;
+    color: @black;
+    .font-semi();
+  }
+  .ant-drawer-body {
+    padding: 40px;
+  }
+  .left-box,
+  .right-box {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .left-box {
+    width: @box-width;
+    .img-wrapper {
+      max-width: 100%;
+      background: @white;
+      height: 40px;
+      width: @box-width;
+      overflow: hidden;
+      position: relative;
+      img {
+        max-width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    }
+  }
+  .right-box {
+    padding-left: 20px;
+    width: calc(100% - @box-width);
+  }
+}
+
 // navbar drawer
 .nav-drawer {
   .ant-drawer-body .ant-menu {

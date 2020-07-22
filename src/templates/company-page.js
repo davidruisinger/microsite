@@ -13,9 +13,9 @@ import SEO from "../components/SEO";
 
 const CompanyPageTemplate = ({ data, location, pageContext }) => {
   const { footprint, url, name, logo, website } = data.companies;
-  const { slug } = pageContext;
+  const { allCompanies } = pageContext;
   // const postNode = data.contentfulPageLocal;
-
+  console.log(allCompanies);
   return (
     <Layout data={data} location={location}>
       <Helmet>
