@@ -1,149 +1,89 @@
-const path = require("path")
-const { createFilePath } = require("gatsby-source-filesystem")
+const path = require(`path`);
+const languages = require("./src/data/languages");
 
-// create the slugs
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions
-  if (node.internal.type === `MarkdownRemark`) {
-    const slug = createFilePath({ node, getNode, basePath: `pages` })
-    createNodeField({
-      node,
-      name: `slug`,
-      value: slug,
-    })
+// warnings in netlify deploy log
+exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
+  if (stage === "build-javascript") {
+    const config = getConfig();
+    const miniCssExtractPlugin = config.plugins.find(
+      (plugin) => plugin.constructor.name === "MiniCssExtractPlugin"
+    );
+    if (miniCssExtractPlugin) {
+      miniCssExtractPlugin.options.ignoreOrder = true;
+    }
+    actions.replaceWebpackConfig(config);
   }
-}
+};
 
-// create the pages
-exports.createPages = async ({ actions, graphql }) => {
-  const { createPage } = actions
-  return graphql(`
-    {
-      allMarkdownRemark(
-        limit: 1000
-        sort: { order: DESC, fields: [frontmatter___date] }
-      ) {
-        edges {
-          node {
-            fields {
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions;
+
+  const loadPages = new Promise((resolve, reject) => {
+    graphql(`
+      {
+        allContentfulPageGlobal {
+          edges {
+            node {
               slug
-            }
-            excerpt(pruneLength: 300)
-            id
-            frontmatter {
-              title
-              tags
-              templateKey
-              date(formatString: "MMMM DD, YYYY")
+              node_locale
+              localized {
+                id
+              }
             }
           }
         }
-      }
-      allCompanies {
-        edges {
-          node {
+        allCompanies {
+          nodes {
             id
-            name
-            url
-            companyPledge
-            companyPledgeStatus
-            logo
-            bgImageUrl
-            bgVideoUrl
-            hideFootprint
-            verifiedBy
-            about
             footprint
-            website
+            url
+            companyPledgeStatus
           }
         }
       }
-    }
-  `).then(async (result) => {
-    if (result.errors) {
-      result.errors.forEach((e) => console.error(e.toString()))
-      return Promise.reject(result.errors)
-    }
+    `).then((result) => {
+      // Create custom pages for companies
+      const companiesRaw = result.data.allCompanies.nodes;
+      const companies = companiesRaw.filter((company) => {
+        // make sure that the footprint does not
+        // find its way through into the client
+        // if not allowed, plus filter the by status
+        if (company.hideFootprint) {
+          company.footprint = -1;
+        }
+        return company.companyPledgeStatus > 2;
+      });
 
-    // get companies
-    const companiesRaw = result.data.allCompanies.edges
-    const companies = companiesRaw.map((company) => {
-      // make sure that the footprint does not
-      // find its way through into the client
-      // if not allowed
-      if (company.node.hideFootprint) {
-        company.node.footprint = -1
-      }
-      return company.node
-    })
-    const companiesFiltered = companies.filter(
-      (company) => company.companyPledgeStatus > 2
-    )
+      companies.forEach((company) => {
+        createPage({
+          path: `/e/${company.url}`,
+          component: path.resolve(`src/templates/company-page.js`),
+          context: { id: company.id },
+        });
+      });
 
-    // Post pages
-    const postsAndPages = result.data.allMarkdownRemark.edges
-    postsAndPages.forEach((edge) => {
-      const id = edge.node.id
-      const templateKey = edge.node.frontmatter.templateKey
+      // Create simple pages like Imprint etc.
+      const pages = result.data.allContentfulPageGlobal.edges;
+      pages.map(({ node }) => {
+        const locale = node.node_locale;
+        // for default language use the root domain
+        const pagePath =
+          locale === languages.defaultLangKey
+            ? `/${node.slug}/`
+            : `/${locale}/${node.slug}/`;
+        const pageId = node.localized.id;
+        createPage({
+          path: pagePath,
+          component: path.resolve(`./src/templates/page.js`),
+          context: {
+            id: pageId,
+            slug: node.slug,
+          },
+        });
+      });
+      resolve();
+    });
+  });
 
-      if (templateKey === "settings") {
-        //  do nothing
-      } else if (templateKey === "home-page") {
-        createPage({
-          path: edge.node.fields.slug,
-          tags: edge.node.frontmatter.tags,
-          component: path.resolve(
-            `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
-          ),
-          // additional data can be passed via context
-          context: {
-            id,
-            templateKey,
-            companiesFiltered,
-          },
-        })
-      } else if (templateKey === "company-page") {
-        // Dynamic company pages
-        companies.forEach((company) => {
-          if (company.companyPledgeStatus > 2) {
-            createPage({
-              path: `/e/${company.url}`,
-              component: path.resolve(`src/templates/company-page.js`),
-              context: { company, id },
-            })
-          }
-        })
-      } else if (templateKey === "article-page") {
-        // create blog pages
-        const slugParts = edge.node.fields.slug.split("/")
-        const slug = slugParts[slugParts.length - 2] || edge.node.fields.slug
-        createPage({
-          path: slug,
-          tags: edge.node.frontmatter.tags,
-          component: path.resolve(
-            `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
-          ),
-          // additional data can be passed via context
-          context: {
-            id,
-            templateKey,
-          },
-        })
-      } else {
-        // create all other pages
-        createPage({
-          path: edge.node.fields.slug,
-          tags: edge.node.frontmatter.tags,
-          component: path.resolve(
-            `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
-          ),
-          // additional data can be passed via context
-          context: {
-            id,
-            templateKey,
-          },
-        })
-      }
-    })
-  })
-}
+  return Promise.all([loadPages]);
+};

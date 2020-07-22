@@ -1,0 +1,29 @@
+@import '../../../assets/less/vars.less';
+
+.page-title {
+  text-align: center;
+  padding: 10px 0 20px;
+  h1 {
+    font-size: 34px;
+    margin-bottom: 15px;
+    @media (min-width: @screen-md) {
+      font-size: 46px;
+    }
+  }
+  p {
+    font-size: 17px;
+    margin: 0 auto;
+    @media (min-width: @screen-md) {
+      max-width: 650px;
+    }
+  }
+  &.inverse {
+    // background: @inverse-bg-color;
+    h1 {
+      color: @white;
+    }
+    p {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}

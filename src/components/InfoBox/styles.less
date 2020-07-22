@@ -1,0 +1,81 @@
+@import "../../assets/less/vars.less";
+@import "../../assets/less/mixins.less";
+
+@dark-blue: #212c3e;
+@box-width: 80px;
+
+.info-box {
+  background: @dark-blue;
+  padding-bottom: 20px;
+  margin-top: 30px;
+  .wrapper {
+    padding: 10px 25px 20px;
+  }
+  .left-box,
+  .right-box {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-top: auto;
+  }
+  .left-box {
+    width: calc(100% - @box-width);
+  }
+  .right-box {
+    width: @box-width;
+    .img-wrapper {
+      max-width: 100%;
+      background: @white;
+      height: @box-width;
+      width: @box-width;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      img {
+        max-width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    }
+  }
+
+  h4 {
+    font-size: 40px;
+    color: @white;
+    margin: 50px 0 0;
+  }
+  a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+  }
+  .label {
+    color: @white;
+    .font-medium();
+    font-size: 17px;
+  }
+  .ant-collapse {
+    background: @dark-blue;
+    color: @white;
+    > .ant-collapse-item {
+      background: rgba(0, 0, 0, 0.3);
+      margin-bottom: 3px;
+      border-bottom: none;
+      > .ant-collapse-header {
+        font-size: 17px;
+        .font-medium();
+        white-space: nowrap;
+        color: @white;
+        overflow: hidden;
+      }
+      > .ant-collapse-content {
+        color: @white;
+      }
+    }
+  }
+  .action {
+    .anticon {
+      margin: 0 10px 0 8px;
+    }
+  }
+}

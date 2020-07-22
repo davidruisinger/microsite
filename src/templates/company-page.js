@@ -1,53 +1,134 @@
-import React from "react"
-import PropTypes from "prop-types"
-import Helmet from "../components/SEO"
-import { graphql } from "gatsby"
-import CompanyTemplate from "../components/Templates/CompanyTemplate"
-import PageLayout from "../components/Helpers/PageLayout"
+import React from "react";
+import { graphql } from "gatsby";
+import Helmet from "react-helmet";
+import config from "../utils/siteConfig";
+import Layout from "../components/Layout/Layout";
+import { Row, Col } from "antd";
+import InfoBox from "../components/InfoBox";
+import Header from "../components/Header";
+import { CheckOutlined } from "@ant-design/icons";
+import PageBody from "../components/Layout/PageBody";
+import { PageTitle } from "../components/Elements";
+import SEO from "../components/SEO";
 
-class CompanyPage extends React.Component {
-  render() {
-    const { data, pageContext } = this.props
-    const { content } = data
-    const { company } = pageContext
-    const slug = `e/${company.url}`
-    return (
-      <PageLayout>
-        <Helmet
-          title={content.frontmatter.meta_title}
-          meta_title={content.frontmatter.meta_title}
-          meta_desc={content.frontmatter.meta_description}
-          cover={company.bgImageUrl}
-          slug={slug}
-        />
-        <CompanyTemplate
-          meta_title={content.frontmatter.meta_title}
-          meta_desc={content.frontmatter.meta_description}
-          title={content.frontmatter.title}
-          description={content.frontmatter.description}
-          company={company}
-        />
-      </PageLayout>
-    )
-  }
-}
+const CompanyPageTemplate = ({ data, location, pageContext }) => {
+  const { footprint, url, name, logo, website } = data.companies;
+  const { slug } = pageContext;
+  // const postNode = data.contentfulPageLocal;
 
-CompanyPage.propTypes = {
-  data: PropTypes.object.isRequired
-}
+  return (
+    <Layout data={data} location={location}>
+      <Helmet>
+        <title>{`${name} - ${config.siteTitle}`}</title>
+      </Helmet>
+      {/* <SEO pagePath={slug} postNode={postNode} pageSEO /> */}
 
-export default CompanyPage
+      <div className="container">
+        <Row>
+          <Col xs={24} md={12}>
+            <Header
+              title={`Find out how ${name} reduces their carbon emissions`}
+              subtitle={`We encourage organizations to take climate action. By making their efforts transparent, we inspire others to follow! `}
+            />
+          </Col>
+          <Col
+            style={{ alignSelf: "flex-end" }}
+            xs={24}
+            md={{ span: 9, offset: 3 }}
+          >
+            <InfoBox
+              name={name}
+              logo={logo}
+              website={website}
+              measures={[
+                {
+                  title: (
+                    <span className="action">
+                      <CheckOutlined />
+                      100% Renewables for Office
+                    </span>
+                  ),
+                  description: "Some desc",
+                },
+                {
+                  title: (
+                    <span className="action">
+                      <CheckOutlined />
+                      Carbon measured and offset
+                    </span>
+                  ),
+                  description: "Some desc",
+                },
+                {
+                  title: (
+                    <span className="action">
+                      <CheckOutlined />
+                      Services hosted on Green Energy
+                    </span>
+                  ),
+                  description: "Some desc",
+                },
+                {
+                  title: (
+                    <span className="action">
+                      <CheckOutlined />
+                      Green Pension Fund for Employees
+                    </span>
+                  ),
+                  description: "Some desc",
+                },
+                {
+                  title: (
+                    <span className="action">
+                      <CheckOutlined />
+                      Green Banking
+                    </span>
+                  ),
+                  description: "Some desc",
+                },
+              ]}
+            />
+          </Col>
+        </Row>
+      </div>
 
-export const companyPageQuery = graphql`
-  query CompanyPage($id: String!) {
-    content: markdownRemark(id: { eq: $id }) {
-      html
-      frontmatter {
-        title
-        description
-        meta_title
-        meta_description
+      {/* <PageTitle
+        title={name}
+        subtitle={{ childMarkdownRemark: { html: "" } }}
+      />
+      <div className="container core">
+        {name}
+      </div> */}
+    </Layout>
+  );
+};
+
+export const query = graphql`
+  query($id: String!) {
+    site {
+      siteMetadata {
+        languages {
+          defaultLangKey
+          langs
+        }
       }
     }
+    companies(id: { eq: $id }) {
+      id
+      footprint
+      url
+      companyPledgeStatus
+      name
+      companyPledge
+      logo
+      bgImageUrl
+      bgVideoUrl
+      hideFootprint
+      verifiedBy
+      about
+      website
+    }
   }
-`
+`;
+
+export default CompanyPageTemplate;
