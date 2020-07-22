@@ -26,7 +26,14 @@ if (!Intl.RelativeTimeFormat) {
   require("@formatjs/intl-relativetimeformat/dist/locale-data/de"); // Add locale data for de
 }
 
-const Template = ({ children, header, data, location, inverse }) => {
+const Template = ({
+  children,
+  header,
+  data,
+  location,
+  inverse,
+  activeCompany,
+}) => {
   const url = location.pathname;
   const { langs, defaultLangKey } = data.site.siteMetadata.languages;
   const langKey = getCurrentLangKey(langs, defaultLangKey, url);
@@ -65,6 +72,7 @@ const Template = ({ children, header, data, location, inverse }) => {
                 langsMenu={langsMenu}
                 layout={header}
                 langKey={langKey}
+                activeCompany={activeCompany}
               />
               {children}
             </div>

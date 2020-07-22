@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>frame-c-arrow-right</title>
+    <g id="Basic-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-Click" transform="translate(-190.000000, -592.000000)">
+            <g id="Title" transform="translate(85.000000, 250.000000)">
+                <g id="Group" transform="translate(0.000000, 332.000000)">
+                    <g id="frame-c-arrow-right" transform="translate(105.000000, 10.000000)">
+                        <circle id="Oval-2" fill="#07294A" cx="8" cy="8" r="7.5"></circle>
+                        <path d="M6.43017476,4.12814078 C6.58445597,3.97627023 6.82394432,3.95939572 6.99716045,4.07751726 L7.05871412,4.12814078 L10.1698252,7.19064078 C10.3241064,7.34251134 10.3412488,7.57825769 10.2212523,7.74876732 L10.1698252,7.80935922 L7.05871412,10.8718592 C6.88514777,11.0427136 6.60374112,11.0427136 6.43017476,10.8718592 C6.27589356,10.7199887 6.25875121,10.4842423 6.3787477,10.3137327 L6.43017476,10.2531408 L9.22711111,7.5 L6.43017476,4.74685922 C6.27589356,4.59498866 6.25875121,4.35924231 6.3787477,4.18873268 L6.43017476,4.12814078 Z" id="Path" stroke="#FFFFFF" stroke-width="0.5" fill="#FFFFFF" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

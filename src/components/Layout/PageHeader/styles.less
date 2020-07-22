@@ -31,9 +31,6 @@
 }
 
 .page-header.ant-layout-header {
-  // position: absolute;
-  // width: 100%;
-  // top: 0;
   &.inverse {
     // background: @inverse-bg-color;
     .ant-btn-ghost {
@@ -97,11 +94,21 @@
 
   .menu-bar {
     padding: 0;
-    overflow: auto;
+    // overflow: auto;
   }
   .menu-con {
     width: 100%;
     float: left;
+  }
+  .simple-menu-item {
+    margin-right: 25px;
+    .ant-badge-count {
+      font-size: 12px;
+      line-height: 16px;
+      height: 16px;
+      min-width: 16px;
+      background: #07294a;
+    }
   }
   .menu-con .ant-menu-item,
   .ant-menu-submenu {

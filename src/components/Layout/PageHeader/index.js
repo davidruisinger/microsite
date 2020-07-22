@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { graphql, useStaticQuery, Link } from "gatsby";
-import { Layout, Menu, Drawer, Icon, List } from "antd";
+import { Layout, Menu, Drawer, Icon, List, Badge } from "antd";
 import { TopBar, CustomLink } from "../../Elements";
 import { defaultLangKey } from "../../../data/languages";
+import { UnorderedListOutlined } from "@ant-design/icons";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
 import IconArrowDownInverse from "../../../assets/icons/small-down-inverse.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
+import { replaceVar } from "../../../utils";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -28,6 +30,8 @@ const RightMenu = ({
   langKey,
   langsMenu,
   openCompanies,
+  companiesCount,
+  activeCompany,
 }) => {
   const isMobile = useIsMobile();
   return (
@@ -61,12 +65,12 @@ const RightMenu = ({
           ) : (
             <Menu.Item key={item.id}>
               <CustomLink url={item.url} slug={item.slug}>
-                {item.title}
+                {replaceVar(item.title, activeCompany)}
               </CustomLink>
             </Menu.Item>
           )
         )}
-      <SubMenu
+      {/* <SubMenu
         className="lang-submenu"
         key={"lang-switcher"}
         title={
@@ -87,19 +91,33 @@ const RightMenu = ({
             </Link>
           </Menu.Item>
         ))}
-      </SubMenu>
+      </SubMenu> */}
       <Menu.Item
         className="simple-menu-item"
         key="open-companies"
         onClick={() => openCompanies(true)}
       >
-        All Companies
+        <Badge
+          className="company-count"
+          offset={[13, -3]}
+          count={companiesCount}
+        >
+          <UnorderedListOutlined />
+          All Companies
+        </Badge>
       </Menu.Item>
     </Menu>
   );
 };
 
-const PageHeader = ({ layout, inverse, langsMenu, langKey, data }) => {
+const PageHeader = ({
+  layout,
+  inverse,
+  langsMenu,
+  langKey,
+  data,
+  activeCompany,
+}) => {
   // select the right locale
   const { nodes: allCompanies } = data.allCompanies;
   const { nodes: intlNodes } = data.allContentfulNavigation;
@@ -135,6 +153,8 @@ const PageHeader = ({ layout, inverse, langsMenu, langKey, data }) => {
               langsMenu={langsMenu}
               items={menuItems}
               openCompanies={setOpenCompanies}
+              companiesCount={allCompanies.length}
+              activeCompany={activeCompany}
             />
             <Drawer
               className="nav-drawer"
@@ -150,6 +170,8 @@ const PageHeader = ({ layout, inverse, langsMenu, langKey, data }) => {
                 langsMenu={langsMenu}
                 items={menuItems}
                 openCompanies={setOpenCompanies}
+                companiesCount={allCompanies.length}
+                activeCompany={activeCompany}
               />
             </Drawer>
             <Drawer

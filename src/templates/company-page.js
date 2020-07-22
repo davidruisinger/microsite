@@ -15,9 +15,9 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
   const { footprint, url, name, logo, website } = data.companies;
   const { allCompanies } = pageContext;
   // const postNode = data.contentfulPageLocal;
-  console.log(allCompanies);
+  // console.log(allCompanies);
   return (
-    <Layout data={data} location={location}>
+    <Layout data={data} location={location} activeCompany={name}>
       <Helmet>
         <title>{`${name} - ${config.siteTitle}`}</title>
       </Helmet>
