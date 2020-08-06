@@ -12,3 +12,5 @@ export { default as CarbonCounter } from "./CarbonCounter";
 export { default as CustomLink } from "./CustomLink";
 export { default as LanguageSelector } from "./LanguageSelector";
 export { default as ContentSection } from "./ContentSection";
+export { default as SimpleHeader } from "./SimpleHeader";
+export { default as SliderCard } from "./SliderCard";

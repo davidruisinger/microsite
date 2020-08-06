@@ -5,7 +5,11 @@ import config from "../utils/siteConfig";
 import Layout from "../components/Layout/Layout";
 import { Row, Col, Carousel, Card } from "antd";
 import InfoBox from "../components/InfoBox";
-import { ContentSection } from "../components/Elements";
+import {
+  ContentSection,
+  SimpleHeader,
+  SliderCard,
+} from "../components/Elements";
 import Header from "../components/Header";
 import SEO from "../components/SEO";
 import { useContentfulActions } from "../utils/hooks";
@@ -64,16 +68,20 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
 
       <div className="container">
         <Row>
-          <Col xs={24} md={24}>
-            <h1>
-              What every (digital) company should do to fight climate change
-            </h1>
-            <h2>
-              We teamed up with climate experts and scientists to find out what
+          <Col
+            style={{ textAlign: "center" }}
+            xs={24}
+            md={{ span: 20, offset: 2 }}
+          >
+            <SimpleHeader
+              title={
+                "What every (digital) company should do to fight climate change"
+              }
+              subtitle={`We teamed up with climate experts and scientists to find out what
               we, as the digital industry can contribute in the fight against
               the climate crisis. Learn more about effective climate measures
-              for digital companies.
-            </h2>
+              for digital companies.`}
+            />
           </Col>
           <Col xs={24}>
             <Carousel
@@ -98,8 +106,11 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
               ]}
             >
               {actionsContent &&
-                actionsContent.list.map((action) => (
-                  <Card>{action.title}</Card>
+                actionsContent.list.map((action, i) => (
+                  <SliderCard
+                    opacity={1 - 1 / (10 / (i + 1))}
+                    title={action.title}
+                  />
                 ))}
             </Carousel>
           </Col>
