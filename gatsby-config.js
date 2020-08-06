@@ -126,6 +126,19 @@ module.exports = {
                 });
 
               node.actions = actionsList;
+
+              // convert aboutSections into array
+              const aboutSections =
+                node.aboutSections &&
+                Object.keys(node.aboutSections).map((sectionKey) => {
+                  return {
+                    uid: sectionKey,
+                    ...node.aboutSections[sectionKey],
+                  };
+                });
+
+              node.aboutSections = aboutSections;
+
               return node;
             },
           },

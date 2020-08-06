@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { graphql } from "gatsby";
 import Helmet from "react-helmet";
 import config from "../utils/siteConfig";
@@ -6,14 +6,12 @@ import Layout from "../components/Layout/Layout";
 import { Row, Col } from "antd";
 import InfoBox from "../components/InfoBox";
 import Header from "../components/Header";
-import Icon from "@ant-design/icons";
-import IconCheckSmall from "../assets/icons/check-single.svg";
 import PageBody from "../components/Layout/PageBody";
 import { PageTitle } from "../components/Elements";
 import SEO from "../components/SEO";
 
 const CompanyPageTemplate = ({ data, location, pageContext }) => {
-  const { footprint, url, name, logo, actions } = data.companies;
+  const { footprint, url, name, logo, actions, aboutSections } = data.companies;
   const { allCompanies } = pageContext;
   // const postNode = data.contentfulPageLocal;
   return (
@@ -39,6 +37,24 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
             <InfoBox name={name} logo={logo} website={"x"} actions={actions} />
           </Col>
         </Row>
+      </div>
+
+      <div className="container-fluid color-primary-light">
+        <div className="container">
+          <Row>
+            {aboutSections &&
+              aboutSections.map((section) => (
+                <Fragment>
+                  <Col xs={24} md={12}>
+                    <img width="100%" src={section.image} />
+                  </Col>
+                  <Col xs={24} md={12}>
+                    {section.text}
+                  </Col>
+                </Fragment>
+              ))}
+          </Row>
+        </div>
       </div>
 
       {/* <PageTitle
@@ -70,7 +86,10 @@ export const query = graphql`
       name
       companyPledge
       logo
-      about
+      aboutSections {
+        image
+        text
+      }
       actions {
         isCompleted
         totalImpact

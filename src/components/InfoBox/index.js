@@ -3,6 +3,7 @@ import { Row, Collapse } from "antd";
 import { LinkOutlined } from "@ant-design/icons";
 import Icon from "@ant-design/icons";
 import IconDown from "../../assets/icons/ctrl-down.svg";
+import IconCheckSmall from "../../assets/icons/check-single.svg";
 import "./styles.less";
 import { useContentfulActions } from "../../utils/hooks";
 import { mergeActions } from "../../utils";
@@ -12,7 +13,6 @@ const { Panel } = Collapse;
 const InfoBox = (props) => {
   const actionsContent = useContentfulActions();
   const mergedActions = mergeActions(actionsContent, props.actions);
-  console.log(mergedActions);
   return (
     <div className="info-box">
       <Row className="wrapper">
@@ -39,7 +39,15 @@ const InfoBox = (props) => {
       >
         {mergedActions &&
           mergedActions.map((action, i) => (
-            <Panel header={action.title} key={i}>
+            <Panel
+              header={
+                <span className="action">
+                  <Icon component={IconCheckSmall} />
+                  {action.title}
+                </span>
+              }
+              key={i}
+            >
               <p>{action.shortDescription}</p>
             </Panel>
           ))}
