@@ -5,6 +5,7 @@ import config from "../utils/siteConfig";
 import Layout from "../components/Layout/Layout";
 import { Row, Col, Carousel, Card } from "antd";
 import InfoBox from "../components/InfoBox";
+import { ContentSection } from "../components/Elements";
 import Header from "../components/Header";
 import SEO from "../components/SEO";
 import { useContentfulActions } from "../utils/hooks";
@@ -49,27 +50,14 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
         <div className="container">
           <Row>
             {aboutSections &&
-              aboutSections.map((section, i) =>
-                i % 2 == 0 ? (
-                  <Fragment>
-                    <Col xs={24} md={12}>
-                      <img width="100%" src={section.image} />
-                    </Col>
-                    <Col xs={24} md={12}>
-                      {section.text}
-                    </Col>
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <Col xs={24} md={12}>
-                      {section.text}
-                    </Col>
-                    <Col xs={24} md={12}>
-                      <img width="100%" src={section.image} />
-                    </Col>
-                  </Fragment>
-                )
-              )}
+              aboutSections.map((section, i) => (
+                <ContentSection
+                  orientation={i % 2 == 0 ? "left" : "right"}
+                  image={section.image}
+                  heading={section.heading}
+                  text={section.text}
+                />
+              ))}
           </Row>
         </div>
       </div>
@@ -142,6 +130,7 @@ export const query = graphql`
       aboutSections {
         image
         text
+        heading
       }
       actions {
         isCompleted
