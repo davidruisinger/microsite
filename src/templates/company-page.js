@@ -6,16 +6,17 @@ import Layout from "../components/Layout/Layout";
 import { Row, Col } from "antd";
 import InfoBox from "../components/InfoBox";
 import Header from "../components/Header";
-import { CheckOutlined } from "@ant-design/icons";
+import Icon from "@ant-design/icons";
+import IconCheckSmall from "../assets/icons/check-single.svg";
 import PageBody from "../components/Layout/PageBody";
 import { PageTitle } from "../components/Elements";
 import SEO from "../components/SEO";
 
 const CompanyPageTemplate = ({ data, location, pageContext }) => {
-  const { footprint, url, name, logo, website } = data.companies;
+  const { footprint, url, name, logo, actions } = data.companies;
   const { allCompanies } = pageContext;
   // const postNode = data.contentfulPageLocal;
-  // console.log(allCompanies);
+  console.log(actions);
   return (
     <Layout data={data} location={location} activeCompany={name}>
       <Helmet>
@@ -39,12 +40,12 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
             <InfoBox
               name={name}
               logo={logo}
-              website={website}
+              website={"x"}
               measures={[
                 {
                   title: (
                     <span className="action">
-                      <CheckOutlined />
+                      <Icon component={IconCheckSmall} />
                       100% Renewables for Office
                     </span>
                   ),
@@ -53,7 +54,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
                 {
                   title: (
                     <span className="action">
-                      <CheckOutlined />
+                      <Icon component={IconCheckSmall} />
                       Carbon measured and offset
                     </span>
                   ),
@@ -62,7 +63,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
                 {
                   title: (
                     <span className="action">
-                      <CheckOutlined />
+                      <Icon component={IconCheckSmall} />
                       Services hosted on Green Energy
                     </span>
                   ),
@@ -71,7 +72,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
                 {
                   title: (
                     <span className="action">
-                      <CheckOutlined />
+                      <Icon component={IconCheckSmall} />
                       Green Pension Fund for Employees
                     </span>
                   ),
@@ -80,7 +81,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
                 {
                   title: (
                     <span className="action">
-                      <CheckOutlined />
+                      <Icon component={IconCheckSmall} />
                       Green Banking
                     </span>
                   ),
@@ -121,12 +122,16 @@ export const query = graphql`
       name
       companyPledge
       logo
-      bgImageUrl
-      bgVideoUrl
-      hideFootprint
-      verifiedBy
       about
-      website
+      actions {
+        isCompleted
+        totalImpact
+        uid
+        requirements {
+          isDone
+          uid
+        }
+      }
     }
   }
 `;

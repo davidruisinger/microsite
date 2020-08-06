@@ -1,6 +1,8 @@
 import React from "react";
 import { Row, Collapse } from "antd";
 import { LinkOutlined } from "@ant-design/icons";
+import Icon from "@ant-design/icons";
+import IconDown from "../../assets/icons/ctrl-down.svg";
 import "./styles.less";
 
 const { Panel } = Collapse;
@@ -22,7 +24,14 @@ const InfoBox = (props) => {
           </div>
         </div>
       </Row>
-      <Collapse expandIconPosition="right" bordered={false} accordion>
+      <Collapse
+        expandIcon={({ isActive }) => (
+          <Icon component={IconDown} rotate={isActive ? 180 : 0} />
+        )}
+        expandIconPosition="right"
+        bordered={false}
+        accordion
+      >
         {props.measures &&
           props.measures.map((measure, i) => (
             <Panel header={measure.title} key={i}>

@@ -82,13 +82,32 @@ module.exports = {
       resolve: `gatsby-source-firebase`,
       options: {
         credential: firebaseConfig,
-        databaseURL: "https://leaders-for-climate-action.firebaseio.com/",
+        databaseURL: process.env.FB_DB_URL,
         types: [
           {
             type: "Companies",
             path: "public_companies",
-            query: (ref) => ref.limitToLast(1000),
+            query: (ref) => ref,
             map: (node) => {
+              // overwrite actions as list
+              const actionsList =
+                node.actions &&
+                Object.keys(node.actions).map((key, i) => {
+                  const { requirements, ...rest } = node.actions[key];
+                  const reqsList =
+                    requirements &&
+                    Object.keys(requirements).map((key) => ({
+                      uid: key,
+                      ...requirements[key],
+                    }));
+                  return {
+                    ...rest,
+                    requirements: reqsList,
+                    uid: key,
+                  };
+                });
+
+              node.actions = actionsList;
               return node;
             },
           },

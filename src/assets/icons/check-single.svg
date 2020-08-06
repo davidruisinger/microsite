@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>check-single</title>
+    <g id="Basic-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Idealo-Basic-Home" transform="translate(-801.000000, -409.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Dynamic-Actions" transform="translate(775.000000, 192.000000)">
+                <g id="Group-2" transform="translate(0.000000, 198.000000)">
+                    <g id="check-single" transform="translate(26.000000, 19.000000)">
+                        <path d="M3.99160181,11.1428571 C3.72614831,11.1428571 3.47158779,11.0360428 3.28391217,10.846068 L0.280985839,7.80727105 C-0.0983560359,7.4098178 -0.0929309136,6.77804595 0.293179146,6.38732373 C0.679289206,5.9966015 1.30360349,5.99111157 1.69636512,6.37498477 L3.89851109,8.60343585 L10.2076593,0.391593623 C10.5470929,-0.050353743 11.1762983,-0.130170656 11.6130288,0.213317557 C12.0497593,0.556805769 12.1286341,1.19352711 11.7892005,1.6354745 L4.78237241,10.7518653 C4.60628572,10.9821174 4.34080589,11.1245615 4.05366228,11.1428571 L3.99160181,11.1428571 Z" id="Path"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
