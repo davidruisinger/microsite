@@ -5,14 +5,12 @@ import Icon from "@ant-design/icons";
 import IconDown from "../../assets/icons/ctrl-down.svg";
 import IconCheckSmall from "../../assets/icons/check-single.svg";
 import "./styles.less";
-import { useContentfulActions } from "../../utils/hooks";
 import { mergeActions } from "../../utils";
 
 const { Panel } = Collapse;
 
 const InfoBox = (props) => {
-  const actionsContent = useContentfulActions();
-  const mergedActions = mergeActions(actionsContent, props.actions);
+  const mergedActions = mergeActions(props.actionsContent, props.actions);
   return (
     <div className="info-box">
       <Row className="wrapper">

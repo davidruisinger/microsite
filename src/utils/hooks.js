@@ -62,5 +62,8 @@ export const useContentfulActions = () => {
     }
     return acc;
   }, {});
-  return asObject;
+  return {
+    list: actionsContent,
+    object: asObject,
+  };
 };
