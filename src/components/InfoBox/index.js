@@ -4,10 +4,15 @@ import { LinkOutlined } from "@ant-design/icons";
 import Icon from "@ant-design/icons";
 import IconDown from "../../assets/icons/ctrl-down.svg";
 import "./styles.less";
+import { useContentfulActions } from "../../utils/hooks";
+import { mergeActions } from "../../utils";
 
 const { Panel } = Collapse;
 
 const InfoBox = (props) => {
+  const actionsContent = useContentfulActions();
+  const mergedActions = mergeActions(actionsContent, props.actions);
+  console.log(mergedActions);
   return (
     <div className="info-box">
       <Row className="wrapper">
@@ -32,10 +37,10 @@ const InfoBox = (props) => {
         bordered={false}
         accordion
       >
-        {props.measures &&
-          props.measures.map((measure, i) => (
-            <Panel header={measure.title} key={i}>
-              <p>{measure.description}</p>
+        {mergedActions &&
+          mergedActions.map((action, i) => (
+            <Panel header={action.title} key={i}>
+              <p>{action.shortDescription}</p>
             </Panel>
           ))}
       </Collapse>

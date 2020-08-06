@@ -200,3 +200,30 @@ export const replaceVar = (string, variable) => {
   const replaced = string.replace(/\{(.*?)\}/, variable);
   return replaced;
 };
+
+export const mergeActions = (content, data) => {
+  const merged = [];
+  for (const dataItem of data) {
+    // get corresponding content for item
+    const contentItem = content[dataItem.uid];
+
+    // extract requirements from data
+    const { requirements: dataReqs, ...restData } = dataItem;
+    const { requirements: contentReqs, ...restContent } = contentItem;
+
+    const requirements = [];
+    for (const dataReq of dataReqs) {
+      requirements.push({
+        ...contentReqs[dataReq.uid],
+        value: dataReq,
+      });
+    }
+
+    merged.push({
+      ...restData,
+      ...restContent,
+      requirements,
+    });
+  }
+  return merged;
+};

@@ -6,4 +6,5 @@ public/
 contentful-import-error-log*
 .env*
 .contentful.json
+.contentful-app.json
 .local-env.json

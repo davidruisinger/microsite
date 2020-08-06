@@ -16,7 +16,6 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
   const { footprint, url, name, logo, actions } = data.companies;
   const { allCompanies } = pageContext;
   // const postNode = data.contentfulPageLocal;
-  console.log(actions);
   return (
     <Layout data={data} location={location} activeCompany={name}>
       <Helmet>
@@ -37,58 +36,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
             xs={24}
             md={{ span: 9, offset: 3 }}
           >
-            <InfoBox
-              name={name}
-              logo={logo}
-              website={"x"}
-              measures={[
-                {
-                  title: (
-                    <span className="action">
-                      <Icon component={IconCheckSmall} />
-                      100% Renewables for Office
-                    </span>
-                  ),
-                  description: "Some desc",
-                },
-                {
-                  title: (
-                    <span className="action">
-                      <Icon component={IconCheckSmall} />
-                      Carbon measured and offset
-                    </span>
-                  ),
-                  description: "Some desc",
-                },
-                {
-                  title: (
-                    <span className="action">
-                      <Icon component={IconCheckSmall} />
-                      Services hosted on Green Energy
-                    </span>
-                  ),
-                  description: "Some desc",
-                },
-                {
-                  title: (
-                    <span className="action">
-                      <Icon component={IconCheckSmall} />
-                      Green Pension Fund for Employees
-                    </span>
-                  ),
-                  description: "Some desc",
-                },
-                {
-                  title: (
-                    <span className="action">
-                      <Icon component={IconCheckSmall} />
-                      Green Banking
-                    </span>
-                  ),
-                  description: "Some desc",
-                },
-              ]}
-            />
+            <InfoBox name={name} logo={logo} website={"x"} actions={actions} />
           </Col>
         </Row>
       </div>

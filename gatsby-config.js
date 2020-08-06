@@ -35,9 +35,11 @@ const firebaseConfig = {
 
 // Contentful Config
 let contentfulConfig;
+let contentfulConfigApp;
 
 try {
   contentfulConfig = require("./.contentful");
+  contentfulConfigApp = require("./.contentful-app");
 } catch (e) {
   // on production get the variables through netlify
   contentfulConfig = {
@@ -46,11 +48,27 @@ try {
       accessToken: process.env.ACCESS_TOKEN,
     },
   };
+  contentfulConfigApp = {
+    production: {
+      spaceId: process.env.SPACE_ID_APP,
+      accessToken: process.env.ACCESS_TOKEN_APP,
+    },
+  };
 } finally {
   const { spaceId, accessToken } = contentfulConfig.production;
   if (!spaceId || !accessToken) {
     throw new Error(
       "Contentful space ID and access token need to be provided."
+    );
+  }
+  // for webapp space
+  const {
+    spaceId: spaceIdApp,
+    accessToken: aTApp,
+  } = contentfulConfigApp.production;
+  if (!spaceIdApp || !aTApp) {
+    throw new Error(
+      "Contentful web space ID and access token need to be provided."
     );
   }
 }
@@ -173,6 +191,13 @@ module.exports = {
         process.env.NODE_ENV === "development"
           ? contentfulConfig.development
           : contentfulConfig.production,
+    },
+    {
+      resolve: "gatsby-source-contentful",
+      options:
+        process.env.NODE_ENV === "development"
+          ? contentfulConfigApp.development
+          : contentfulConfigApp.production,
     },
     "gatsby-plugin-sitemap",
     {
