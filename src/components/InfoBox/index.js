@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Collapse } from "antd";
+import { Row, Collapse, Popover } from "antd";
 import { LinkOutlined } from "@ant-design/icons";
 import Icon from "@ant-design/icons";
 import IconDown from "../../assets/icons/ctrl-down.svg";
@@ -47,6 +47,19 @@ const InfoBox = (props) => {
               key={i}
             >
               <p>{action.shortDescription}</p>
+              <Popover
+                placement="left"
+                content="We control x and y but not z."
+                title="Explanation"
+              >
+                <h5>Requirements* </h5>
+              </Popover>
+              <ul className="green-list">
+                {action.requirements &&
+                  action.requirements.map((requirement) => (
+                    <li>{requirement.title}</li>
+                  ))}
+              </ul>
             </Panel>
           ))}
       </Collapse>

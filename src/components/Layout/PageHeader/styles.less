@@ -116,6 +116,7 @@
     vertical-align: initial;
     .font-medium();
     color: @black;
+    border-bottom: none;
     a,
     .ant-menu-submenu-title {
       letter-spacing: 0.2px;
@@ -128,7 +129,7 @@
       }
     }
     &:hover {
-      border-color: rgba(255, 255, 255, 0.8);
+      // border-color: rgba(255, 255, 255, 0.8);
     }
   }
   .submenu-title {
@@ -161,6 +162,9 @@
   .menu-con .ant-menu-submenu-title a {
     padding: 20px 15px 10px;
     text-decoration: none;
+    &:hover {
+      color: rgb(33, 44, 62);
+    }
   }
   .menu-con .ant-menu-horizontal {
     border-bottom: none;

@@ -41,7 +41,8 @@ const TopBar = ({ inverse }) => {
                   {({ index }) => (
                     <CustomLink url={``} slug={``}>
                       <h3>
-                        +++ Some super important and fancy news coming along
+                        +++ Join our community and start your climate action
+                        journey today
                       </h3>
                     </CustomLink>
                   )}
