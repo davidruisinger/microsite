@@ -3,14 +3,11 @@ import { graphql } from "gatsby";
 import Helmet from "react-helmet";
 import config from "../utils/siteConfig";
 import Layout from "../components/Layout/Layout";
-import { Row, Col, Carousel, Card } from "antd";
+import { Row, Col } from "antd";
 import InfoBox from "../components/InfoBox";
-import {
-  ContentSection,
-  SimpleHeader,
-  SliderCard,
-} from "../components/Elements";
+import { ContentSection, SimpleHeader } from "../components/Elements";
 import Header from "../components/Header";
+import CardsCarousel from "../components/CardsCarousel";
 import SEO from "../components/SEO";
 import { useContentfulActions } from "../utils/hooks";
 
@@ -56,6 +53,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
             {aboutSections &&
               aboutSections.map((section, i) => (
                 <ContentSection
+                  key={`content-section-${i}`}
                   orientation={i % 2 == 0 ? "left" : "right"}
                   image={section.image}
                   heading={section.heading}
@@ -83,38 +81,11 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
               for digital companies.`}
             />
           </Col>
-          <Col xs={24}>
-            <Carousel
-              slidesToShow={4}
-              arrows={true}
-              dots={false}
-              responsive={[
-                {
-                  breakpoint: 1024,
-                  settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                  },
-                },
-                {
-                  breakpoint: 600,
-                  settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                  },
-                },
-              ]}
-            >
-              {actionsContent &&
-                actionsContent.list.map((action, i) => (
-                  <SliderCard
-                    opacity={1 - 1 / (10 / (i + 1))}
-                    title={action.title}
-                  />
-                ))}
-            </Carousel>
-          </Col>
         </Row>
+      </div>
+
+      <div className="container">
+        <CardsCarousel actionsContent={actionsContent} />
       </div>
     </Layout>
   );

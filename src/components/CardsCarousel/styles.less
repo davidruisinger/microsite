@@ -1,0 +1,45 @@
+@import "../../assets/less/vars.less";
+@import "../../assets/less/mixins.less";
+
+.cards-carousel {
+  .ant-carousel {
+    .slick-slider {
+      margin: 0 0 60px;
+    }
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    .slick-list .slick-slide {
+      pointer-events: auto !important;
+    }
+  }
+}
+
+.arrow {
+  position: absolute;
+  bottom: -40px;
+  z-index: 100;
+  pointer-events: auto;
+  &.next {
+    left: 50px;
+  }
+}
+
+.slider-card {
+  padding-right: 20px;
+  .ant-card-body {
+    color: @white;
+    .inner {
+      min-height: 400px;
+      width: 320px;
+      h3 {
+        font-size: 27px;
+        color: @white;
+      }
+      .super-text {
+        font-size: 15px;
+        color: @white;
+      }
+    }
+  }
+}

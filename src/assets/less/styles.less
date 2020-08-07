@@ -296,3 +296,14 @@ dl {
 .cc-revoke.cc-right {
   display: none !important;
 }
+
+// Modal styling
+.ant-modal-wrap {
+  &.modal-xl {
+    .ant-modal {
+      @media (min-width: @screen-md) {
+        width: 900px !important;
+      }
+    }
+  }
+}

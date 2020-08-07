@@ -20,6 +20,9 @@ export const useContentfulActions = () => {
           }
           createdAt
           shortDescription
+          explanation {
+            json
+          }
           title
           updatedAt
           requirements {
