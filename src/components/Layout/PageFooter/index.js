@@ -33,34 +33,34 @@ const Footer = ({ langKey, data }) => {
               })}
             </ul>
           </Col>
-          {/* <Col xs={24} md={6} className="footer-col">
+          <Col xs={24} md={6} className="footer-col">
             <h5>{elementsById.footerColumn2.title}</h5>
             <ul>
-              {elementsById.footerColumn2.elements.map(element => {
+              {elementsById.footerColumn2.elements.map((element) => {
                 return (
                   <li key={element.id}>
                     <CustomLink url={element.url} slug={element.slug}>
                       {element.title}
                     </CustomLink>
                   </li>
-                )
+                );
               })}
             </ul>
           </Col>
           <Col xs={24} md={7} className="footer-col">
             <h5>{elementsById.footerColumn3.title}</h5>
             <ul>
-              {elementsById.footerColumn3.elements.map(element => {
+              {elementsById.footerColumn3.elements.map((element) => {
                 return (
                   <li key={element.id}>
                     <CustomLink url={element.url} slug={element.slug}>
                       {element.title}
                     </CustomLink>
                   </li>
-                )
+                );
               })}
             </ul>
-          </Col> */}
+          </Col>
           <Col xs={24} md={5} className="footer-col">
             <h5>Social</h5>
             <a
@@ -73,17 +73,7 @@ const Footer = ({ langKey, data }) => {
               <Icon type="twitter" />
             </a>
             <h5>Other</h5>
-            <a
-              rel="nofollow noopener noreferrer"
-              target="_blank"
-              href="https://actnow.lfca.earth/e/leaders-for-climate-action"
-            >
-              <img
-                src="https://res.cloudinary.com/dhpk1grmy/image/upload/v1582277864/Act%20Now%20Badge/DE/actnow_ghost_162px__2x_acumjc.png"
-                style={{ maxWidth: "162px", width: "100%" }}
-                alt="Act now!"
-              />
-            </a>
+
             <div style={{ marginTop: "20px" }}>
               <a
                 href="https://www.contentful.com/"

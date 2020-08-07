@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Carousel, Modal, Card } from "antd";
+import { Carousel, Modal, Card, Button } from "antd";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import "./styles.less";
 import { richTextOptions } from "../../utils/richTextOptions";
@@ -23,8 +23,11 @@ const SliderCard = ({ title, supertext, icon, opacity }) => {
     <div className="slider-card">
       <Card style={{ background: `rgba(9,37,61,${opacity})` }}>
         <div className="inner">
-          <div className="super-text">{supertext}</div>
-          <h3>{title}</h3>
+          <div className="wrapper">
+            <div className="super-text">{supertext}</div>
+            <h3>{title}</h3>
+          </div>
+          <img src={icon && icon.file.url} />
         </div>
       </Card>
     </div>
@@ -77,6 +80,7 @@ const CardsCarousel = (props) => {
                 opacity={1 - 1 / (10 / (i + 1))}
                 title={action.title}
                 supertext={"Required"}
+                icon={action.icon}
               />
             </a>
           ))}
@@ -86,12 +90,15 @@ const CardsCarousel = (props) => {
         onOk={hideModal}
         onCancel={hideModal}
         visible={modalVisible}
+        footer={<Button onClick={hideModal}>Ok</Button>}
       >
         <header>
-          <h4>{modalContent.header}</h4>
-          <p>{modalContent.body}</p>
-          {documentToReactComponents(modalContent.explanation, richTextOptions)}
+          <h3>{modalContent.header}</h3>
         </header>
+        <article>
+          {/* <p>{modalContent.body}</p> */}
+          {documentToReactComponents(modalContent.explanation, richTextOptions)}
+        </article>
       </Modal>
     </div>
   );

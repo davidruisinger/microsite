@@ -301,8 +301,18 @@ dl {
 .ant-modal-wrap {
   &.modal-xl {
     .ant-modal {
+      top: 40px;
       @media (min-width: @screen-md) {
         width: 900px !important;
+      }
+      .ant-modal-body {
+        padding: 80px 60px;
+        h3 {
+          font-size: 30px;
+          @media (min-width: @screen-md) {
+            font-size: 32px;
+          }
+        }
       }
     }
   }

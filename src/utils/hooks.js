@@ -23,6 +23,11 @@ export const useContentfulActions = () => {
           explanation {
             json
           }
+          icon {
+            file {
+              url
+            }
+          }
           title
           updatedAt
           requirements {

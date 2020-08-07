@@ -11,6 +11,13 @@
     flex-wrap: nowrap;
     .slick-list .slick-slide {
       pointer-events: auto !important;
+      a {
+        text-decoration: none;
+        color: @white;
+        &:hover {
+          // text-decoration: underline;
+        }
+      }
     }
   }
 }
@@ -27,11 +34,28 @@
 
 .slider-card {
   padding-right: 20px;
+
   .ant-card-body {
     color: @white;
+    padding: 30px;
+
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    transition-duration: 0.3s;
+    transition-property: transform;
+    transition-timing-function: ease-out;
+    &:hover,
+    &:focus,
+    &:active {
+      // transform: translate3D(0, -1px, 0) scale(1.03);
+      transform: translateY(-4px);
+    }
+
     .inner {
       min-height: 400px;
-      width: 320px;
+      width: 270px;
+      display: flex;
+
       h3 {
         font-size: 27px;
         color: @white;
@@ -39,6 +63,9 @@
       .super-text {
         font-size: 15px;
         color: @white;
+      }
+      img {
+        align-self: flex-end;
       }
     }
   }

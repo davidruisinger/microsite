@@ -3,13 +3,27 @@ import { graphql } from "gatsby";
 import Helmet from "react-helmet";
 import config from "../utils/siteConfig";
 import Layout from "../components/Layout/Layout";
-import { Row, Col } from "antd";
+import { Row, Col, Card, Button } from "antd";
 import InfoBox from "../components/InfoBox";
 import { ContentSection, SimpleHeader } from "../components/Elements";
 import Header from "../components/Header";
 import CardsCarousel from "../components/CardsCarousel";
 import SEO from "../components/SEO";
 import { useContentfulActions } from "../utils/hooks";
+
+const ActionLink = (props) => {
+  return (
+    <Card>
+      <h5>{props.title}</h5>
+      <p style={{ fontSize: "15px" }}>{props.description}</p>
+      <a href={props.link}>
+        <Button type="primary" ghost>
+          {props.linkText}
+        </Button>
+      </a>
+    </Card>
+  );
+};
 
 const CompanyPageTemplate = ({ data, location, pageContext }) => {
   const { footprint, url, name, logo, actions, aboutSections } = data.companies;
@@ -86,6 +100,48 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
 
       <div className="container">
         <CardsCarousel actionsContent={actionsContent} />
+      </div>
+
+      <div className="container-fluid color-primary-light">
+        <div className="container">
+          <Row style={{ padding: "60px 0" }}>
+            <Col xs={24} md={12} style={{ padding: "30px" }}>
+              <h2>Do your part, take action and accelerate the transition. </h2>
+              <p>
+                The climate crisis affects all of us and we can all contribute
+                in the fight against it. It’s not enough to point at politicians
+                and businesses and wait for change. It’s on us to increase the
+                pressure and actively push for change. We vote with our daily
+                consumption choices, our political voices and our personal
+                investments.
+              </p>
+              <p>
+                Check out our tips for effective personal climate action and
+                contribute in the fight against the climate crisis.
+              </p>
+            </Col>
+            <Col xs={24} md={12} style={{ padding: "30px" }}>
+              <ActionLink
+                title={"Move your money to Green Investments"}
+                description={`Many banks and insurances are still financing new coal and oil plants. Move your money into green investment vecicles like Sustainable ETF’s and switch to a green bank like Tomorrow or XY. `}
+                link={"x"}
+                linkText={"Invest green now"}
+              />
+              <ActionLink
+                title={"Measure and reduce your personal footprint"}
+                description={`Lead by example, inform yourself about climate change. Figure out what you can change in your personal life and talk to friends and family about the problem. Use our free calculator `}
+                link={"x"}
+                linkText={"Measure and compensate"}
+              />
+              <ActionLink
+                title={"Raise your voice and engage in peaceful activism"}
+                description={`Fridays for Future, Extinction Rebellion, .. So many great organizations helped to increase the pressure on politics and businesses. Join them and think about who you `}
+                link={"x"}
+                linkText={"Engage"}
+              />
+            </Col>
+          </Row>
+        </div>
       </div>
     </Layout>
   );
