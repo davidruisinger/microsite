@@ -35,7 +35,6 @@ exports.createPages = ({ graphql, actions }) => {
         allCompanies(filter: { companyPledgeStatus: { gt: 2 } }) {
           nodes {
             id
-
             url
             companyPledgeStatus
             name

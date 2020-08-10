@@ -80,10 +80,14 @@ footer {
 }
 .container {
   padding: 0 20px;
-  max-width: @container-width;
   margin: 0 auto;
-  @media (max-width: @screen-md) {
+  @media (min-width: @screen-md) {
     padding: 0 20px;
+    max-width: @container-width;
+  }
+  @media (min-width: 1300px) {
+    padding: 0 20px;
+    max-width: @container-width-xl;
   }
   &.core {
     padding: 0 30px;

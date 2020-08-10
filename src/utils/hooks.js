@@ -5,7 +5,10 @@ export const useContentfulActions = () => {
     allContentfulAction: { nodes: actionsContent },
   } = useStaticQuery(graphql`
     query {
-      allContentfulAction(sort: { fields: order, order: ASC }) {
+      allContentfulAction(
+        sort: { fields: order, order: ASC }
+        filter: { category: { eq: "A" } }
+      ) {
         nodes {
           actionId
           description {
@@ -13,6 +16,13 @@ export const useContentfulActions = () => {
               html
             }
           }
+          about {
+            childMarkdownRemark {
+              html
+            }
+          }
+          order
+          category
           badge {
             file {
               url

@@ -114,10 +114,14 @@ module.exports = {
                   const { requirements, ...rest } = node.actions[key];
                   const reqsList =
                     requirements &&
-                    Object.keys(requirements).map((key) => ({
-                      uid: key,
-                      ...requirements[key],
-                    }));
+                    Object.keys(requirements).map((key) => {
+                      const { isDone, ...rest } = requirements[key];
+                      return {
+                        uid: key,
+                        ...rest,
+                        isDone: !!isDone,
+                      };
+                    });
                   return {
                     ...rest,
                     requirements: reqsList,

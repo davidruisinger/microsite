@@ -225,5 +225,10 @@ export const mergeActions = (content, data) => {
       requirements,
     });
   }
-  return merged;
+  // sort items
+  console.log(merged);
+  const sorted = merged.sort((a, b) =>
+    a.order > b.order ? 1 : b.order > a.order ? -1 : 0
+  );
+  return sorted;
 };

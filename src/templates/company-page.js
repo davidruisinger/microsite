@@ -62,9 +62,14 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
       </div>
 
       <div className="container-fluid color-primary-light">
-        <div className="container">
+        <div
+          className="container"
+          style={{
+            padding: "20px 0",
+          }}
+        >
           <Row>
-            {aboutSections &&
+            {aboutSections ? (
               aboutSections.map((section, i) => (
                 <ContentSection
                   key={`content-section-${i}`}
@@ -73,7 +78,20 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
                   heading={section.heading}
                   text={section.text}
                 />
-              ))}
+              ))
+            ) : (
+              <div
+                style={{
+                  padding: "60px 0",
+                  width: "100%",
+                  textAlign: "center",
+                }}
+              >
+                <h3 style={{ textAlign: "center" }}>
+                  Please add content to the about section.
+                </h3>
+              </div>
+            )}
           </Row>
         </div>
       </div>
@@ -81,7 +99,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
       <div className="container">
         <Row>
           <Col
-            style={{ textAlign: "center" }}
+            style={{ textAlign: "center", padding: "30px 60px 15px" }}
             xs={24}
             md={{ span: 20, offset: 2 }}
           >
@@ -159,7 +177,6 @@ export const query = graphql`
     }
     companies(id: { eq: $id }) {
       id
-      footprint
       url
       companyPledgeStatus
       name

@@ -46,7 +46,11 @@ const InfoBox = (props) => {
               }
               key={i}
             >
-              <p>{action.shortDescription}</p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: action.about.childMarkdownRemark.html,
+                }}
+              />
               <Popover
                 placement="left"
                 content="We control x and y but not z."
