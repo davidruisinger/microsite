@@ -4,7 +4,7 @@
 .cards-carousel {
   .ant-carousel {
     .slick-slider {
-      margin: 0 0 60px;
+      margin: 0 0 120px;
     }
     display: flex;
     flex-direction: row;
@@ -24,11 +24,28 @@
 
 .arrow {
   position: absolute;
-  bottom: -40px;
+  bottom: -80px;
   z-index: 100;
   pointer-events: auto;
+  background: #fff;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  cursor: pointer;
+  &.disabled {
+    opacity: 0.3;
+  }
+  .anticon {
+    vertical-align: -0.5em;
+  }
   &.next {
-    left: 50px;
+    left: 40px;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+  }
+  &.prev {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
   }
 }
 
@@ -37,7 +54,11 @@
 
   .ant-card-body {
     color: @white;
-    padding: 30px;
+    padding: 15px;
+
+    @media (min-width: @screen-sm) {
+      padding: 30px;
+    }
 
     transform: perspective(1px) translateZ(0);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0);
@@ -52,17 +73,25 @@
     }
 
     .inner {
-      min-height: 400px;
-      width: 270px;
+      min-height: 220px;
+      width: 140px;
       display: flex;
-
+      flex-flow: wrap;
+      @media (min-width: @screen-sm) {
+        min-height: 400px;
+        width: 270px;
+      }
       h3 {
-        font-size: 27px;
+        font-size: 20px;
         color: @white;
+        @media (min-width: @screen-sm) {
+          font-size: 27px;
+        }
       }
       .super-text {
         font-size: 15px;
         color: @white;
+        margin-bottom: 5px;
       }
       img {
         align-self: flex-end;

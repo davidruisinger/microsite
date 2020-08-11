@@ -1,22 +1,37 @@
 import React, { useState } from "react";
-import { Carousel, Modal, Card, Button } from "antd";
+import { Carousel, Modal, Card, Button, Row, Col } from "antd";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import "./styles.less";
 import { richTextOptions } from "../../utils/richTextOptions";
+import Icon from "@ant-design/icons";
+import IconArrowRight from "../../assets/icons/arrow-right.svg";
+import IconArrowLeft from "../../assets/icons/arrow-left.svg";
 
 const MODAL_CONTENT_STRUCTURE = { header: "-", body: "-" };
 
-const NextArrow = ({ className, style, onClick }) => (
-  <div className="arrow next" onClick={onClick}>
-    Next
-  </div>
-);
+const NextArrow = ({ className, style, onClick }) => {
+  const isDisabled = className.indexOf("slick-disabled") > -1;
+  return (
+    <div
+      className={`${isDisabled ? "disabled" : ""} arrow next`}
+      onClick={onClick}
+    >
+      <Icon component={IconArrowRight} />
+    </div>
+  );
+};
 
-const PrevArrow = ({ className, style, onClick }) => (
-  <div className="arrow prev" onClick={onClick}>
-    Back
-  </div>
-);
+const PrevArrow = ({ className, style, onClick }) => {
+  const isDisabled = className.indexOf("slick-disabled") > -1;
+  return (
+    <div
+      className={`${isDisabled ? "disabled" : ""} arrow prev`}
+      onClick={onClick}
+    >
+      <Icon component={IconArrowLeft} />
+    </div>
+  );
+};
 
 const SliderCard = ({ title, supertext, icon, opacity }) => {
   return (
@@ -42,6 +57,7 @@ const CardsCarousel = (props) => {
     const item = props.actionsContent.list[key];
     setModalContent({
       header: item.title,
+      icon: item.icon,
       body: item.shortDescription,
       explanation: item.explanation && item.explanation.json,
     });
@@ -53,6 +69,7 @@ const CardsCarousel = (props) => {
       <Carousel
         arrows={true}
         dots={false}
+        swipeToSlide={true}
         infinite={false}
         slidesToShow={3}
         variableWidth={true}
@@ -79,7 +96,7 @@ const CardsCarousel = (props) => {
               <SliderCard
                 opacity={1 - 1 / (10 / (i + 1))}
                 title={action.title}
-                supertext={"Required"}
+                supertext={"Recommended"}
                 icon={action.icon}
               />
             </a>
@@ -90,15 +107,29 @@ const CardsCarousel = (props) => {
         onOk={hideModal}
         onCancel={hideModal}
         visible={modalVisible}
-        footer={<Button onClick={hideModal}>Ok</Button>}
+        footer={
+          <Button block type="primary" size="large" onClick={hideModal}>
+            Close
+          </Button>
+        }
       >
-        <header>
-          <h3>{modalContent.header}</h3>
-        </header>
-        <article>
-          {/* <p>{modalContent.body}</p> */}
-          {documentToReactComponents(modalContent.explanation, richTextOptions)}
-        </article>
+        <Row>
+          <Col xs={24} md={9}>
+            <header>
+              <h4>Recommended Action</h4>
+              <h3>{modalContent.header}</h3>
+            </header>
+          </Col>
+          <Col xs={24} md={15}>
+            <article>
+              {/* <p>{modalContent.body}</p> */}
+              {documentToReactComponents(
+                modalContent.explanation,
+                richTextOptions
+              )}
+            </article>
+          </Col>{" "}
+        </Row>
       </Modal>
     </div>
   );

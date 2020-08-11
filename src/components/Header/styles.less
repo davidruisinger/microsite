@@ -2,19 +2,33 @@
 @import "../../assets/less/mixins.less";
 
 .header {
+  margin: 0 20px;
+  @media (min-width: @screen-sm) {
+    margin: 0;
+  }
   h1 {
-    font-size: 32px;
+    font-size: 28px;
     margin: 20px 0 0;
+    @media (min-width: @screen-sm) {
+      font-size: 34px;
+      margin: 50px 0 0;
+    }
     @media (min-width: @screen-md) {
+      font-size: 38px;
+      margin: 70px 0 0;
+    }
+    @media (min-width: @screen-lg) {
       font-size: 50px;
-      margin: 100px 0 0;
     }
   }
   h2 {
-    font-size: 22px;
+    font-size: 16px;
     .font-regular();
     color: rgba(0, 0, 0, 0.85);
     margin: 20px 0 20px;
     line-height: 1.6;
+    @media (min-width: @screen-sm) {
+      font-size: 22px;
+    }
   }
 }

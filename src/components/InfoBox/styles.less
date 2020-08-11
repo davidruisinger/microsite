@@ -7,7 +7,10 @@
 .info-box {
   background: @dark-blue;
   padding-bottom: 50px;
-  margin-top: 30px;
+  margin: 50px -20px 0;
+  @media (min-width: @screen-sm) {
+    margin: 50px 0 0;
+  }
   .wrapper {
     padding: 10px 25px 20px;
   }
@@ -41,10 +44,22 @@
   }
 
   h4 {
-    font-size: 40px;
+    font-size: 30px;
     line-height: 1.2;
     color: @white;
     margin: 50px 0 0;
+    @media (min-width: @screen-sm) {
+      margin: 30px 0 0;
+      font-size: 28px;
+    }
+    @media (min-width: @screen-md) {
+      margin: 30px 0 0;
+      font-size: 32px;
+    }
+    @media (min-width: @screen-lg) {
+      margin: 50px 0 0;
+      font-size: 38px;
+    }
   }
   a {
     color: rgba(255, 255, 255, 0.8);

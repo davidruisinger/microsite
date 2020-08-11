@@ -85,7 +85,7 @@ footer {
     padding: 0 20px;
     max-width: @container-width;
   }
-  @media (min-width: 1300px) {
+  @media (min-width: @screen-xl-small) {
     padding: 0 20px;
     max-width: @container-width-xl;
   }
@@ -305,19 +305,43 @@ dl {
 .ant-modal-wrap {
   &.modal-xl {
     .ant-modal {
-      top: 40px;
+      top: 0;
+      max-width: 100% !important;
       @media (min-width: @screen-md) {
+        top: 30px;
         width: 900px !important;
       }
+      @media (min-width: @screen-lg) {
+        width: 1200px !important;
+      }
       .ant-modal-body {
-        padding: 80px 60px;
-        h3 {
-          font-size: 30px;
+        padding: 40px 30px;
+        @media (min-width: @screen-md) {
+          padding: 120px 80px;
+        }
+        header {
           @media (min-width: @screen-md) {
-            font-size: 32px;
+            margin: 0 30px 10px 0;
+          }
+          h3 {
+            font-size: 30px;
+            @media (min-width: @screen-md) {
+              font-size: 36px;
+            }
+          }
+          h4 {
+            color: rgba(9, 37, 61, 0.8);
           }
         }
       }
     }
+  }
+}
+
+.simple-header {
+  text-align: center;
+  padding: 30px 0 20px;
+  @media (min-width: @screen-sm) {
+    padding: 30px 30px 15px;
   }
 }

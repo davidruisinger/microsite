@@ -77,18 +77,25 @@
     }
   }
   .logo {
-    margin: 15px 5px;
+    margin: 12px 0 15px -12px;
     img {
-      height: 55px;
+      height: 60px;
       width: auto;
     }
+
     @media (min-width: @screen-md) {
-      margin: 20px -50px 0;
+      margin: 20px 0px 0;
       height: @logo-height;
       img {
         height: @logo-height;
         position: absolute;
       }
+    }
+    @media (min-width: @screen-xl) {
+      margin: 20px -50px 0;
+    }
+    @media (min-width: @screen-xl-small) {
+      margin: 20px -50px 0;
     }
   }
 

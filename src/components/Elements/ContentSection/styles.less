@@ -4,18 +4,28 @@
   padding: 40px 0;
   &.left {
     .image-wrapper {
-      padding: 20px 30px 20px 0;
+      @media (min-width: @screen-md) {
+        padding: 20px 30px 20px 0;
+      }
     }
     .text-wrapper {
-      padding: 20px 0 20px 30px;
+      padding: 20px;
+      @media (min-width: @screen-md) {
+        padding: 20px 0 20px 30px;
+      }
     }
   }
   &.right {
     .image-wrapper {
-      padding: 20px 0 20px 30px;
+      @media (min-width: @screen-md) {
+        padding: 20px 0 20px 30px;
+      }
     }
     .text-wrapper {
-      padding: 20px 30px 20px 0;
+      padding: 20px;
+      @media (min-width: @screen-md) {
+        padding: 20px 30px 20px 0;
+      }
     }
   }
 }
