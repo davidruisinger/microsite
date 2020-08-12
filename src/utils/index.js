@@ -213,19 +213,21 @@ export const mergeActions = (content, data) => {
       const { requirements: dataReqs, ...restData } = dataItem;
       const { requirements: contentReqs, ...restContent } = contentItem;
 
-      const dataReqsAsObject = dataReqs.reduce((acc, val) => {
-        if (!acc[val.uid]) {
-          acc[val.uid] = val;
-        }
-        return acc;
-      }, {});
+      const dataReqsAsObject =
+        dataReqs &&
+        dataReqs.reduce((acc, val) => {
+          if (!acc[val.uid]) {
+            acc[val.uid] = val;
+          }
+          return acc;
+        }, {});
 
       const requirements = [];
       for (const contentReqId in contentReqs) {
         const contentReq = contentReqs[contentReqId];
-
+        const dataReq = dataReqsAsObject && dataReqsAsObject[contentReqId];
         requirements.push({
-          ...dataReqsAsObject[contentReqId],
+          ...dataReq,
           ...contentReq,
         });
       }

@@ -26,7 +26,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
 
       <div className="container">
         <Row>
-          <Col xs={24} md={12} lg={12}>
+          <Col style={{ alignSelf: "flex-start" }} xs={24} md={12} lg={12}>
             <Header
               title={`Find out how ${name} reduces their carbon emissions`}
               subtitle={`We encourage organizations to take climate action. By making their efforts transparent, we inspire others to follow! `}
