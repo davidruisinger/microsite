@@ -207,26 +207,38 @@ export const mergeActions = (content, data) => {
     // get corresponding content for item
     const contentItem = content[dataItem.uid];
 
-    // extract requirements from data
-    const { requirements: dataReqs, ...restData } = dataItem;
-    const { requirements: contentReqs, ...restContent } = contentItem;
+    // if category b, do not consider
+    if (contentItem) {
+      // extract requirements from data
+      const { requirements: dataReqs, ...restData } = dataItem;
+      const { requirements: contentReqs, ...restContent } = contentItem;
 
-    const requirements = [];
-    for (const dataReq of dataReqs) {
-      requirements.push({
-        ...contentReqs[dataReq.uid],
-        value: dataReq,
+      const dataReqsAsObject = dataReqs.reduce((acc, val) => {
+        if (!acc[val.uid]) {
+          acc[val.uid] = val;
+        }
+        return acc;
+      }, {});
+
+      const requirements = [];
+      for (const contentReqId in contentReqs) {
+        const contentReq = contentReqs[contentReqId];
+
+        requirements.push({
+          ...dataReqsAsObject[contentReqId],
+          ...contentReq,
+        });
+      }
+
+      merged.push({
+        ...restData,
+        ...restContent,
+        requirements,
       });
     }
-
-    merged.push({
-      ...restData,
-      ...restContent,
-      requirements,
-    });
   }
   // sort items
-  console.log(merged);
+
   const sorted = merged.sort((a, b) =>
     a.order > b.order ? 1 : b.order > a.order ? -1 : 0
   );

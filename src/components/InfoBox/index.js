@@ -53,15 +53,26 @@ const InfoBox = (props) => {
               />
               <Popover
                 placement="left"
-                content="We control x and y but not z."
-                title="Explanation"
+                content="In this closed BETA Version of our project, we do not demand the upload of documents yet. In the future, we will demand a document for each requirement."
+                title="How do we control this information?"
+                overlayClassName="simple-popover"
               >
                 <h5>Requirements* </h5>
               </Popover>
               <ul className="green-list">
                 {action.requirements &&
-                  action.requirements.map((requirement) => (
-                    <li>{requirement.title}</li>
+                  action.requirements.map((requirement, i) => (
+                    <li key={`list-${i}`}>
+                      {requirement.title}
+                      {/* {requirement.isDone && (
+                        <span>
+                          <Icon
+                            style={{ fontSize: "12px", marginLeft: "10px" }}
+                            component={IconCheckSmall}
+                          />
+                        </span>
+                      )} */}
+                    </li>
                   ))}
               </ul>
             </Panel>
