@@ -21,7 +21,7 @@ const PersonalAction = (props) => {
         <ActionLink
           title={"Measure and reduce your personal footprint"}
           description={`Lead by example, inform yourself about climate change. Figure out what you can change in your personal life and talk to friends and family about the problem. Use our free calculator `}
-          link={"x"}
+          link={"https://footprint.lfca.earth/"}
           linkText={"Measure and compensate"}
         />
         <ActionLink

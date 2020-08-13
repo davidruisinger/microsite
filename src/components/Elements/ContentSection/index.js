@@ -12,6 +12,9 @@ const ContentSection = (props) => {
               <img width="100%" src={props.image} />
             </Col>
             <Col xs={24} md={12} className="text-wrapper">
+              {props.supertext && (
+                <div className="super-text">{props.supertext}</div>
+              )}
               <h2>{props.heading}</h2>
               {props.text}
             </Col>

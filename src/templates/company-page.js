@@ -13,7 +13,15 @@ import SEO from "../components/SEO";
 import { useContentfulActions } from "../utils/hooks";
 
 const CompanyPageTemplate = ({ data, location, pageContext }) => {
-  const { footprint, url, name, logo, actions, aboutSections } = data.companies;
+  const {
+    footprint,
+    url,
+    name,
+    logo,
+    actions,
+    aboutSections,
+    website,
+  } = data.companies;
   const { allCompanies } = pageContext;
   const actionsContent = useContentfulActions();
   // const postNode = data.contentfulPageLocal;
@@ -42,7 +50,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
               actionsContent={actionsContent.object}
               name={name}
               logo={logo}
-              website={"x"}
+              website={website}
               actions={actions}
             />
           </Col>
@@ -65,6 +73,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
                   image={section.image}
                   heading={section.heading}
                   text={section.text}
+                  supertext={i === 0 ? `Climate Action at ${name}` : null}
                 />
               ))
             ) : (
@@ -146,6 +155,7 @@ export const query = graphql`
       url
       companyPledgeStatus
       name
+      website
       companyPledge
       logo
       aboutSections {
