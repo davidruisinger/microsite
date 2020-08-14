@@ -258,7 +258,6 @@ export const filterCompanies = (company) => {
     "veggyFood",
     "responsibleSupplychain",
   ];
-  console.log(company.actions);
   const filteredActions = company.actions.filter(
     (action) => actionIds.indexOf(action.uid) > -1
   );
