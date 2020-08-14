@@ -246,3 +246,21 @@ export const mergeActions = (content, data) => {
   );
   return sorted;
 };
+
+export const filterCompanies = (company) => {
+  const actionIds = [
+    "greenDigital",
+    "renewableEnergy",
+    "sustainableBanking",
+    "flightPolicy",
+    "sustainablePensionFund",
+    "completeClimateNeutrality",
+    "veggyFood",
+    "responsibleSupplychain",
+  ];
+  console.log(company.actions);
+  const filteredActions = company.actions.filter(
+    (action) => actionIds.indexOf(action.uid) > -1
+  );
+  return filteredActions.length > 3;
+};

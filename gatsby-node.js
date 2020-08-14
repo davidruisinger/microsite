@@ -39,12 +39,16 @@ exports.createPages = ({ graphql, actions }) => {
             companyPledgeStatus
             name
             logo
+            actions {
+              uid
+            }
           }
         }
       }
     `).then((result) => {
       // Create custom pages for companies
       const companies = result.data.allCompanies.nodes;
+      // const filteredCompanies = companies.filter(filterCompanies);
 
       companies.forEach((company) => {
         createPage({

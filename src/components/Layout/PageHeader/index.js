@@ -8,7 +8,7 @@ import IconArrowDown from "../../../assets/icons/small-down.svg";
 import IconArrowDownInverse from "../../../assets/icons/small-down-inverse.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
-import { replaceVar } from "../../../utils";
+import { replaceVar, filterCompanies } from "../../../utils";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -131,6 +131,7 @@ const PageHeader = ({
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
   const pageLogo = `/img/lfca_logo${inverse ? "_inverse" : ""}.svg`;
   const headerClass = `page-header ${inverse ? "inverse" : ""}`;
+  const filteredCompanies = allCompanies.filter(filterCompanies);
   return (
     <Header className={headerClass}>
       <TopBar inverse={inverse} />
@@ -153,7 +154,7 @@ const PageHeader = ({
               langsMenu={langsMenu}
               items={menuItems}
               openCompanies={setOpenCompanies}
-              companiesCount={allCompanies.length}
+              companiesCount={filteredCompanies.length}
               activeCompany={activeCompany}
             />
             <Drawer
@@ -170,7 +171,7 @@ const PageHeader = ({
                 langsMenu={langsMenu}
                 items={menuItems}
                 openCompanies={setOpenCompanies}
-                companiesCount={allCompanies.length}
+                companiesCount={filteredCompanies.length}
                 activeCompany={activeCompany}
               />
             </Drawer>
@@ -185,7 +186,7 @@ const PageHeader = ({
               <div className="title">Other Companies that lead by example</div>
               <List
                 bordered={false}
-                dataSource={allCompanies}
+                dataSource={filteredCompanies}
                 renderItem={(company) => (
                   <List.Item>
                     <Link to={`/e/${company.url}`}>
@@ -217,6 +218,9 @@ const DataWrapper = (props) => {
           companyPledgeStatus
           name
           logo
+          actions {
+            uid
+          }
         }
       }
       allContentfulNavigation(filter: { menuId: { eq: "mainMenu" } }) {
