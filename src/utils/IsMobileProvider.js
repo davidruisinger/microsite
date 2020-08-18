@@ -1,31 +1,35 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
-import { TABLET_BREAKPOINT } from './'
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { TABLET_BREAKPOINT } from "./";
 
-export const IsMobileCtx = createContext(null)
+export const IsMobileCtx = createContext(null);
 
 const IsMobileProvider = ({ children }) => {
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== 'undefined' && window.innerWidth < TABLET_BREAKPOINT
-  )
+  const windowDefined = typeof window !== "undefined";
+
+  const windowIsMobile = windowDefined
+    ? window.innerWidth < TABLET_BREAKPOINT
+    : true;
+
+  const [isMobile, setIsMobile] = useState(windowDefined && windowIsMobile);
 
   const listener = () => {
-    setIsMobile(
-      typeof window !== 'undefined' && window.innerWidth < TABLET_BREAKPOINT
-    )
-  }
+    const windowIsMobile = windowDefined
+      ? window.innerWidth < TABLET_BREAKPOINT
+      : true;
+    setIsMobile(windowDefined && windowIsMobile);
+  };
 
   useEffect(() => {
-    typeof window !== 'undefined' && window.addEventListener('resize', listener)
+    windowDefined && window.addEventListener("resize", listener);
     return () => {
-      typeof window !== 'undefined' &&
-        window.removeEventListener('resize', listener)
-    }
-  }, [])
+      windowDefined && window.removeEventListener("resize", listener);
+    };
+  }, []);
 
   return (
     <IsMobileCtx.Provider value={isMobile}>{children}</IsMobileCtx.Provider>
-  )
-}
+  );
+};
 
-export default IsMobileProvider
-export const useIsMobile = () => useContext(IsMobileCtx)
+export default IsMobileProvider;
+export const useIsMobile = () => useContext(IsMobileCtx);

@@ -7,14 +7,12 @@ import IconArrowRight from "../../../assets/icons/frame-c-arrow-right.svg";
 
 const ActionLink = (props) => {
   return (
-    <Card className="action-link">
-      <CallToAction
-        cta={{ text: props.title, type: "link" }}
-        ctaClass="bold-arrow"
-        after={<Icon component={IconArrowRight} />}
-      />
-      <p>{props.description}</p>
-    </Card>
+    <a href={props.link}>
+      <Card className="action-link">
+        <h4>{props.title}</h4>
+        <p>{props.description}</p>
+      </Card>
+    </a>
   );
 };
 
