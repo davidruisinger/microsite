@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import { useIntl } from "react-intl";
+import { Link as ScrollLink } from "react-scroll";
 import { defaultLangKey } from "../../../data/languages";
 
 const CustomLink = ({ slug, url, children }) => {
@@ -9,7 +10,14 @@ const CustomLink = ({ slug, url, children }) => {
   const isInternal = slug && slug.length > 0;
   // if the slug links to an element on this page
   const isOnPage = slug && slug.indexOf("#") === 0;
-  if (isOnPage) return <Link to={slug}>{children}</Link>;
+  if (isOnPage) {
+    const element = slug.substring(1);
+    return (
+      <ScrollLink smooth to={element}>
+        {children}
+      </ScrollLink>
+    );
+  }
 
   // make sure that root links to en-US go to root
   const isDefaultLang = urlPrefix === defaultLangKey;

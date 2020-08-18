@@ -1,14 +1,16 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { graphql } from "gatsby";
 import Helmet from "react-helmet";
 import config from "../utils/siteConfig";
 import Layout from "../components/Layout/Layout";
-import { Row, Col, Card, Button } from "antd";
+import { Row, Col } from "antd";
+import { Element } from "react-scroll";
 import InfoBox from "../components/InfoBox";
 import { ContentSection, SimpleHeader } from "../components/Elements";
 import Header from "../components/Header";
 import PersonalAction from "../components/PersonalAction";
 import CardsCarousel from "../components/CardsCarousel";
+
 import SEO from "../components/SEO";
 import { useContentfulActions } from "../utils/hooks";
 
@@ -32,7 +34,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
       </Helmet>
       {/* <SEO pagePath={slug} postNode={postNode} pageSEO /> */}
 
-      <div className="container">
+      <Element className="container" name="info-box">
         <Row>
           <Col style={{ alignSelf: "flex-start" }} xs={24} md={12} lg={12}>
             <Header
@@ -55,9 +57,9 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
             />
           </Col>
         </Row>
-      </div>
+      </Element>
 
-      <div className="container-fluid color-primary-light">
+      <Element className="container-fluid color-primary-light" name="about">
         <div
           className="container"
           style={{
@@ -91,9 +93,9 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
             )}
           </Row>
         </div>
-      </div>
+      </Element>
 
-      <div className="container">
+      <Element className="container" name="initiative">
         <Row>
           <Col className="simple-header" xs={24} md={{ span: 20, offset: 2 }}>
             <SimpleHeader
@@ -107,13 +109,13 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
             />
           </Col>
         </Row>
-      </div>
+      </Element>
 
       <div className="container">
         <CardsCarousel actionsContent={actionsContent} />
       </div>
 
-      <div className="container-fluid color-primary-light">
+      <Element name="personal" className="container-fluid color-primary-light">
         <div className="container">
           <PersonalAction
             title={`Do your part, take action and accelerate the transition.`}
@@ -135,7 +137,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
             }
           />
         </div>
-      </div>
+      </Element>
     </Layout>
   );
 };
