@@ -8,10 +8,12 @@ import IconArrowRight from "../../../assets/icons/frame-c-arrow-right.svg";
 const ActionLink = (props) => {
   return (
     <a href={props.link} className="action-link">
-      <Card>
-        <h4>{props.title}</h4>
-        <p>{props.description}</p>
-      </Card>
+      <div>
+        <Card>
+          <h4>{props.title}</h4>
+          <p>{props.description}</p>
+        </Card>
+      </div>
     </a>
   );
 };
