@@ -107,11 +107,7 @@ const CardsCarousel = (props) => {
         onOk={hideModal}
         onCancel={hideModal}
         visible={modalVisible}
-        footer={
-          <Button block type="primary" size="large" onClick={hideModal}>
-            Close
-          </Button>
-        }
+        footer={null}
       >
         <Row>
           <Col xs={24} md={9}>
