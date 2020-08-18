@@ -17,7 +17,7 @@ const InfoBox = (props) => {
         <div className="label">Reduction Measures taken at</div>
         <div className="left-box">
           <h4>{props.name}</h4>
-          <a href={props.website}>
+          <a className="link" href={props.website}>
             Website <LinkOutlined />
           </a>
         </div>
@@ -40,8 +40,10 @@ const InfoBox = (props) => {
             <Panel
               header={
                 <span className="action">
-                  <Icon component={IconCheckSmall} />
-                  {action.title}
+                  <div className="icon">
+                    <Icon component={IconCheckSmall} />
+                  </div>
+                  <div className="inline">{action.title}</div>
                 </span>
               }
               key={i}

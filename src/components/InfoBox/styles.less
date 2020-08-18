@@ -22,6 +22,7 @@
   }
   .left-box {
     width: calc(100% - @box-width);
+    padding: 0 5px 0 0;
   }
   .right-box {
     width: @box-width;
@@ -47,23 +48,26 @@
     font-size: 30px;
     line-height: 1.2;
     color: @white;
-    margin: 50px 0 0;
+    margin: 30px 0 3px;
     @media (min-width: @screen-sm) {
-      margin: 30px 0 0;
+      margin: 30px 0 3px;
       font-size: 28px;
     }
     @media (min-width: @screen-md) {
-      margin: 30px 0 0;
+      margin: 30px 0 3px;
       font-size: 32px;
     }
     @media (min-width: @screen-lg) {
-      margin: 50px 0 0;
+      margin: 45px 0 3px;
       font-size: 38px;
     }
   }
   a {
     color: rgba(255, 255, 255, 0.8);
-    font-size: 16px;
+    font-size: 14px;
+    @media (min-width: @screen-sm) {
+      font-size: 15px;
+    }
   }
   .label {
     color: @white;
@@ -107,6 +111,17 @@
   }
 
   .action {
+    .icon,
+    .inline {
+      display: inline-block;
+    }
+    .icon {
+      width: 36px;
+      vertical-align: top;
+    }
+    .inline {
+      width: calc(100% - 36px);
+    }
     .anticon {
       margin: 0 12px 0 8px;
       svg {

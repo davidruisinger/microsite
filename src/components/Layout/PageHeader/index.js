@@ -121,13 +121,14 @@ const PageHeader = ({ layout, langsMenu, langKey, data, activeCompany }) => {
   const isMobile = useIsMobile();
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
   const filteredCompanies = allCompanies.filter(filterCompanies);
+  const pageLogo = isMobile ? `/img/logo_mobile.svg` : `/img/logo.svg`;
   return (
     <Header className={"page-header"}>
       <TopBar />
       <div className="container">
         <nav className="menu-bar">
           <div className="menu-con">
-            <LeftMenu langKey={langKey} logo={`/img/lfca_logo.svg`} />
+            <LeftMenu langKey={langKey} logo={pageLogo} />
             <button
               className={hamburgerClass}
               type="button"
