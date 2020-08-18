@@ -60,12 +60,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
       </Element>
 
       <Element className="container-fluid color-primary-light" name="about">
-        <div
-          className="container"
-          style={{
-            padding: "20px 0",
-          }}
-        >
+        <div className="container no-padding">
           <Row>
             {aboutSections ? (
               aboutSections.map((section, i) => (

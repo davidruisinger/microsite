@@ -167,8 +167,8 @@ const PageHeader = ({ layout, langsMenu, langKey, data, activeCompany }) => {
             <Drawer
               className="drawer-xl"
               placement="right"
-              width={isMobile ? "280px" : "600px"}
-              closable={false}
+              width={isMobile ? "100%" : "600px"}
+              closable={true}
               onClose={() => setOpenCompanies(false)}
               visible={openCompanies}
             >

@@ -338,13 +338,19 @@
 @box-width: 80px;
 .drawer-xl {
   .title {
-    font-size: 30px;
+    font-size: 26px;
     margin: 50px 30px 20px 0;
     color: @black;
     .font-semi();
+    @media (min-width: @screen-md) {
+      font-size: 30px;
+    }
   }
   .ant-drawer-body {
-    padding: 40px;
+    // padding: 40px;
+    @media (min-width: @screen-md) {
+      padding: 40px;
+    }
   }
   .left-box,
   .right-box {
