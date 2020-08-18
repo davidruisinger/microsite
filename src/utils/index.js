@@ -254,6 +254,7 @@ export const filterCompanies = (company) => {
     "sustainableBanking",
     "flightPolicy",
     "sustainablePensionFund",
+    "companyPledge",
     "completeClimateNeutrality",
     "veggyFood",
     "responsibleSupplychain",
