@@ -5,7 +5,6 @@ import { TopBar, CustomLink } from "../../Elements";
 import { defaultLangKey } from "../../../data/languages";
 import { UnorderedListOutlined } from "@ant-design/icons";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
-import IconArrowDownInverse from "../../../assets/icons/small-down-inverse.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
 import { replaceVar, filterCompanies } from "../../../utils";
@@ -24,7 +23,6 @@ const LeftMenu = (props) => (
 );
 
 const RightMenu = ({
-  inverse,
   items,
   activePath,
   langKey,
@@ -48,9 +46,7 @@ const RightMenu = ({
               title={
                 <span className="submenu-title">
                   {item.title}
-                  <Icon
-                    component={inverse ? IconArrowDownInverse : IconArrowDown}
-                  />
+                  <Icon component={IconArrowDown} />
                 </span>
               }
             >
@@ -63,11 +59,13 @@ const RightMenu = ({
               ))}
             </SubMenu>
           ) : (
-            <Menu.Item key={item.id}>
-              <CustomLink url={item.url} slug={item.slug}>
-                {replaceVar(item.title, activeCompany)}
-              </CustomLink>
-            </Menu.Item>
+            activeCompany && (
+              <Menu.Item key={item.id}>
+                <CustomLink url={item.url} slug={item.slug}>
+                  {replaceVar(item.title, activeCompany)}
+                </CustomLink>
+              </Menu.Item>
+            )
           )
         )}
       {/* <SubMenu
@@ -110,14 +108,7 @@ const RightMenu = ({
   );
 };
 
-const PageHeader = ({
-  layout,
-  inverse,
-  langsMenu,
-  langKey,
-  data,
-  activeCompany,
-}) => {
+const PageHeader = ({ layout, langsMenu, langKey, data, activeCompany }) => {
   // select the right locale
   const { nodes: allCompanies } = data.allCompanies;
   const { nodes: intlNodes } = data.allContentfulNavigation;
@@ -129,16 +120,14 @@ const PageHeader = ({
   const [openCompanies, setOpenCompanies] = useState(false);
   const isMobile = useIsMobile();
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
-  const pageLogo = `/img/lfca_logo${inverse ? "_inverse" : ""}.svg`;
-  const headerClass = `page-header ${inverse ? "inverse" : ""}`;
   const filteredCompanies = allCompanies.filter(filterCompanies);
   return (
-    <Header className={headerClass}>
-      <TopBar inverse={inverse} />
+    <Header className={"page-header"}>
+      <TopBar />
       <div className="container">
         <nav className="menu-bar">
           <div className="menu-con">
-            <LeftMenu langKey={langKey} logo={pageLogo} />
+            <LeftMenu langKey={langKey} logo={`/img/lfca_logo.svg`} />
             <button
               className={hamburgerClass}
               type="button"
@@ -149,7 +138,6 @@ const PageHeader = ({
               </span>
             </button>
             <RightMenu
-              inverse={inverse}
               langKey={langKey}
               langsMenu={langsMenu}
               items={menuItems}

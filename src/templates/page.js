@@ -1,16 +1,16 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import Helmet from 'react-helmet'
-import config from '../utils/siteConfig'
-import Layout from '../components/Layout/Layout'
-import PageBody from '../components/Layout/PageBody'
-import { PageTitle } from '../components/Elements'
-import SEO from '../components/SEO'
+import React from "react";
+import { graphql } from "gatsby";
+import Helmet from "react-helmet";
+import config from "../utils/siteConfig";
+import Layout from "../components/Layout/Layout";
+import PageBody from "../components/Layout/PageBody/";
+import { PageTitle } from "../components/Elements";
+import SEO from "../components/SEO";
 
 const PageTemplate = ({ data, location, pageContext }) => {
-  const { title, body } = data.contentfulPageLocal
-  const { slug } = pageContext
-  const postNode = data.contentfulPageLocal
+  const { title, body } = data.contentfulPageLocal;
+  const { slug } = pageContext;
+  const postNode = data.contentfulPageLocal;
 
   return (
     <Layout data={data} location={location}>
@@ -18,17 +18,15 @@ const PageTemplate = ({ data, location, pageContext }) => {
         <title>{`${title} - ${config.siteTitle}`}</title>
       </Helmet>
       <SEO pagePath={slug} postNode={postNode} pageSEO />
-      <div className="header-spacer" />
-      <PageTitle
-        title={title}
-        subtitle={{ childMarkdownRemark: { html: '' } }}
-      />
-      <div className="container core">
-        <PageBody body={body} />
+      <PageTitle title={title} />
+      <div className="container-fluid color-white">
+        <div className="container core">
+          <PageBody body={body} />
+        </div>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export const query = graphql`
   query($id: String!) {
@@ -55,6 +53,6 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
-export default PageTemplate
+export default PageTemplate;
