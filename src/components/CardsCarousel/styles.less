@@ -60,18 +60,6 @@
       padding: 30px;
     }
 
-    transform: perspective(1px) translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    transition-duration: 0.3s;
-    transition-property: transform;
-    transition-timing-function: ease-out;
-    &:hover,
-    &:focus,
-    &:active {
-      // transform: translate3D(0, -1px, 0) scale(1.03);
-      transform: translateY(-4px);
-    }
-
     .inner {
       min-height: 260px;
       width: 180px;
@@ -80,6 +68,13 @@
       @media (min-width: @screen-sm) {
         min-height: 400px;
         width: 270px;
+      }
+      box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+      transition-duration: 0.3s;
+      transition-property: transform;
+      transition-timing-function: ease-out;
+      &:hover {
+        transform: translateY(-4px);
       }
       h3 {
         font-size: 20px;
