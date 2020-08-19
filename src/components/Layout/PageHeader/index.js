@@ -8,8 +8,8 @@ import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
 import { replaceVar, filterCompanies } from "../../../utils";
-import logoMobile from "../../../assets/logo/logo_mobile.svg";
-import logoDesktop from "../../../assets/logo/logo.svg";
+import LogoMobile from "../../../assets/logo/logo_mobile.svg";
+import LogoDesktop from "../../../assets/logo/logo.svg";
 
 import Icon from "@ant-design/icons";
 
@@ -21,7 +21,8 @@ const LeftMenu = (props) => (
     <div className="logo">
       <CustomLink slug={"/"}>
         {/* <Icon component={props.logo} /> */}
-        <img src={props.logo} />
+        {/* <img src={props.logo} /> */}
+        {props.logo}
       </CustomLink>
     </div>
   </div>
@@ -137,7 +138,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
           <div className="menu-con">
             <LeftMenu
               langKey={langKey}
-              logo={isMobile ? `/img/logo_mobile.svg` : `/img/logo.svg`}
+              logo={isMobile ? <LogoMobile /> : <LogoDesktop />}
             />
 
             <button
