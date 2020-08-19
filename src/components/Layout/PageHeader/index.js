@@ -126,7 +126,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
   return (
     <Header className={"page-header"}>
       {/* TODO: test on mobile, but staging!!! */}
-      {/* {isMobile ? "yes" : "no"} */}
+      {isMobile ? "yes" : "no"}
       <TopBar />
       <div className="container">
         <nav className="menu-bar">
