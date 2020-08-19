@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { graphql, useStaticQuery, Link } from "gatsby";
-import { Layout, Menu, Drawer, Icon, List, Badge } from "antd";
+import { Layout, Menu, Drawer, List, Badge } from "antd";
 import { TopBar, CustomLink } from "../../Elements";
 import { defaultLangKey } from "../../../data/languages";
 import { UnorderedListOutlined } from "@ant-design/icons";
@@ -11,13 +11,17 @@ import { replaceVar, filterCompanies } from "../../../utils";
 import logoMobile from "../../../assets/logo/logo_mobile.svg";
 import logoDesktop from "../../../assets/logo/logo.svg";
 
+import Icon from "@ant-design/icons";
+
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
 const LeftMenu = (props) => (
   <div className="left-menu">
     <div className="logo">
-      <CustomLink slug={"/"}>{props.logo}</CustomLink>
+      <CustomLink slug={"/"}>
+        <Icon component={props.logo} />
+      </CustomLink>
     </div>
   </div>
 );
@@ -119,19 +123,22 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
   const [open, setOpen] = useState(false);
   const [openCompanies, setOpenCompanies] = useState(false);
   const isMobile = useIsMobile();
-  console.log("isMobile: ", isMobile);
+
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
   const filteredCompanies = allCompanies.filter(filterCompanies);
-  const pageLogo = isMobile ? logoMobile : logoDesktop;
+  // const pageLogo = isMobile ? logoMobile : logoDesktop;
+  // console.log(pageLogo);
   return (
     <Header className={"page-header"}>
       {/* TODO: test on mobile, but staging!!! */}
-      {isMobile ? "yes" : "no"}
+      <Icon component={isMobile ? logoMobile : logoDesktop} />
+
       <TopBar />
       <div className="container">
         <nav className="menu-bar">
           <div className="menu-con">
-            <img key={Date.now()} src={pageLogo} />
+            {/* <img src={pageLogo} /> */}
+
             {/* {isMobile ? (
               <img
                 key={Date.now()}
@@ -147,22 +154,9 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
             )} */}
             <LeftMenu
               langKey={langKey}
-              logo={
-                isMobile ? (
-                  <img
-                    key={Date.now()}
-                    src="/img/logo_mobile.svg"
-                    alt="We take Climate Action - Mobile"
-                  />
-                ) : (
-                  <img
-                    key={Date.now()}
-                    src="/img/logo.svg"
-                    alt="We take Climate Action"
-                  />
-                )
-              }
+              logo={isMobile ? logoMobile : logoDesktop}
             />
+
             <button
               className={hamburgerClass}
               type="button"
