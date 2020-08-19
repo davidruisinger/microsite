@@ -13,7 +13,7 @@ const PageTemplate = ({ data, location, pageContext }) => {
   const postNode = data.contentfulPageLocal;
 
   return (
-    <Layout data={data} location={location}>
+    <Layout metadata={data.site.siteMetadata} location={location}>
       <Helmet>
         <title>{`${title} - ${config.siteTitle}`}</title>
       </Helmet>

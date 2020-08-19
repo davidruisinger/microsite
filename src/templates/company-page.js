@@ -15,24 +15,32 @@ import SEO from "../components/SEO";
 import { useContentfulActions } from "../utils/hooks";
 
 const CompanyPageTemplate = ({ data, location, pageContext }) => {
-  const {
-    footprint,
-    url,
-    name,
-    logo,
-    actions,
-    aboutSections,
-    website,
-  } = data.companies;
-  const { allCompanies } = pageContext;
+  const { name, logo, actions, aboutSections, website } = data.companies;
+  const { slug } = pageContext;
+  const pageTitle = `${name} - ${config.siteTitle}`;
   const actionsContent = useContentfulActions();
-  // const postNode = data.contentfulPageLocal;
+  // SEO config
+  const postNode = {
+    title: pageTitle,
+    description: "We take Climate Action.",
+    metaDescription: {
+      internal: {
+        content:
+          "We encourage organizations to take climate action. By making their efforts transparent, we inspire others to follow!",
+      },
+    },
+    heroImage: "",
+  };
   return (
-    <Layout data={data} location={location} activeCompany={name}>
+    <Layout
+      metadata={data.site.siteMetadata}
+      location={location}
+      activeCompany={name}
+    >
       <Helmet>
-        <title>{`${name} - ${config.siteTitle}`}</title>
+        <title>{pageTitle}</title>
       </Helmet>
-      {/* <SEO pagePath={slug} postNode={postNode} pageSEO /> */}
+      <SEO pagePath={slug} postNode={postNode} pageSEO />
 
       <Element className="container" name="info-box">
         <Row>

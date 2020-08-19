@@ -108,7 +108,7 @@ const RightMenu = ({
   );
 };
 
-const PageHeader = ({ layout, langsMenu, langKey, data, activeCompany }) => {
+const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
   // select the right locale
   const { nodes: allCompanies } = data.allCompanies;
   const { nodes: intlNodes } = data.allContentfulNavigation;
@@ -119,11 +119,14 @@ const PageHeader = ({ layout, langsMenu, langKey, data, activeCompany }) => {
   const [open, setOpen] = useState(false);
   const [openCompanies, setOpenCompanies] = useState(false);
   const isMobile = useIsMobile();
+  console.log("isMobile: ", isMobile);
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
   const filteredCompanies = allCompanies.filter(filterCompanies);
   const pageLogo = isMobile ? `/img/logo_mobile.svg` : `/img/logo.svg`;
   return (
     <Header className={"page-header"}>
+      {/* TODO: test on mobile, but staging!!! */}
+      {/* {isMobile ? "yes" : "no"} */}
       <TopBar />
       <div className="container">
         <nav className="menu-bar">
