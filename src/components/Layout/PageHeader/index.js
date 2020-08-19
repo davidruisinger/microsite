@@ -15,9 +15,7 @@ const { SubMenu } = Menu;
 const LeftMenu = (props) => (
   <div className="left-menu">
     <div className="logo">
-      <CustomLink slug={"/"}>
-        <img src={props.logo} alt="We take Climate Action" />
-      </CustomLink>
+      <CustomLink slug={"/"}>{props.logo}</CustomLink>
     </div>
   </div>
 );
@@ -122,7 +120,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
   console.log("isMobile: ", isMobile);
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
   const filteredCompanies = allCompanies.filter(filterCompanies);
-  const pageLogo = isMobile ? `/img/logo_mobile.svg` : `/img/logo.svg`;
+
   return (
     <Header className={"page-header"}>
       {/* TODO: test on mobile, but staging!!! */}
@@ -131,7 +129,19 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
       <div className="container">
         <nav className="menu-bar">
           <div className="menu-con">
-            <LeftMenu langKey={langKey} logo={pageLogo} />
+            <LeftMenu
+              langKey={langKey}
+              logo={
+                isMobile ? (
+                  <img
+                    src="/img/logo_mobile.svg"
+                    alt="We take Climate Action - Mobile"
+                  />
+                ) : (
+                  <img src="/img/logo.svg" alt="We take Climate Action" />
+                )
+              }
+            />
             <button
               className={hamburgerClass}
               type="button"
