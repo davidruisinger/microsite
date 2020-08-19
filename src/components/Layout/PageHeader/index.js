@@ -20,7 +20,8 @@ const LeftMenu = (props) => (
   <div className="left-menu">
     <div className="logo">
       <CustomLink slug={"/"}>
-        <Icon component={props.logo} />
+        {/* <Icon component={props.logo} /> */}
+        <img src={props.logo} />
       </CustomLink>
     </div>
   </div>
@@ -136,7 +137,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
           <div className="menu-con">
             <LeftMenu
               langKey={langKey}
-              logo={isMobile ? logoMobile : logoDesktop}
+              logo={isMobile ? `/img/logo_mobile.svg` : `/img/logo.svg`}
             />
 
             <button
