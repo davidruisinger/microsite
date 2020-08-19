@@ -8,6 +8,8 @@ import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
 import { replaceVar, filterCompanies } from "../../../utils";
+import logoMobile from "../../../assets/logo/logo_mobile.svg";
+import logoDesktop from "../../../assets/logo/logo.svg";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -120,7 +122,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
   console.log("isMobile: ", isMobile);
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
   const filteredCompanies = allCompanies.filter(filterCompanies);
-
+  const pageLogo = isMobile ? logoMobile : logoDesktop;
   return (
     <Header className={"page-header"}>
       {/* TODO: test on mobile, but staging!!! */}
@@ -129,7 +131,8 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
       <div className="container">
         <nav className="menu-bar">
           <div className="menu-con">
-            {isMobile ? (
+            <img key={Date.now()} src={pageLogo} />
+            {/* {isMobile ? (
               <img
                 key={Date.now()}
                 src="/img/logo_mobile.svg"
@@ -141,7 +144,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
                 src="/img/logo.svg"
                 alt="We take Climate Action"
               />
-            )}
+            )} */}
             <LeftMenu
               langKey={langKey}
               logo={
