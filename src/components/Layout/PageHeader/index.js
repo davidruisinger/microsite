@@ -134,11 +134,16 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
               logo={
                 isMobile ? (
                   <img
+                    key={Date.now()}
                     src="/img/logo_mobile.svg"
                     alt="We take Climate Action - Mobile"
                   />
                 ) : (
-                  <img src="/img/logo.svg" alt="We take Climate Action" />
+                  <img
+                    key={Date.now()}
+                    src="/img/logo.svg"
+                    alt="We take Climate Action"
+                  />
                 )
               }
             />
