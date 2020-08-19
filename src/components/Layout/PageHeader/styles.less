@@ -90,16 +90,15 @@
     a {
       display: flex;
     }
-    .anticon {
-      font-size: 40px;
+    .logo-wrapper {
+      width: 40px;
+      height: 42px;
+      background: url(/img/logo_mobile.svg);
+      background-size: cover;
       @media (min-width: @screen-md) {
-        font-size: 142px;
-      }
-      svg {
-        @media (min-width: @screen-md) {
-          height: 91px;
-        }
-        height: 40px;
+        width: 142px;
+        height: 81px;
+        background: url(/img/logo.svg);
       }
     }
   }
