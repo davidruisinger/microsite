@@ -11,10 +11,13 @@ const { Panel } = Collapse;
 
 const InfoBox = (props) => {
   const [showMore, setShowMore] = useState(false);
-  const collapseStyle = showMore
-    ? { maxHeight: "none", paddingBottom: "40px" }
-    : { maxHeight: "280px" };
   const mergedActions = mergeActions(props.actionsContent, props.actions);
+  const useShowMore = mergedActions.length > 5;
+  const collapseStyle = useShowMore
+    ? showMore
+      ? { maxHeight: "none", paddingBottom: "40px" }
+      : { maxHeight: "280px" }
+    : {};
   return (
     <div className="info-box">
       <Row className="wrapper">
@@ -85,7 +88,7 @@ const InfoBox = (props) => {
               </ul>
             </Panel>
           ))}
-        {mergedActions.length > 5 && (
+        {useShowMore && (
           <div className="show-more">
             <Button ghost size="small" onClick={() => setShowMore(!showMore)}>
               {showMore ? "Show less" : "Show all"}
