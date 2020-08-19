@@ -77,25 +77,30 @@
     }
   }
   .logo {
-    margin: 4px 0;
-    img {
-      height: 40px;
-      width: auto;
-    }
-
+    margin: 16px 0 10px;
     @media (min-width: @screen-md) {
       margin: 20px 0px 0;
-      height: @logo-height;
-      img {
-        height: @logo-height;
-        position: absolute;
-      }
     }
     @media (min-width: @screen-xl) {
       margin: 20px -50px 0;
     }
     @media (min-width: @screen-xl-small) {
       margin: 20px -50px 0;
+    }
+    a {
+      display: flex;
+    }
+    .anticon {
+      font-size: 40px;
+      @media (min-width: @screen-md) {
+        font-size: 142px;
+      }
+      svg {
+        @media (min-width: @screen-md) {
+          height: 91px;
+        }
+        height: 40px;
+      }
     }
   }
 

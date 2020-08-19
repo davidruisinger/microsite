@@ -130,28 +130,10 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
   // console.log(pageLogo);
   return (
     <Header className={"page-header"}>
-      {/* TODO: test on mobile, but staging!!! */}
-      <Icon component={isMobile ? logoMobile : logoDesktop} />
-
       <TopBar />
       <div className="container">
         <nav className="menu-bar">
           <div className="menu-con">
-            {/* <img src={pageLogo} /> */}
-
-            {/* {isMobile ? (
-              <img
-                key={Date.now()}
-                src="/img/logo_mobile.svg"
-                alt="We take Climate Action - Mobile"
-              />
-            ) : (
-              <img
-                key={Date.now()}
-                src="/img/logo.svg"
-                alt="We take Climate Action"
-              />
-            )} */}
             <LeftMenu
               langKey={langKey}
               logo={isMobile ? logoMobile : logoDesktop}

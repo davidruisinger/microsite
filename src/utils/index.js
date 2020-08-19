@@ -55,7 +55,6 @@ export function createMagicUnderline(string) {
 }
 
 export function commentToHtml(htmlString) {
-  console.log(htmlString);
   return htmlString.replace(/<!--/g, "").replace(/-->/g, "");
   // .replace(/\n/g, '<br />')
 }
