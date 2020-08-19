@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { graphql, useStaticQuery, Link } from "gatsby";
-import { Layout, Menu, Drawer, Icon, List, Badge } from "antd";
+import { Layout, Menu, Drawer, List, Badge } from "antd";
 import { TopBar, CustomLink } from "../../Elements";
 import { defaultLangKey } from "../../../data/languages";
 import { UnorderedListOutlined } from "@ant-design/icons";
@@ -8,6 +8,10 @@ import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
 import { replaceVar, filterCompanies } from "../../../utils";
+import logoMobile from "../../../assets/logo/logo_mobile.svg";
+import logoDesktop from "../../../assets/logo/logo.svg";
+
+import Icon from "@ant-design/icons";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -16,7 +20,7 @@ const LeftMenu = (props) => (
   <div className="left-menu">
     <div className="logo">
       <CustomLink slug={"/"}>
-        <img src={props.logo} alt="We take Climate Action" />
+        <Icon component={props.logo} />
       </CustomLink>
     </div>
   </div>
@@ -119,19 +123,22 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
   const [open, setOpen] = useState(false);
   const [openCompanies, setOpenCompanies] = useState(false);
   const isMobile = useIsMobile();
-  console.log("isMobile: ", isMobile);
+
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
   const filteredCompanies = allCompanies.filter(filterCompanies);
-  const pageLogo = isMobile ? `/img/logo_mobile.svg` : `/img/logo.svg`;
+  // const pageLogo = isMobile ? logoMobile : logoDesktop;
+  // console.log(pageLogo);
   return (
     <Header className={"page-header"}>
-      {/* TODO: test on mobile, but staging!!! */}
-      {/* {isMobile ? "yes" : "no"} */}
       <TopBar />
       <div className="container">
         <nav className="menu-bar">
           <div className="menu-con">
-            <LeftMenu langKey={langKey} logo={pageLogo} />
+            <LeftMenu
+              langKey={langKey}
+              logo={isMobile ? logoMobile : logoDesktop}
+            />
+
             <button
               className={hamburgerClass}
               type="button"

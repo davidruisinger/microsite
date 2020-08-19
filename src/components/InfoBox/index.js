@@ -1,5 +1,5 @@
-import React from "react";
-import { Row, Collapse, Popover } from "antd";
+import React, { useState } from "react";
+import { Row, Collapse, Popover, Button } from "antd";
 import { LinkOutlined } from "@ant-design/icons";
 import Icon from "@ant-design/icons";
 import IconDown from "../../assets/icons/ctrl-down.svg";
@@ -10,6 +10,10 @@ import { mergeActions } from "../../utils";
 const { Panel } = Collapse;
 
 const InfoBox = (props) => {
+  const [showMore, setShowMore] = useState(false);
+  const collapseStyle = showMore
+    ? { maxHeight: "none", paddingBottom: "40px" }
+    : { maxHeight: "280px" };
   const mergedActions = mergeActions(props.actionsContent, props.actions);
   return (
     <div className="info-box">
@@ -34,10 +38,12 @@ const InfoBox = (props) => {
         expandIconPosition="right"
         bordered={false}
         accordion
+        style={collapseStyle}
       >
         {mergedActions &&
           mergedActions.map((action, i) => (
             <Panel
+              className="actions-container"
               header={
                 <span className="action">
                   <div className="icon">
@@ -79,6 +85,13 @@ const InfoBox = (props) => {
               </ul>
             </Panel>
           ))}
+        {mergedActions.length > 5 && (
+          <div className="show-more">
+            <Button ghost size="small" onClick={() => setShowMore(!showMore)}>
+              {showMore ? "Show less" : "Show all"}
+            </Button>
+          </div>
+        )}
       </Collapse>
     </div>
   );
