@@ -15,7 +15,9 @@ const PersonalAction = (props) => {
         <ActionLink
           title={"Move your money to Green Investments"}
           description={`Many banks and insurances are still financing new coal and oil plants. Move your money into green investment vecicles like Sustainable ETF’s and switch to a green bank like Tomorrow or XY. `}
-          link={"x"}
+          link={
+            "https://www.cnbc.com/2019/12/14/your-complete-guide-to-socially-responsible-investing.html"
+          }
           linkText={"Invest green now"}
         />
         <ActionLink
@@ -27,7 +29,7 @@ const PersonalAction = (props) => {
         <ActionLink
           title={"Raise your voice and engage in peaceful activism"}
           description={`Fridays for Future, Extinction Rebellion, .. So many great organizations helped to increase the pressure on politics and businesses. Join them and think about who you `}
-          link={"x"}
+          link={"https://fridaysforfuture.org/"}
           linkText={"Engage"}
         />
       </Col>

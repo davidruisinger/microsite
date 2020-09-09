@@ -39,7 +39,7 @@ const TopBar = ({ inverse }) => {
               {pageIsVisible && (
                 <Ticker offset="-100%" move speed={3} direction="toLeft">
                   {({ index }) => (
-                    <CustomLink url={``} slug={``}>
+                    <CustomLink url={`https://www.lfca.earth/apply`}>
                       <h3>
                         +++ Join our community and start your climate action
                         journey today
