@@ -1,6 +1,30 @@
 const path = require(`path`);
 const languages = require("./src/data/languages");
 
+// @TODO: change implementation
+const filterCompanies = (company) => {
+  const actionIds = [
+    "greenDigital",
+    "renewableEnergy",
+    "sustainableBanking",
+    "flightPolicy",
+    "sustainablePensionFund",
+    "companyPledge",
+    "completeClimateNeutrality",
+    "veggyFood",
+    "responsibleSupplychain",
+    "greenBusinessModel",
+    "officeReductionChampion",
+    "supportClimateDemos",
+    "offsetPrivateEmployeeFootprint",
+  ];
+  const filteredActions = company.actions.filter(
+    (action) => actionIds.indexOf(action.uid) > -1 && action.isCompleted
+  );
+
+  return filteredActions.length > 3;
+};
+
 // warnings in netlify deploy log
 exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   if (stage === "build-javascript") {
@@ -41,6 +65,7 @@ exports.createPages = ({ graphql, actions }) => {
             logo
             actions {
               uid
+              isCompleted
             }
           }
         }
@@ -48,9 +73,9 @@ exports.createPages = ({ graphql, actions }) => {
     `).then((result) => {
       // Create custom pages for companies
       const companies = result.data.allCompanies.nodes;
-      // const filteredCompanies = companies.filter(filterCompanies);
+      const filteredCompanies = companies.filter(filterCompanies);
 
-      companies.forEach((company) => {
+      filteredCompanies.forEach((company) => {
         const slug = `/e/${company.url}`;
         createPage({
           path: slug,

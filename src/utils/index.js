@@ -246,6 +246,7 @@ export const mergeActions = (content, data) => {
   return sorted;
 };
 
+// @TODO: Change implementaiton in gatsby-node
 export const filterCompanies = (company) => {
   const actionIds = [
     "greenDigital",
