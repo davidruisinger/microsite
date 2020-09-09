@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Row, Collapse, Popover, Button } from "antd";
 import { LinkOutlined } from "@ant-design/icons";
 import Icon from "@ant-design/icons";
+import { Link as ScrollLink } from "react-scroll";
 import IconDown from "../../assets/icons/ctrl-down.svg";
 import IconCheckSmall from "../../assets/icons/check-single.svg";
 import "./styles.less";
@@ -12,7 +13,8 @@ const { Panel } = Collapse;
 const InfoBox = (props) => {
   const [showMore, setShowMore] = useState(false);
   const mergedActions = mergeActions(props.actionsContent, props.actions);
-  const useShowMore = mergedActions.length > 5;
+  const filteredActions = mergedActions.filter((action) => action.isCompleted);
+  const useShowMore = filteredActions.length > 5;
   const collapseStyle = useShowMore
     ? showMore
       ? { maxHeight: "none", paddingBottom: "40px" }
@@ -43,51 +45,58 @@ const InfoBox = (props) => {
         accordion
         style={collapseStyle}
       >
-        {mergedActions &&
-          mergedActions.map((action, i) => (
-            <Panel
-              className="actions-container"
-              header={
-                <span className="action">
-                  <div className="icon">
-                    <Icon component={IconCheckSmall} />
-                  </div>
-                  <div className="inline">{action.title}</div>
-                </span>
-              }
-              key={i}
-            >
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: action.about.childMarkdownRemark.html,
-                }}
-              />
-              <Popover
-                placement="left"
-                content="In this closed BETA Version of our project, we do not demand the upload of documents yet. In the future, we will demand a document for each requirement."
-                title="How do we control this information?"
-                overlayClassName="simple-popover"
+        {filteredActions &&
+          filteredActions.map((action, i) => {
+            return (
+              <Panel
+                className="actions-container"
+                header={
+                  <span className="action">
+                    <div className="icon">
+                      <Icon component={IconCheckSmall} />
+                    </div>
+                    <div className="inline">{action.title}</div>
+                  </span>
+                }
+                key={i}
               >
-                <h5>Requirements* </h5>
-              </Popover>
-              <ul className="green-list">
-                {action.requirements &&
-                  action.requirements.map((requirement, i) => (
-                    <li key={`list-${i}`}>
-                      {requirement.title}
-                      {/* {requirement.isDone && (
-                        <span>
-                          <Icon
-                            style={{ fontSize: "12px", marginLeft: "10px" }}
-                            component={IconCheckSmall}
-                          />
-                        </span>
-                      )} */}
-                    </li>
-                  ))}
-              </ul>
-            </Panel>
-          ))}
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: action.about.childMarkdownRemark.html,
+                  }}
+                />
+                <Popover
+                  placement="left"
+                  content="In this closed BETA Version of our project, we do not demand the upload of documents yet. In the future, we will demand a document for each requirement."
+                  title="How do we control this information?"
+                  overlayClassName="simple-popover"
+                >
+                  <h5>Requirements* </h5>
+                </Popover>
+                <ul className="green-list">
+                  {action.requirements &&
+                    action.requirements.map((requirement, i) => (
+                      <li key={`list-${i}`}>
+                        {requirement.title}
+                        {/* {requirement.isDone && (
+                          <span>
+                            <Icon
+                              style={{ fontSize: "12px", marginLeft: "10px" }}
+                              component={IconCheckSmall}
+                            />
+                          </span>
+                        )} */}
+                      </li>
+                    ))}
+                </ul>
+                Find out more and understand why this measure is important{" "}
+                <ScrollLink smooth to={"initiative"}>
+                  here
+                </ScrollLink>
+                .
+              </Panel>
+            );
+          })}
         {useShowMore && (
           <div className="show-more">
             <Button ghost size="small" onClick={() => setShowMore(!showMore)}>

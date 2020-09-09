@@ -8,8 +8,6 @@ import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
 import { replaceVar, filterCompanies } from "../../../utils";
-import LogoMobile from "../../../assets/logo/logo_mobile.svg";
-import LogoDesktop from "../../../assets/logo/logo.svg";
 
 import Icon from "@ant-design/icons";
 
@@ -130,7 +128,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
   const filteredCompanies = allCompanies.filter(filterCompanies);
   // const pageLogo = isMobile ? logoMobile : logoDesktop;
-  // console.log(pageLogo);
+
   return (
     <Header className={"page-header"}>
       <TopBar />
@@ -222,6 +220,7 @@ const DataWrapper = (props) => {
           logo
           actions {
             uid
+            isCompleted
           }
         }
       }

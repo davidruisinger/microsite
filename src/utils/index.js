@@ -257,9 +257,13 @@ export const filterCompanies = (company) => {
     "completeClimateNeutrality",
     "veggyFood",
     "responsibleSupplychain",
+    "greenBusinessModel",
+    "officeReductionChampion",
+    "supportClimateDemos",
   ];
   const filteredActions = company.actions.filter(
-    (action) => actionIds.indexOf(action.uid) > -1
+    (action) => actionIds.indexOf(action.uid) > -1 && action.isCompleted
   );
+
   return filteredActions.length > 3;
 };
