@@ -185,6 +185,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
             >
               <div className="title">Other Companies that lead by example</div>
               <List
+                className="company-listing"
                 bordered={false}
                 dataSource={filteredCompanies}
                 renderItem={(company) => (

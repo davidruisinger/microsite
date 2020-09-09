@@ -51,11 +51,19 @@ exports.createPages = ({ graphql, actions }) => {
       // const filteredCompanies = companies.filter(filterCompanies);
 
       companies.forEach((company) => {
+        const slug = `/e/${company.url}`;
         createPage({
-          path: `/e/${company.url}`,
+          path: slug,
           component: path.resolve(`src/templates/company-page.js`),
-          context: { id: company.id },
+          context: { id: company.id, slug: slug },
         });
+      });
+
+      // Create homepage
+      createPage({
+        path: `/`,
+        component: path.resolve(`src/templates/homepage.js`),
+        context: { slug: `/` },
       });
 
       // Create simple pages like Imprint etc.
