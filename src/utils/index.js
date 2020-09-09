@@ -260,6 +260,7 @@ export const filterCompanies = (company) => {
     "greenBusinessModel",
     "officeReductionChampion",
     "supportClimateDemos",
+    "offsetPrivateEmployeeFootprint",
   ];
   const filteredActions = company.actions.filter(
     (action) => actionIds.indexOf(action.uid) > -1 && action.isCompleted
