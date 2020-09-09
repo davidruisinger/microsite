@@ -10,7 +10,7 @@ const Header = (props) => {
       <h1>{props.title}</h1>
       <h2>{props.subtitle}</h2>
       <CallToAction
-        cta={{ text: "Learn more", type: "link" }}
+        cta={{ text: "Learn more", type: "link", slug: "#initiative" }}
         ctaClass="bold-arrow"
         after={<Icon component={IconArrowRight} />}
       />
