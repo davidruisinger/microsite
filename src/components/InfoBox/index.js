@@ -67,7 +67,7 @@ const InfoBox = (props) => {
                 />
                 <Popover
                   placement="left"
-                  content="In this closed BETA Version of our project, we do not demand the upload of documents yet. In the future, we will demand a document for each requirement."
+                  content={`All members are part of the LFCA Community and use our digital reduction program. Some measures require the upload of documents as a proof (e.g. offset certificates), others are made controllable simple by making them transparent to the public. Please contact us if you find any violation or misinformation (e.g. as an employee of this company).`}
                   title="How do we control this information?"
                   overlayClassName="simple-popover"
                 >
