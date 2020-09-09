@@ -11,6 +11,7 @@
     flex-wrap: nowrap;
     .slick-list .slick-slide {
       pointer-events: auto !important;
+
       a {
         text-decoration: none;
         color: @white;
@@ -51,7 +52,13 @@
 
 .slider-card {
   padding-right: 20px;
-
+  .ant-card {
+    background: #212c3e;
+    transition: background-color 200ms linear;
+    &:hover {
+      background: darken(#212c3e, 10%);
+    }
+  }
   .ant-card-body {
     color: @white;
     padding: 15px;
@@ -69,6 +76,7 @@
         min-height: 400px;
         width: 270px;
       }
+
       box-shadow: 0 0 1px rgba(0, 0, 0, 0);
       transition-duration: 0.3s;
       transition-property: transform;

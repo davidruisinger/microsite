@@ -36,7 +36,7 @@ const PrevArrow = ({ className, style, onClick }) => {
 const SliderCard = ({ title, supertext, icon, opacity }) => {
   return (
     <div className="slider-card">
-      <Card style={{ background: `rgba(9,37,61,${opacity})` }}>
+      <Card>
         <div className="inner">
           <div className="wrapper">
             <div className="super-text">{supertext}</div>
@@ -91,16 +91,20 @@ const CardsCarousel = (props) => {
         ]}
       >
         {props.actionsContent &&
-          props.actionsContent.list.map((action, i) => (
-            <a onClick={() => showModal(i)} key={`slider-${i}`}>
-              <SliderCard
-                opacity={1 - 1 / (10 / (i + 1))}
-                title={action.title}
-                supertext={"Recommended"}
-                icon={action.icon}
-              />
-            </a>
-          ))}
+          props.actionsContent.list.map((action, i) => {
+            // let opacity = 1 - 1 / (10 / (i + 1));
+            // if (opacity < 0) opacity = -opacity;
+            return (
+              <a onClick={() => showModal(i)} key={`slider-${i}`}>
+                <SliderCard
+                  opacity={1}
+                  title={action.title}
+                  supertext={"Recommended"}
+                  icon={action.icon}
+                />
+              </a>
+            );
+          })}
       </Carousel>
       <Modal
         wrapClassName="modal-xl"
