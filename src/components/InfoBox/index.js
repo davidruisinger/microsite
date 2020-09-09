@@ -32,6 +32,10 @@ const InfoBox = (props) => {
         </div>
         <div className="right-box">
           <div className="img-wrapper">
+            {/* <div
+              className="img"
+              style={{ backgroundImage: `url("${props.logo}")` }}
+            /> */}
             <img src={props.logo} />
           </div>
         </div>
