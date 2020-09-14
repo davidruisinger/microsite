@@ -14,7 +14,7 @@ const PersonalAction = (props) => {
       <Col xs={24} md={12}>
         <ActionLink
           title={"Move your money to Green Investments"}
-          description={`Many banks and insurances are still financing new coal and oil plants. Move your money into green investment vecicles like Sustainable ETF’s and switch to a green bank like Tomorrow or XY. `}
+          description={`Many banks and insurances are still financing new coal and oil plants. Move your money into green investment vecicles like Sustainable ETF’s and switch to a green bank like Tomorrow or bunq. `}
           link={
             "https://www.cnbc.com/2019/12/14/your-complete-guide-to-socially-responsible-investing.html"
           }
