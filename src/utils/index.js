@@ -264,7 +264,7 @@ export const filterCompanies = (company) => {
     "offsetPrivateEmployeeFootprint",
   ];
   const filteredActions = company.actions.filter(
-    (action) => actionIds.indexOf(action.uid) > -1 && action.isCompleted
+    (action) => actionIds.indexOf(action.uid) > -1 && action.isComplete
   );
 
   return filteredActions.length > 3;

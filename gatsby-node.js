@@ -19,7 +19,7 @@ const filterCompanies = (company) => {
     "offsetPrivateEmployeeFootprint",
   ];
   const filteredActions = company.actions.filter(
-    (action) => actionIds.indexOf(action.uid) > -1 && action.isCompleted
+    (action) => actionIds.indexOf(action.uid) > -1 && action.isComplete
   );
 
   return filteredActions.length > 3;
@@ -65,7 +65,7 @@ exports.createPages = ({ graphql, actions }) => {
             logo
             actions {
               uid
-              isCompleted
+              isComplete
             }
           }
         }

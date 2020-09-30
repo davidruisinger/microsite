@@ -169,7 +169,7 @@ export const query = graphql`
         heading
       }
       actions {
-        isCompleted
+        isComplete
         totalImpact
         uid
         requirements {

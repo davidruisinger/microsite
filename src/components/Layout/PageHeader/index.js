@@ -221,7 +221,7 @@ const DataWrapper = (props) => {
           logo
           actions {
             uid
-            isCompleted
+            isComplete
           }
         }
       }

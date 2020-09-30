@@ -85,7 +85,7 @@ export const query = graphql`
         logo
         actions {
           uid
-          isCompleted
+          isComplete
         }
       }
     }
