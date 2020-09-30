@@ -13,7 +13,9 @@ const { Panel } = Collapse;
 const InfoBox = (props) => {
   const [showMore, setShowMore] = useState(false);
   const mergedActions = mergeActions(props.actionsContent, props.actions);
-  const filteredActions = mergedActions.filter((action) => action.isCompleted);
+  const filteredActions = mergedActions.filter(
+    (action) => action.isCompleted && action.actionId !== "personalPledge"
+  );
   const useShowMore = filteredActions.length > 5;
   const collapseStyle = useShowMore
     ? showMore
