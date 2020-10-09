@@ -7,14 +7,11 @@ import { Row, Col, List } from "antd";
 import { PageTitle } from "../components/Elements";
 
 import SEO from "../components/SEO";
-import { useContentfulActions } from "../utils/hooks";
-import { filterCompanies } from "../utils";
 
 const Homepage = ({ data, location, pageContext }) => {
   const { slug } = pageContext;
   const pageTitle = `${config.siteTitle}`;
   const { nodes: allCompanies } = data.allCompanies;
-  const filteredCompanies = allCompanies.filter(filterCompanies);
   // SEO config
   const postNode = {
     title: pageTitle,
@@ -43,7 +40,7 @@ const Homepage = ({ data, location, pageContext }) => {
               <List
                 className="company-listing"
                 bordered={false}
-                dataSource={filteredCompanies}
+                dataSource={allCompanies}
                 renderItem={(company) => (
                   <List.Item>
                     <Link to={`/e/${company.url}`}>
@@ -76,10 +73,11 @@ export const query = graphql`
         }
       }
     }
-    allCompanies(filter: { companyPledgeStatus: { gt: 2 } }) {
+    allCompanies(filter: { hasBadgeQualification: { eq: true } }) {
       nodes {
         id
         url
+        hasBadgeQualification
         companyPledgeStatus
         name
         logo

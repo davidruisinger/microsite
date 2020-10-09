@@ -7,7 +7,7 @@ import { UnorderedListOutlined } from "@ant-design/icons";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
-import { replaceVar, filterCompanies } from "../../../utils";
+import { replaceVar } from "../../../utils";
 
 import Icon from "@ant-design/icons";
 
@@ -124,9 +124,8 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
   const [open, setOpen] = useState(false);
   const [openCompanies, setOpenCompanies] = useState(false);
   const isMobile = useIsMobile();
-
+  console.log(allCompanies);
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
-  const filteredCompanies = allCompanies.filter(filterCompanies);
   // const pageLogo = isMobile ? logoMobile : logoDesktop;
 
   return (
@@ -154,7 +153,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
               langsMenu={langsMenu}
               items={menuItems}
               openCompanies={setOpenCompanies}
-              companiesCount={filteredCompanies.length}
+              companiesCount={allCompanies.length}
               activeCompany={activeCompany}
             />
             <Drawer
@@ -171,7 +170,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
                 langsMenu={langsMenu}
                 items={menuItems}
                 openCompanies={setOpenCompanies}
-                companiesCount={filteredCompanies.length}
+                companiesCount={allCompanies.length}
                 activeCompany={activeCompany}
               />
             </Drawer>
@@ -187,7 +186,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
               <List
                 className="company-listing"
                 bordered={false}
-                dataSource={filteredCompanies}
+                dataSource={allCompanies}
                 renderItem={(company) => (
                   <List.Item>
                     <Link to={`/e/${company.url}`}>
@@ -212,10 +211,11 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
 const DataWrapper = (props) => {
   const data = useStaticQuery(graphql`
     query {
-      allCompanies(filter: { companyPledgeStatus: { gt: 2 } }) {
+      allCompanies(filter: { hasBadgeQualification: { eq: true } }) {
         nodes {
           id
           url
+          hasBadgeQualification
           companyPledgeStatus
           name
           logo

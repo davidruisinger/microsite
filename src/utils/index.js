@@ -245,27 +245,3 @@ export const mergeActions = (content, data) => {
   );
   return sorted;
 };
-
-// @TODO: Change implementaiton in gatsby-node
-export const filterCompanies = (company) => {
-  const actionIds = [
-    "greenDigital",
-    "renewableEnergy",
-    "sustainableBanking",
-    "flightPolicy",
-    "sustainablePensionFund",
-    "companyPledge",
-    "completeClimateNeutrality",
-    "veggyFood",
-    "responsibleSupplychain",
-    "greenBusinessModel",
-    "officeReductionChampion",
-    "supportClimateDemos",
-    "offsetPrivateEmployeeFootprint",
-  ];
-  const filteredActions = company.actions.filter(
-    (action) => actionIds.indexOf(action.uid) > -1 && action.isComplete
-  );
-
-  return filteredActions.length > 3;
-};
