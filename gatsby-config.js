@@ -33,45 +33,18 @@ const firebaseConfig = {
     "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-l0a9d%40leaders-for-climate-action.iam.gserviceaccount.com",
 };
 
-// Contentful Config
-let contentfulConfig;
-let contentfulConfigApp;
+// Contentful config
+const contentfulConfig = {
+  host: process.env.CF_APP_HOST_URL,
+  spaceId: process.env.CF_APP_SPACE_ID,
+  accessToken: process.env.CF_APP_ACCESS_TOKEN,
+};
 
-try {
-  contentfulConfig = require("./.contentful");
-  contentfulConfigApp = require("./.contentful-app");
-} catch (e) {
-  // on production get the variables through netlify
-  contentfulConfig = {
-    production: {
-      spaceId: process.env.SPACE_ID,
-      accessToken: process.env.ACCESS_TOKEN,
-    },
-  };
-  contentfulConfigApp = {
-    production: {
-      spaceId: process.env.SPACE_ID_APP,
-      accessToken: process.env.ACCESS_TOKEN_APP,
-    },
-  };
-} finally {
-  const { spaceId, accessToken } = contentfulConfig.production;
-  if (!spaceId || !accessToken) {
-    throw new Error(
-      "Contentful space ID and access token need to be provided."
-    );
-  }
-  // for webapp space
-  const {
-    spaceId: spaceIdApp,
-    accessToken: aTApp,
-  } = contentfulConfigApp.production;
-  if (!spaceIdApp || !aTApp) {
-    throw new Error(
-      "Contentful web space ID and access token need to be provided."
-    );
-  }
-}
+const contentfulConfigApp = {
+  host: process.env.CF_BADGE_HOST_URL,
+  spaceId: process.env.CF_BADGE_SPACE_ID,
+  accessToken: process.env.CF_BADGE_ACCESS_TOKEN,
+};
 
 module.exports = {
   siteMetadata: {
@@ -204,17 +177,11 @@ module.exports = {
     `gatsby-plugin-catch-links`,
     {
       resolve: "gatsby-source-contentful",
-      options:
-        process.env.NODE_ENV === "development"
-          ? contentfulConfig.development
-          : contentfulConfig.production,
+      options: contentfulConfig,
     },
     {
       resolve: "gatsby-source-contentful",
-      options:
-        process.env.NODE_ENV === "development"
-          ? contentfulConfigApp.development
-          : contentfulConfigApp.production,
+      options: contentfulConfigApp,
     },
     "gatsby-plugin-sitemap",
     {
