@@ -40,10 +40,6 @@ exports.createPages = ({ graphql, actions }) => {
             hasBadgeQualification
             name
             logo
-            actions {
-              uid
-              isComplete
-            }
           }
         }
       }

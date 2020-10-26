@@ -13,10 +13,7 @@ const { Panel } = Collapse;
 const InfoBox = (props) => {
   const [showMore, setShowMore] = useState(false);
   const mergedActions = mergeActions(props.actionsContent, props.actions);
-  const filteredActions = mergedActions.filter(
-    (action) => action.isComplete && action.actionId !== "personalPledge"
-  );
-  const useShowMore = filteredActions.length > 5;
+  const useShowMore = mergedActions.length > 5;
   const collapseStyle = useShowMore
     ? showMore
       ? { maxHeight: "none", paddingBottom: "40px" }
@@ -51,8 +48,8 @@ const InfoBox = (props) => {
         accordion
         style={collapseStyle}
       >
-        {filteredActions &&
-          filteredActions.map((action, i) => {
+        {mergedActions &&
+          mergedActions.map((action, i) => {
             return (
               <Panel
                 className="actions-container"

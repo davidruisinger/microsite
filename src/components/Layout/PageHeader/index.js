@@ -124,7 +124,6 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
   const [open, setOpen] = useState(false);
   const [openCompanies, setOpenCompanies] = useState(false);
   const isMobile = useIsMobile();
-  console.log(allCompanies);
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
   // const pageLogo = isMobile ? logoMobile : logoDesktop;
 
@@ -219,10 +218,6 @@ const DataWrapper = (props) => {
           companyPledgeStatus
           name
           logo
-          actions {
-            uid
-            isComplete
-          }
         }
       }
       allContentfulNavigation(filter: { menuId: { eq: "mainMenu" } }) {

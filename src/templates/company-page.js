@@ -15,7 +15,13 @@ import SEO from "../components/SEO";
 import { useContentfulActions } from "../utils/hooks";
 
 const CompanyPageTemplate = ({ data, location, pageContext }) => {
-  const { name, logo, actions, aboutSections, website } = data.companies;
+  const {
+    name,
+    logo,
+    publicActions: actions,
+    aboutSections,
+    website,
+  } = data.companies;
   const { slug } = pageContext;
   const pageTitle = `${name} - ${config.siteTitle}`;
   const actionsContent = useContentfulActions();
@@ -31,6 +37,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
     },
     heroImage: "",
   };
+
   return (
     <Layout
       metadata={data.site.siteMetadata}
@@ -168,10 +175,10 @@ export const query = graphql`
         text
         heading
       }
-      actions {
+      publicActions {
         isComplete
-        totalImpact
         uid
+        actionId
         requirements {
           isDone
           uid

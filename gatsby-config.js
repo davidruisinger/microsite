@@ -82,9 +82,9 @@ module.exports = {
             map: (node) => {
               // overwrite actions as list
               const actionsList =
-                node.actions &&
-                Object.keys(node.actions).map((key, i) => {
-                  const { requirements, ...rest } = node.actions[key];
+                node.publicActions &&
+                Object.keys(node.publicActions).map((key, i) => {
+                  const { requirements, ...rest } = node.publicActions[key];
                   const reqsList =
                     requirements &&
                     Object.keys(requirements).map((reqId) => {
@@ -102,7 +102,7 @@ module.exports = {
                   };
                 });
 
-              node.actions = actionsList;
+              node.publicActions = actionsList;
 
               // convert aboutSections into array
               const aboutSections =

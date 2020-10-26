@@ -204,7 +204,7 @@ export const mergeActions = (content, data) => {
   const merged = [];
   for (const dataItem of data) {
     // get corresponding content for item
-    const contentItem = content[dataItem.uid];
+    const contentItem = content[dataItem.actionId];
 
     // if category b, do not consider
     if (contentItem) {
@@ -238,9 +238,19 @@ export const mergeActions = (content, data) => {
       });
     }
   }
-  // sort items
 
-  const sorted = merged.sort((a, b) =>
+  // filter items
+  const filteredActions = merged.filter((action, index, self) => {
+    const allKeys = self.map((action) => action.actionId);
+    return (
+      allKeys.indexOf(action.actionId) === index &&
+      action.isComplete &&
+      action.actionId !== "personalPledge"
+    );
+  });
+
+  // sort items
+  const sorted = filteredActions.sort((a, b) =>
     a.order > b.order ? 1 : b.order > a.order ? -1 : 0
   );
   return sorted;

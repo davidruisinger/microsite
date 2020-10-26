@@ -81,10 +81,6 @@ export const query = graphql`
         companyPledgeStatus
         name
         logo
-        actions {
-          uid
-          isComplete
-        }
       }
     }
   }
