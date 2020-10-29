@@ -24,6 +24,7 @@ const Homepage = ({ data, location, pageContext }) => {
     },
     heroImage: "",
   };
+  console.log("..load homepage");
   return (
     <Layout metadata={data.site.siteMetadata} location={location}>
       <Helmet>
