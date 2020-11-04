@@ -1,0 +1,38 @@
+name: Build on Webhook POST
+on:
+  repository_dispatch:
+    types: [publish-event]
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        run: yarn install
+      - name: Build project
+        run: yarn run build
+        env:
+          FB_PRIVATE_KEY_ID: "${{ secrets.FB_PRIVATE_KEY_ID }}"
+          FB_PRIVATE_KEY: "${{ secrets.FB_PRIVATE_KEY }}"
+          FB_DB_URL: "https://leaders-for-climate-action.firebaseio.com/"
+          CF_APP_HOST_URL: "cdn.contentful.com"
+          CF_APP_SPACE_ID: "esgzhcppb7vd"
+          CF_APP_ACCESS_TOKEN: "${{ secrets.CF_APP_ACCESS_TOKEN }}"
+          CF_BADGE_HOST_URL: "cdn.contentful.com"
+          CF_BADGE_SPACE_ID: "xg8rcku5iyiw"
+          CF_BADGE_ACCESS_TOKEN: "${{ secrets.CF_BADGE_ACCESS_TOKEN }}"
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:badge-production
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
