@@ -2,6 +2,8 @@ import React from "react";
 import Helmet from "react-helmet";
 import favicon from "../../images/favicon.ico";
 import config from "../../utils/siteConfig";
+import CookieConsent from "../CookieConsent";
+import { CookiesProvider } from "react-cookie";
 import PageHeader from "./PageHeader";
 import PageFooter from "./PageFooter";
 // isMobile Provider
@@ -56,6 +58,19 @@ const Template = ({ children, metadata, location, activeCompany }) => {
                 activeCompany={activeCompany}
               />
               {children}
+              <CookieConsent
+                cookieValue="consent"
+                declineCookieValue="declined"
+                buttonText="I accept"
+                declineButtonText="Decline"
+                cookieName="cookie_consent"
+              >
+                <div className="title">Cookie Settings </div>
+                <div className="description">
+                  While Cookies won't save our planet, they do help us to
+                  measure our reach & impact. Can we set the following Cookies?
+                </div>
+              </CookieConsent>
             </div>
             <PageFooter langKey={langKey} />
           </>
@@ -65,4 +80,10 @@ const Template = ({ children, metadata, location, activeCompany }) => {
   );
 };
 
-export default Template;
+const withCookieTemplate = (props) => (
+  <CookiesProvider>
+    <Template {...props} />
+  </CookiesProvider>
+);
+
+export default withCookieTemplate;

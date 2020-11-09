@@ -62,11 +62,12 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: "gatsby-plugin-google-tagmanager",
+      resolve: "gatsby-plugin-matomo",
       options: {
-        id: config.googleTagManagerID,
-        includeInDevelopment: false,
-        defaultDataLayer: { platform: "gatsby" },
+        siteId: "3",
+        matomoUrl: "https://lfcaearth.matomo.cloud",
+        siteUrl: "https://wtca.lfca.earth",
+        requireConsent: true,
       },
     },
     {
