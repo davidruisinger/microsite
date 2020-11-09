@@ -8,13 +8,18 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  right: 30px;
-  bottom: 30px;
   position: fixed;
-  width: 320px;
   z-index: 999;
   padding: 30px 30px 30px;
   box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.32);
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  @media (min-width: @screen-sm) {
+    width: 320px;
+    right: 30px;
+    bottom: 30px;
+  }
   .title {
     .font-semi();
     font-size: 24px;
