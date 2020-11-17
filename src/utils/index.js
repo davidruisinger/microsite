@@ -242,11 +242,7 @@ export const mergeActions = (content, data) => {
   // filter items
   const filteredActions = merged.filter((action, index, self) => {
     const allKeys = self.map((action) => action.actionId);
-    return (
-      allKeys.indexOf(action.actionId) === index &&
-      action.isComplete &&
-      action.actionId !== "personalPledge"
-    );
+    return allKeys.indexOf(action.actionId) === index && action.isComplete;
   });
 
   // sort items

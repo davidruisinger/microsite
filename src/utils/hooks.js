@@ -7,7 +7,7 @@ export const useContentfulActions = () => {
     query {
       allContentfulAction(
         sort: { fields: order, order: ASC }
-        filter: { category: { eq: "A" } }
+        filter: { type: { ne: "personal" }, category: { eq: "A" } }
       ) {
         nodes {
           actionId
