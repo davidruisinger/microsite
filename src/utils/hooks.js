@@ -7,11 +7,7 @@ export const useContentfulActions = () => {
     query {
       allContentfulAction(
         sort: { fields: order, order: ASC }
-        filter: {
-          type: { ne: "personal" }
-          category: { eq: "A" }
-          node_locale: { eq: "en-US" }
-        }
+        filter: { type: { ne: "personal" }, category: { eq: "A" } }
       ) {
         nodes {
           actionId
@@ -85,6 +81,7 @@ export const useContentfulActions = () => {
     }
     return acc;
   }, {});
+  console.log(actionsContent);
   return {
     list: actionsContent,
     object: asObject,

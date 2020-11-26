@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { graphql, useStaticQuery, Link } from "gatsby";
-import { Layout, Menu, Drawer, List, Badge } from "antd";
+import { graphql, useStaticQuery, Link, navigate } from "gatsby";
+import { Layout, Menu, Drawer, List, Badge, Button } from "antd";
 import { TopBar, CustomLink } from "../../Elements";
-import { defaultLangKey } from "../../../data/languages";
 import { UnorderedListOutlined } from "@ant-design/icons";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
 import { replaceVar } from "../../../utils";
+import { useCookies } from "react-cookie";
+import { getFirebaseI18nPrefix } from "../../../utils/shared";
+import { setLangCookies } from "../../../utils";
 
 import Icon from "@ant-design/icons";
 
@@ -37,6 +39,17 @@ const RightMenu = ({
   activeCompany,
 }) => {
   const isMobile = useIsMobile();
+
+  const [, setCookie] = useCookies();
+  const activeItem = langsMenu.find((lang) => lang.isoCode === langKey);
+  const activeIcon = activeItem.icon && activeItem.icon.file.url;
+
+  const switchLanguage = (langKey) => {
+    setLangCookies(setCookie, langKey);
+    const navTo = getFirebaseI18nPrefix(langKey) || "/";
+    navigate(navTo);
+  };
+
   return (
     <Menu
       className="right-menu"
@@ -73,28 +86,42 @@ const RightMenu = ({
             )
           )
         )}
-      {/* <SubMenu
+
+      <SubMenu
         className="lang-submenu"
         key={"lang-switcher"}
         title={
           <span className="submenu-title lang">
-            {langKey.substring(0, 2)}
-            <Icon component={inverse ? IconArrowDownInverse : IconArrowDown} />
+            <Button size="small" type="link">
+              <img alt={langKey} src={activeIcon} />
+
+              <Icon component={IconArrowDown} />
+            </Button>
           </span>
         }
       >
-        {langsMenu.map((lang) => (
-          <Menu.Item key={lang.langKey}>
-            <Link
-              to={lang.langKey === defaultLangKey ? "/" : lang.link}
-              key={lang.langKey}
-              className="lang-item"
-            >
-              {lang.langKey.substring(0, 2)}
-            </Link>
-          </Menu.Item>
-        ))}
-      </SubMenu> */}
+        {langsMenu.map((language) => {
+          const langKey = language.isoCode;
+          return (
+            <Menu.Item key={language.isoCode}>
+              <Button
+                onClick={() => switchLanguage(langKey)}
+                type="link"
+                key={langKey}
+                className="lang-item"
+              >
+                <img
+                  style={{ marginRight: "10px" }}
+                  alt={langKey}
+                  src={language.icon && language.icon.file.url}
+                />
+                {language.name}
+              </Button>
+            </Menu.Item>
+          );
+        })}
+      </SubMenu>
+
       <Menu.Item
         className="simple-menu-item"
         key="open-companies"
@@ -113,13 +140,14 @@ const RightMenu = ({
   );
 };
 
-const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
+const PageHeader = ({ langKey, data, activeCompany }) => {
   // select the right locale
   const { nodes: allCompanies } = data.allCompanies;
   const { nodes: intlNodes } = data.allContentfulNavigation;
   const selectedMenu = intlNodes.find((node) => node.node_locale === langKey);
   const { elements } = selectedMenu;
   const menuItems = elements;
+  const { languages } = data.contentfulMetaData;
   // state for hamburger menu
   const [open, setOpen] = useState(false);
   const [openCompanies, setOpenCompanies] = useState(false);
@@ -149,7 +177,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
             </button>
             <RightMenu
               langKey={langKey}
-              langsMenu={langsMenu}
+              langsMenu={languages}
               items={menuItems}
               openCompanies={setOpenCompanies}
               companiesCount={allCompanies.length}
@@ -166,7 +194,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
               <h2>Navigation</h2>
               <RightMenu
                 langKey={langKey}
-                langsMenu={langsMenu}
+                langsMenu={languages}
                 items={menuItems}
                 openCompanies={setOpenCompanies}
                 companiesCount={allCompanies.length}
@@ -210,6 +238,18 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
 const DataWrapper = (props) => {
   const data = useStaticQuery(graphql`
     query {
+      contentfulMetaData(name: { eq: "Main" }) {
+        name
+        languages {
+          name
+          isoCode
+          icon {
+            file {
+              url
+            }
+          }
+        }
+      }
       allCompanies(filter: { hasBadgeQualification: { eq: true } }) {
         nodes {
           id
