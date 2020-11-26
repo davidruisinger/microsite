@@ -25,7 +25,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
   const { slug } = pageContext;
   const pageTitle = `${name} - ${config.siteTitle}`;
   const actionsContent = useContentfulActions();
-  // SEO config
+
   const postNode = {
     title: pageTitle,
     description: "We take Climate Action.",
@@ -77,7 +77,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
               aboutSections.map((section, i) => (
                 <ContentSection
                   key={`content-section-${i}`}
-                  orientation={i % 2 == 0 ? "left" : "right"}
+                  orientation={i % 2 === 0 ? "left" : "right"}
                   image={section.image}
                   heading={section.heading}
                   text={section.text}

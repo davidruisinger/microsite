@@ -1,28 +1,25 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { TABLET_BREAKPOINT } from "./";
+import { TABLET_BREAKPOINT, isBrowser } from "./";
 
 export const IsMobileCtx = createContext(null);
 
 const IsMobileProvider = ({ children }) => {
-  const windowDefined = typeof window !== "undefined";
-
-  const windowIsMobile = windowDefined
+  const windowIsMobile = isBrowser()
     ? window.innerWidth < TABLET_BREAKPOINT
     : true;
 
-  const [isMobile, setIsMobile] = useState(windowDefined && windowIsMobile);
-
-  const listener = () => {
-    const windowIsMobile = windowDefined
-      ? window.innerWidth < TABLET_BREAKPOINT
-      : true;
-    setIsMobile(windowDefined && windowIsMobile);
-  };
+  const [isMobile, setIsMobile] = useState(isBrowser() && windowIsMobile);
 
   useEffect(() => {
-    windowDefined && window.addEventListener("resize", listener);
+    const listener = () => {
+      const windowIsMobile = isBrowser()
+        ? window.innerWidth < TABLET_BREAKPOINT
+        : true;
+      setIsMobile(isBrowser() && windowIsMobile);
+    };
+    isBrowser() && window.addEventListener("resize", listener);
     return () => {
-      windowDefined && window.removeEventListener("resize", listener);
+      isBrowser() && window.removeEventListener("resize", listener);
     };
   }, []);
 

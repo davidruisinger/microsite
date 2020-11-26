@@ -1,30 +1,11 @@
 import React, { useState } from "react";
-import { useStaticQuery, graphql } from "gatsby";
-import { CustomLink, Link } from "../../Elements";
+import { CustomLink } from "../../Elements";
 import { Row, Col } from "antd";
-import { useIsMobile } from "../../../utils/IsMobileProvider";
 import Ticker from "react-ticker";
 import PageVisibility from "react-page-visibility";
 import "./styles.less";
 
 const TopBar = ({ inverse }) => {
-  // const data = useStaticQuery(graphql`
-  //   query {
-  //     contentfulTopBar {
-  //       text
-  //       cta {
-  //         slug
-  //         url
-  //         text
-  //         type
-  //       }
-  //       mobileText
-  //       icon
-  //     }
-  //   }
-  // `)
-  // const { text, mobileText, cta } = data.contentfulTopBar
-  const isMobile = useIsMobile();
   const [pageIsVisible, setPageIsVisible] = useState(true);
 
   const handleVisibilityChange = (isVisible) => {

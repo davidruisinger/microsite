@@ -2,16 +2,13 @@ import React, { useState } from "react";
 import { graphql, useStaticQuery, Link, navigate } from "gatsby";
 import { Layout, Menu, Drawer, List, Badge, Button } from "antd";
 import { TopBar, CustomLink } from "../../Elements";
-import { UnorderedListOutlined } from "@ant-design/icons";
+import Icon, { UnorderedListOutlined } from "@ant-design/icons";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
-import { replaceVar } from "../../../utils";
+import { replaceVar, setLangCookies } from "../../../utils";
 import { useCookies } from "react-cookie";
 import { getFirebaseI18nPrefix } from "../../../utils/shared";
-import { setLangCookies } from "../../../utils";
-
-import Icon from "@ant-design/icons";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -217,7 +214,7 @@ const PageHeader = ({ langKey, data, activeCompany }) => {
                     <Link to={`/e/${company.url}`}>
                       <div className="left-box">
                         <div className="img-wrapper">
-                          <img src={company.logo} />
+                          <img alt="logo" src={company.logo} />
                         </div>
                       </div>
                       <div className="right-box">{company.name}</div>

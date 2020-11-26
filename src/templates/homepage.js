@@ -47,7 +47,7 @@ const Homepage = ({ data, location, pageContext }) => {
                     <Link to={`/e/${company.url}`}>
                       <div className="left-box">
                         <div className="img-wrapper">
-                          <img src={company.logo} />
+                          <img alt="logo" src={company.logo} />
                         </div>
                       </div>
                       <div className="right-box">{company.name}</div>

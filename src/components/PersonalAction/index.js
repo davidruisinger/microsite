@@ -1,5 +1,5 @@
 import React from "react";
-import { CallToAction, ActionLink } from "../Elements";
+import { ActionLink } from "../Elements";
 import { Col, Row } from "antd";
 import "./styles.less";
 
@@ -8,7 +8,6 @@ const PersonalAction = (props) => {
     <Row className="personal-action">
       <Col xs={24} md={12}>
         <h2>{props.title}</h2>
-        {/* <div dangerouslySetInnerHTML={{ __html: props.description }} /> */}
         {props.description}
       </Col>
       <Col xs={24} md={12}>

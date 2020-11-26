@@ -21,6 +21,18 @@ exports.createPages = ({ graphql, actions }) => {
   const loadPages = new Promise((resolve, reject) => {
     graphql(`
       {
+        contentfulMetaData(name: { eq: "Main" }) {
+          languages {
+            name
+            isoCode
+            countryCode
+            icon {
+              file {
+                url
+              }
+            }
+          }
+        }
         allContentfulPageGlobal {
           edges {
             node {
@@ -44,6 +56,9 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     `).then((result) => {
+      // intl setup
+      const { languages } = result.data.contentfulMetaData;
+
       // Create custom pages for companies
       const companies = result.data.allCompanies.nodes;
 

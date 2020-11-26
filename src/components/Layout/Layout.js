@@ -52,8 +52,8 @@ const Template = ({ children, location, activeCompany }) => {
             >
               <div className="title">Cookie Settings </div>
               <div className="description">
-                While Cookies won't save our planet, they do help us to measure
-                our reach & impact. Can we set the following Cookies?
+                {`While Cookies won't save our planet, they do help us to measure
+                our reach & impact. Can we set the following Cookies?`}
               </div>
             </CookieConsent>
           </div>

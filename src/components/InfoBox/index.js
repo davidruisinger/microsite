@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Row, Collapse, Popover, Button } from "antd";
-import { LinkOutlined } from "@ant-design/icons";
-import Icon from "@ant-design/icons";
+import Icon, { LinkOutlined } from "@ant-design/icons";
 import { Link as ScrollLink } from "react-scroll";
 import IconDown from "../../assets/icons/ctrl-down.svg";
 import IconCheckSmall from "../../assets/icons/check-single.svg";

@@ -1,5 +1,5 @@
 import React from "react";
-import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
+import { BLOCKS } from "@contentful/rich-text-types";
 
 export const richTextOptions = {
   renderNode: {
@@ -38,7 +38,7 @@ export const richTextOptions = {
         }
       }
     },
-    [BLOCKS.EMBEDDED_ENTRY]: (node) => {
+    [BLOCKS.EMBEDDED_ENTRY]: function customEntry(node) {
       const fields = node.data.target.fields;
       switch (node.data.target.sys.contentType.sys.id) {
         case "blockquote":
