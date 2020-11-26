@@ -7,10 +7,15 @@ export const useContentfulActions = () => {
     query {
       allContentfulAction(
         sort: { fields: order, order: ASC }
-        filter: { type: { ne: "personal" }, category: { eq: "A" } }
+        filter: {
+          type: { ne: "personal" }
+          category: { eq: "A" }
+          node_locale: { eq: "en-US" }
+        }
       ) {
         nodes {
           actionId
+          node_locale
           description {
             childMarkdownRemark {
               html
