@@ -1,5 +1,5 @@
 const path = require(`path`);
-const languages = require("./src/data/languages");
+const config = require("./src/utils/siteConfig");
 
 // warnings in netlify deploy log
 exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
@@ -69,7 +69,7 @@ exports.createPages = ({ graphql, actions }) => {
         const locale = node.node_locale;
         // for default language use the root domain
         const pagePath =
-          locale === languages.defaultLangKey
+          locale === config.defaultLangKey
             ? `/${node.slug}/`
             : `/${locale}/${node.slug}/`;
         const pageId = node.localized.id;

@@ -20,9 +20,7 @@ const LeftMenu = (props) => (
   <div className="left-menu">
     <div className="logo">
       <CustomLink slug={"/"}>
-        {/* <Icon component={props.logo} /> */}
-        {/* <img src={props.logo} /> */}
-        {props.logo}
+        {/* {props.logo} */}
         <div className="logo-wrapper" />
       </CustomLink>
     </div>

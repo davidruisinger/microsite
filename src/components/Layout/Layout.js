@@ -15,7 +15,7 @@ import useIntl from "../../utils/useIntl";
 // Main styles
 import "../../assets/less/styles.less";
 
-const Template = ({ children, metadata, location, activeCompany }) => {
+const Template = ({ children, location, activeCompany }) => {
   const urlParts = location.pathname && location.pathname.split("/");
   const urlPartLang = urlParts[1];
   const [cookies, setCookie] = useCookies();

@@ -13,7 +13,7 @@ const PageTemplate = ({ data, location, pageContext }) => {
   const postNode = data.contentfulPageLocal;
 
   return (
-    <Layout metadata={data.site.siteMetadata} location={location}>
+    <Layout location={location}>
       <Helmet>
         <title>{`${title} - ${config.siteTitle}`}</title>
       </Helmet>
@@ -30,14 +30,6 @@ const PageTemplate = ({ data, location, pageContext }) => {
 
 export const query = graphql`
   query($id: String!) {
-    site {
-      siteMetadata {
-        languages {
-          defaultLangKey
-          langs
-        }
-      }
-    }
     contentfulPageLocal(id: { eq: $id }) {
       title
       metaDescription {

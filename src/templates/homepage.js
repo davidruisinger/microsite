@@ -12,7 +12,7 @@ const Homepage = ({ data, location, pageContext }) => {
   const { slug } = pageContext;
   const pageTitle = `${config.siteTitle}`;
   const { nodes: allCompanies } = data.allCompanies;
-  // SEO config
+
   const postNode = {
     title: pageTitle,
     description: "We take Climate Action.",
@@ -24,9 +24,9 @@ const Homepage = ({ data, location, pageContext }) => {
     },
     heroImage: "",
   };
-  console.log("..load homepage");
+
   return (
-    <Layout metadata={data.site.siteMetadata} location={location}>
+    <Layout location={location}>
       <Helmet>
         <title>{pageTitle}</title>
       </Helmet>
@@ -66,14 +66,6 @@ const Homepage = ({ data, location, pageContext }) => {
 
 export const query = graphql`
   query {
-    site {
-      siteMetadata {
-        languages {
-          defaultLangKey
-          langs
-        }
-      }
-    }
     allCompanies(filter: { hasBadgeQualification: { eq: true } }) {
       nodes {
         id

@@ -39,11 +39,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
   };
 
   return (
-    <Layout
-      metadata={data.site.siteMetadata}
-      location={location}
-      activeCompany={name}
-    >
+    <Layout location={location} activeCompany={name}>
       <Helmet>
         <title>{pageTitle}</title>
       </Helmet>
@@ -154,14 +150,6 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
 
 export const query = graphql`
   query($id: String!) {
-    site {
-      siteMetadata {
-        languages {
-          defaultLangKey
-          langs
-        }
-      }
-    }
     companies(id: { eq: $id }) {
       id
       url

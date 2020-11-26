@@ -22,7 +22,6 @@
     "gatsby-plugin-catch-links": "^2.1.25",
     "gatsby-plugin-feed": "^2.3.27",
     "gatsby-plugin-google-tagmanager": "^2.1.26",
-    "gatsby-plugin-i18n": "^1.0.1",
     "gatsby-plugin-less": "^3.0.19",
     "gatsby-plugin-manifest": "^2.2.41",
     "gatsby-plugin-matomo": "^0.8.3",
