@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { graphql, useStaticQuery, Link, navigate } from "gatsby";
+import { graphql, useStaticQuery, navigate } from "gatsby";
 import { Layout, Menu, Drawer, List, Badge, Button } from "antd";
 import { TopBar, CustomLink } from "../../Elements";
 import Icon, { UnorderedListOutlined } from "@ant-design/icons";
@@ -206,14 +206,14 @@ const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
                 dataSource={allCompanies}
                 renderItem={(company) => (
                   <List.Item>
-                    <Link to={`/e/${company.url}`}>
+                    <CustomLink slug={`e/${company.url}`}>
                       <div className="left-box">
                         <div className="img-wrapper">
                           <img alt="logo" src={company.logo} />
                         </div>
                       </div>
                       <div className="right-box">{company.name}</div>
-                    </Link>
+                    </CustomLink>
                   </List.Item>
                 )}
               />
