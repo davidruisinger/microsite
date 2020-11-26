@@ -1,6 +1,6 @@
 import { useStaticQuery, graphql } from "gatsby";
 
-export const useContentfulActions = () => {
+const useContentfulActions = () => {
   const {
     allContentfulAction: { nodes: actionsContent },
   } = useStaticQuery(graphql`
@@ -87,3 +87,5 @@ export const useContentfulActions = () => {
     object: asObject,
   };
 };
+
+export default useContentfulActions;

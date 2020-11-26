@@ -70,6 +70,17 @@ export const setLangCookies = (setCookie, langKey) => {
   }
 };
 
+export const findLangKeyByUrl = (url) => {
+  if (!url) return "en-US";
+  const urlParts = url.split("/");
+  const urlPartLang = urlParts[1];
+  if (urlPartLang.length === 2) {
+    return urlPartLang;
+  } else {
+    return "en-US";
+  }
+};
+
 export const isBrowser = () => typeof window !== "undefined";
 
 export const sortBySortWeight = (a, b) => {
@@ -85,9 +96,14 @@ export const sortBySortWeight = (a, b) => {
   return 0;
 };
 
-export const replaceVar = (string, variable) => {
-  const replaced = string.replace(/\{(.*?)\}/, variable);
-  return replaced;
+export const replaceVars = (string, vars) => {
+  for (var prop in vars) {
+    string = (string || "").replace(
+      new RegExp("{{" + prop + "}}", "g"),
+      vars[prop]
+    );
+  }
+  return string;
 };
 
 export const mergeActions = (content, data) => {

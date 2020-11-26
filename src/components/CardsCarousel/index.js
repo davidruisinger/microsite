@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Carousel, Modal, Card, Row, Col, Button } from "antd";
+import { Carousel, Modal, Card, Row, Col } from "antd";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import "./styles.less";
 import { richTextOptions } from "../../utils/richTextOptions";
@@ -98,8 +98,6 @@ const CardsCarousel = (props) => {
       >
         {props.actionsContent &&
           props.actionsContent.list.map((action, i) => {
-            // let opacity = 1 - 1 / (10 / (i + 1));
-            // if (opacity < 0) opacity = -opacity;
             return (
               <a onClick={() => showModal(i)} key={`slider-${i}`}>
                 <SliderCard

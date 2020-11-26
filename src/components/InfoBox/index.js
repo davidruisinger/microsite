@@ -6,10 +6,14 @@ import IconDown from "../../assets/icons/ctrl-down.svg";
 import IconCheckSmall from "../../assets/icons/check-single.svg";
 import "./styles.less";
 import { mergeActions } from "../../utils";
+import useIntl from "../../utils/useIntl";
+import useContentfulBlocks from "../../utils/useContentfulBlocks";
 
 const { Panel } = Collapse;
 
 const InfoBox = (props) => {
+  const langCode = useIntl().isoCode;
+  const blocks = useContentfulBlocks(langCode);
   const [showMore, setShowMore] = useState(false);
   const mergedActions = mergeActions(props.actionsContent, props.actions);
   const useShowMore = mergedActions.length > 5;
@@ -21,7 +25,7 @@ const InfoBox = (props) => {
   return (
     <div className="info-box">
       <Row className="wrapper">
-        <div className="label">Reduction Measures taken at</div>
+        <div className="label">{blocks["infobox.label"]}</div>
         <div className="left-box">
           <h4>{props.name}</h4>
           <a className="link" href={props.website}>
@@ -30,10 +34,6 @@ const InfoBox = (props) => {
         </div>
         <div className="right-box">
           <div className="img-wrapper">
-            {/* <div
-              className="img"
-              style={{ backgroundImage: `url("${props.logo}")` }}
-            /> */}
             <img src={props.logo} />
           </div>
         </div>
@@ -69,31 +69,21 @@ const InfoBox = (props) => {
                 />
                 <Popover
                   placement="left"
-                  content={`All members are part of the LFCA Community and use our digital reduction program. Some measures require the upload of documents as a proof (e.g. offset certificates), others are made controllable simple by making them transparent to the public. Please contact us if you find any violation or misinformation (e.g. as an employee of this company).`}
-                  title="How do we control this information?"
+                  content={blocks["infobox.popover.content"]}
+                  title={blocks["infobox.popover.title"]}
                   overlayClassName="simple-popover"
                 >
-                  <h5>Requirements* </h5>
+                  <h5>{blocks["infobox.popover.element"]} </h5>
                 </Popover>
                 <ul className="green-list">
                   {action.requirements &&
                     action.requirements.map((requirement, i) => (
-                      <li key={`list-${i}`}>
-                        {requirement.title}
-                        {/* {requirement.isDone && (
-                          <span>
-                            <Icon
-                              style={{ fontSize: "12px", marginLeft: "10px" }}
-                              component={IconCheckSmall}
-                            />
-                          </span>
-                        )} */}
-                      </li>
+                      <li key={`list-${i}`}>{requirement.title}</li>
                     ))}
                 </ul>
-                Find out more and understand why this measure is important{" "}
+                {blocks["infobox.more.text"]}
                 <ScrollLink smooth to={"initiative"}>
-                  here
+                  {blocks["infobox.more.link"]}
                 </ScrollLink>
                 .
               </Panel>
@@ -102,7 +92,9 @@ const InfoBox = (props) => {
         {useShowMore && (
           <div className="show-more">
             <Button ghost size="small" onClick={() => setShowMore(!showMore)}>
-              {showMore ? "Show less" : "Show all"}
+              {showMore
+                ? blocks["infobox.button.showless"]
+                : blocks["infobox.button.showmore"]}
             </Button>
           </div>
         )}

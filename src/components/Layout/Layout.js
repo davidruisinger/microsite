@@ -6,29 +6,25 @@ import { CookiesProvider, useCookies } from "react-cookie";
 import CookieConsent from "../CookieConsent";
 import PageHeader from "./PageHeader";
 import PageFooter from "./PageFooter";
-// isMobile Provider
 import IsMobileProvider from "../../utils/IsMobileProvider";
-// intl
-import { setLangCookies } from "../../utils";
 import useIntl from "../../utils/useIntl";
+import { setLangCookies, findLangKeyByUrl } from "../../utils";
 
 // Main styles
 import "../../assets/less/styles.less";
 
 const Template = ({ children, location, activeCompany }) => {
-  const urlParts = location.pathname && location.pathname.split("/");
-  const urlPartLang = urlParts[1];
-  const [cookies, setCookie] = useCookies();
-  const countryCookie = cookies["firebase-country-override"];
+  // const [cookies, setCookie] = useCookies();
+  // const countryCookie = cookies["firebase-country-override"];
 
-  const langKey = useIntl().isoCode;
-  const urlLangKey = urlPartLang.length > 0 ? urlPartLang.slice(-2) : "en";
+  // const langKey = useIntl().isoCode;
+  const langKey = findLangKeyByUrl(location.pathname);
 
-  useEffect(() => {
-    if (!countryCookie || langKey !== urlLangKey) {
-      setLangCookies(setCookie, urlLangKey);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!countryCookie || langKey !== urlLangKey) {
+  //     setLangCookies(setCookie, urlLangKey);
+  //   }
+  // }, []);
 
   return (
     <IsMobileProvider>

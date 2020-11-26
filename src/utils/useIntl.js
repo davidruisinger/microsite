@@ -1,11 +1,9 @@
 import { useStaticQuery, graphql } from "gatsby";
-import { useCookies } from "react-cookie";
+import { isBrowser, findLangKeyByUrl } from "./";
 
 const useIntl = () => {
-  // returns the ISO code based on the
-  // stored firebase country cookie
-  const [cookies] = useCookies();
-  const countryCookie = cookies["firebase-country-override"] || "en";
+  const urlLangCode = isBrowser() && findLangKeyByUrl(window.location.pathname);
+
   const { contentfulMetaData: data } = useStaticQuery(graphql`
     query {
       contentfulMetaData(name: { eq: "Main" }) {
@@ -23,7 +21,7 @@ const useIntl = () => {
     }
   `);
   const { languages } = data;
-  const language = languages.find((lang) => lang.countryCode === countryCookie);
+  const language = languages.find((lang) => lang.isoCode === urlLangCode);
   return language || languages.find((lang) => lang.countryCode === "en");
 };
 

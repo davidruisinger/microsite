@@ -4,10 +4,9 @@ import { graphql, useStaticQuery } from "gatsby";
 import { CustomLink } from "../../Elements";
 import "./styles.less";
 
-const Footer = ({ langKey, data }) => {
-  // select the right locale
-  const { nodes: intlNodes } = data.allContentfulNavigation;
-  const selectedMenu = intlNodes.find((node) => node.node_locale === langKey);
+const Footer = ({ langKey, navigation }) => {
+  const selectedMenu = navigation[langKey];
+  console.log(selectedMenu);
   const { elements } = selectedMenu;
   const elementsById = elements.reduce((acc, element) => {
     acc[element.menuId] = {
@@ -101,34 +100,44 @@ const DataWrapper = (props) => {
   const data = useStaticQuery(graphql`
     query {
       allContentfulNavigation(filter: { menuId: { eq: "footer" } }) {
-        nodes {
-          node_locale
-          elements {
-            ... on ContentfulNavigation {
-              id
-              title
-              menuId
-              elements {
-                ... on ContentfulNavigationElement {
-                  id
-                  slug
-                  url
-                  title
+        group(field: node_locale) {
+          fieldValue
+          nodes {
+            node_locale
+            elements {
+              ... on ContentfulNavigation {
+                id
+                title
+                menuId
+                elements {
+                  ... on ContentfulNavigationElement {
+                    id
+                    slug
+                    url
+                    title
+                  }
                 }
               }
-            }
-            ... on ContentfulNavigationElement {
-              id
-              slug
-              url
-              title
+              ... on ContentfulNavigationElement {
+                id
+                slug
+                url
+                title
+              }
             }
           }
         }
       }
     }
   `);
-  return <Footer data={data} {...props} />;
+  const { group: intlNodes } = data.allContentfulNavigation;
+  const navByLocale = intlNodes.reduce((acc, curr) => {
+    if (!acc[curr.fieldValue]) {
+      acc[curr.fieldValue] = curr.nodes[0];
+    }
+    return acc;
+  }, {});
+  return <Footer navigation={navByLocale} {...props} />;
 };
 
 export default DataWrapper;

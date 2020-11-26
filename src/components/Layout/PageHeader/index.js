@@ -6,8 +6,7 @@ import Icon, { UnorderedListOutlined } from "@ant-design/icons";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
-import { replaceVar, setLangCookies } from "../../../utils";
-import { useCookies } from "react-cookie";
+import { replaceVars } from "../../../utils";
 import { getFirebaseI18nPrefix } from "../../../utils/shared";
 
 const { Header } = Layout;
@@ -35,12 +34,10 @@ const RightMenu = ({
 }) => {
   const isMobile = useIsMobile();
 
-  const [, setCookie] = useCookies();
   const activeItem = langsMenu.find((lang) => lang.isoCode === langKey);
   const activeIcon = activeItem.icon && activeItem.icon.file.url;
 
   const switchLanguage = (langKey) => {
-    setLangCookies(setCookie, langKey);
     const navTo = getFirebaseI18nPrefix(langKey) || "/";
     navigate(navTo);
   };
@@ -75,7 +72,7 @@ const RightMenu = ({
             activeCompany && (
               <Menu.Item key={item.id}>
                 <CustomLink url={item.url} slug={item.slug}>
-                  {replaceVar(item.title, activeCompany)}
+                  {replaceVars(item.title, { company: activeCompany })}
                 </CustomLink>
               </Menu.Item>
             )
@@ -135,20 +132,18 @@ const RightMenu = ({
   );
 };
 
-const PageHeader = ({ langKey, data, activeCompany }) => {
-  // select the right locale
+const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
   const { nodes: allCompanies } = data.allCompanies;
-  const { nodes: intlNodes } = data.allContentfulNavigation;
-  const selectedMenu = intlNodes.find((node) => node.node_locale === langKey);
+  const selectedMenu = navigation[langKey];
+
   const { elements } = selectedMenu;
   const menuItems = elements;
   const { languages } = data.contentfulMetaData;
-  // state for hamburger menu
+
   const [open, setOpen] = useState(false);
   const [openCompanies, setOpenCompanies] = useState(false);
   const isMobile = useIsMobile();
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
-  // const pageLogo = isMobile ? logoMobile : logoDesktop;
 
   return (
     <Header className={"page-header"}>
@@ -256,34 +251,45 @@ const DataWrapper = (props) => {
         }
       }
       allContentfulNavigation(filter: { menuId: { eq: "mainMenu" } }) {
-        nodes {
-          id
-          node_locale
-          elements {
-            ... on ContentfulNavigation {
-              id
-              title
-              elements {
-                ... on ContentfulNavigationElement {
-                  id
-                  slug
-                  url
-                  title
+        group(field: node_locale) {
+          fieldValue
+          nodes {
+            id
+            node_locale
+            elements {
+              ... on ContentfulNavigation {
+                id
+                title
+                elements {
+                  ... on ContentfulNavigationElement {
+                    id
+                    slug
+                    url
+                    title
+                  }
                 }
               }
-            }
-            ... on ContentfulNavigationElement {
-              id
-              slug
-              url
-              title
+              ... on ContentfulNavigationElement {
+                id
+                slug
+                url
+                title
+              }
             }
           }
         }
       }
     }
   `);
-  return <PageHeader data={data} {...props} />;
+  const { group: intlNodes } = data.allContentfulNavigation;
+
+  const navByLocale = intlNodes.reduce((acc, curr) => {
+    if (!acc[curr.fieldValue]) {
+      acc[curr.fieldValue] = curr.nodes[0];
+    }
+    return acc;
+  }, {});
+  return <PageHeader navigation={navByLocale} data={data} {...props} />;
 };
 
 export default DataWrapper;

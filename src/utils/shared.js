@@ -4,7 +4,7 @@ const { defaultLangKey } = require("./siteConfig");
 const getFirebaseI18nPrefix = (locale) => {
   if (locale !== defaultLangKey) {
     const countryCode = locale.slice(-2).toLowerCase();
-    return `/ALL_${countryCode}`;
+    return `/${countryCode}`;
   } else return ``;
 };
 

@@ -58,6 +58,9 @@ exports.createPages = ({ graphql, actions }) => {
     `).then((result) => {
       // intl setup
       const { languages } = result.data.contentfulMetaData;
+      const additionalLanguages = languages.filter(
+        (lang) => lang.isoCode !== config.defaultLangKey
+      );
 
       // Create custom pages for companies
       const companies = result.data.allCompanies.nodes;
@@ -70,6 +73,18 @@ exports.createPages = ({ graphql, actions }) => {
           context: { id: company.id, slug: slug },
         });
       });
+
+      // Create company pages in different languages
+      for (const language of additionalLanguages) {
+        companies.forEach((company) => {
+          const slug = `/${language.countryCode}/e/${company.url}`;
+          createPage({
+            path: slug,
+            component: path.resolve(`src/templates/company-page.js`),
+            context: { id: company.id, slug: slug },
+          });
+        });
+      }
 
       // Create homepage
       createPage({
