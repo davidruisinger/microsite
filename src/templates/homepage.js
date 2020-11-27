@@ -1,8 +1,9 @@
 import React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 import Helmet from "react-helmet";
 import config from "../utils/siteConfig";
 import Layout from "../components/Layout/Layout";
+import CustomLink from "../components/Elements/CustomLink";
 import { Row, Col, List } from "antd";
 import { PageTitle } from "../components/Elements";
 
@@ -44,14 +45,14 @@ const Homepage = ({ data, location, pageContext }) => {
                 dataSource={allCompanies}
                 renderItem={(company) => (
                   <List.Item>
-                    <Link to={`/e/${company.url}`}>
+                    <CustomLink slug={`/e/${company.url}`}>
                       <div className="left-box">
                         <div className="img-wrapper">
                           <img alt="logo" src={company.logo} />
                         </div>
                       </div>
                       <div className="right-box">{company.name}</div>
-                    </Link>
+                    </CustomLink>
                   </List.Item>
                 )}
               />

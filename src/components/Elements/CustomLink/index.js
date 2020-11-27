@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "gatsby";
 import { Link as ScrollLink } from "react-scroll";
 import { defaultLangKey } from "../../../utils/siteConfig";
-import { getFirebaseI18nPrefix } from "../../../utils/shared";
+import { getI18nPrefix } from "../../../utils/shared";
 import useIntl from "../../../utils/useIntl";
 
 const CustomLink = ({ slug, url, children }) => {
   const locale = useIntl().isoCode; // { locale: 'de-DE' }
-  const urlPrefix = getFirebaseI18nPrefix(locale);
+  const urlPrefix = getI18nPrefix(locale);
 
   const isInternal = slug && slug.length > 0;
 
@@ -30,7 +30,7 @@ const CustomLink = ({ slug, url, children }) => {
   }
   const linkTo = isDefaultLang
     ? `/${customSlug}`
-    : `${urlPrefix}/${customSlug}`;
+    : `/${urlPrefix}/${customSlug}`;
 
   if (isInternal) {
     return <Link to={linkTo}>{children}</Link>;

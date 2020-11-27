@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Icon, Menu } from "antd";
 import { navigate, graphql, useStaticQuery } from "gatsby";
 import { CustomLink } from "../../Elements";
-import { getFirebaseI18nPrefix } from "../../../utils/shared";
+import { getI18nPrefix } from "../../../utils/shared";
 import { isBrowser, getPath } from "../../../utils";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
@@ -23,9 +23,9 @@ const Footer = ({ langKey, navigation, languages }) => {
   const activeIcon = activeItem.icon && activeItem.icon.file.url;
 
   const switchLanguage = ({ key }) => {
-    const navTo = getFirebaseI18nPrefix(key);
+    const navTo = getI18nPrefix(key);
     const currentPath = isBrowser() && getPath(window.location.pathname);
-    navigate(`${navTo}${currentPath}`);
+    navigate(`/${navTo}${currentPath}`);
   };
 
   return (

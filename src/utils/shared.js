@@ -1,11 +1,11 @@
 const { defaultLangKey } = require("./siteConfig");
 // functions that are shared between gatsby node js code
 // and components, need to be written in module.export way
-const getFirebaseI18nPrefix = (locale) => {
+const getI18nPrefix = (locale) => {
   if (locale !== defaultLangKey) {
     const countryCode = locale.slice(-2).toLowerCase();
-    return `/${countryCode}`;
+    return `${countryCode}`;
   } else return ``;
 };
 
-exports.getFirebaseI18nPrefix = getFirebaseI18nPrefix;
+exports.getI18nPrefix = getI18nPrefix;

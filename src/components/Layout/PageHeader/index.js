@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { graphql, useStaticQuery, navigate } from "gatsby";
-import { Layout, Menu, Drawer, List, Badge, Button } from "antd";
+import { graphql, useStaticQuery } from "gatsby";
+import { Layout, Menu, Drawer, List, Badge } from "antd";
 import { TopBar, CustomLink } from "../../Elements";
 import Icon, { UnorderedListOutlined } from "@ant-design/icons";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
@@ -91,7 +91,6 @@ const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
 
   const { elements } = selectedMenu;
   const menuItems = elements;
-  const { languages } = data.contentfulMetaData;
 
   const [open, setOpen] = useState(false);
   const [openCompanies, setOpenCompanies] = useState(false);
@@ -117,7 +116,6 @@ const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
             </button>
             <RightMenu
               langKey={langKey}
-              langsMenu={languages}
               items={menuItems}
               openCompanies={setOpenCompanies}
               companiesCount={allCompanies.length}
@@ -134,7 +132,6 @@ const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
               <h2>Navigation</h2>
               <RightMenu
                 langKey={langKey}
-                langsMenu={languages}
                 items={menuItems}
                 openCompanies={setOpenCompanies}
                 companiesCount={allCompanies.length}
@@ -178,18 +175,6 @@ const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
 const DataWrapper = (props) => {
   const data = useStaticQuery(graphql`
     query {
-      contentfulMetaData(name: { eq: "Main" }) {
-        name
-        languages {
-          name
-          isoCode
-          icon {
-            file {
-              url
-            }
-          }
-        }
-      }
       allCompanies(filter: { hasBadgeQualification: { eq: true } }) {
         nodes {
           id
