@@ -18,4 +18,5 @@ module.exports = {
   themeColor: "#121212", // Used for Offline Manifest
   copyright: "Copyright © 2020 Leaders for Climate Action", // Copyright string for the RSS feed
   googleTagManagerID: "GTM-P8R7SPM", // GTM tracking ID.
+  defaultLangKey: "en-US",
 };

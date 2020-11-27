@@ -59,128 +59,41 @@ export function commentToHtml(htmlString) {
   // .replace(/\n/g, '<br />')
 }
 
-// @TODO: move this to one place together with adding langs
-export function convertToCountryCode(langKey) {
-  switch (langKey) {
-    case "en-AU":
-      return "au-AU";
-    case "en-EN":
-      return "eu-DE";
-    case "de-DE":
-      return "eu-DE";
-    default:
-      return "eu-DE";
-  }
-}
-
-export function getCountryDetails(countryCodes) {
-  return countryCodes.map((code) => {
-    switch (code) {
-      case "de-de":
-      case "de-DE":
-      case "eu-DE":
-        return {
-          icon: "eu-DE",
-          name: "Germany",
-          code: code,
-        };
-      case "au":
-      case "en-AU":
-      case "au-AU":
-        return {
-          icon: "au-AU",
-          name: "Australia",
-          code: code,
-        };
-      case "en-US":
-        return {
-          icon: "en-EN",
-          name: "International",
-          code: code,
-        };
-      case "as":
-      case "as-IL":
-        return {
-          icon: "as-IL",
-          name: "Israel",
-          code: code,
-        };
-      case "eu-FR":
-        return {
-          icon: code,
-          name: "France",
-          code: code,
-        };
-      case "eu-ES":
-        return {
-          icon: code,
-          name: "Spain",
-          code: code,
-        };
-      case "eu-NO":
-        return {
-          icon: code,
-          name: "Norway",
-          code: code,
-        };
-      case "eu-DN":
-        return {
-          icon: code,
-          name: "Denmark",
-          code: code,
-        };
-      case "eu-SE":
-        return {
-          icon: code,
-          name: "Sweden",
-          code: code,
-        };
-      case "eu-EU":
-      case "eu":
-        return {
-          icon: "eu-EU",
-          name: "Europe",
-          code: code,
-        };
-      case "all":
-        return {
-          icon: "global-flag",
-          name: "Global",
-          code: code,
-        };
-      default:
-        return {
-          name: code,
-          code: code,
-        };
-    }
-  });
-}
-
-export function getBrowserLanguage() {
-  if (typeof navigator === `undefined`) {
-    return "en-US";
-  }
-
-  const lang = navigator && navigator.language;
-  if (!lang) return "en-US";
-
-  return lang;
-}
-
-export const isBrowser = () => typeof window !== "undefined";
-
-export const mapLangToRegion = (langKey) => {
-  switch (langKey) {
-    case "en-AU":
-      return "au";
-    case "de-de":
-    case "de-DE":
-      return "eu";
-    default:
-      return "all";
+export const setLangCookies = (setCookie, langKey) => {
+  // if the full langKey is available, set it
+  if (langKey.length > 2) {
+    const countryCode = langKey.slice(-2).toLowerCase();
+    setCookie("firebase-country-override", countryCode, { path: "/" });
+  } else {
+    // otherwise set only country code
+    setCookie("firebase-country-override", langKey, { path: "/" });
   }
 };
+
+export const findLangKeyByUrl = (url) => {
+  const { defaultLangKey } = require("../utils/siteConfig");
+  if (!url) return defaultLangKey;
+  const urlParts = url.split("/");
+  const urlPartLang = urlParts[1];
+  if (urlPartLang.length === 2) {
+    return urlPartLang;
+  } else {
+    return defaultLangKey;
+  }
+};
+
+export const getPath = (path) => {
+  if (!path) return path;
+  const urlParts = path.split("/");
+  const urlPartLang = urlParts[1];
+  if (urlPartLang.length === 2) {
+    return path.substring(3);
+  } else {
+    return path;
+  }
+};
+
+export const isBrowser = () => typeof window !== "undefined";
 
 export const sortBySortWeight = (a, b) => {
   // if sortWeight is defined, move to top
@@ -195,9 +108,14 @@ export const sortBySortWeight = (a, b) => {
   return 0;
 };
 
-export const replaceVar = (string, variable) => {
-  const replaced = string.replace(/\{(.*?)\}/, variable);
-  return replaced;
+export const replaceVars = (string, vars) => {
+  for (var prop in vars) {
+    string = (string || "").replace(
+      new RegExp("{{" + prop + "}}", "g"),
+      vars[prop]
+    );
+  }
+  return string;
 };
 
 export const mergeActions = (content, data) => {

@@ -1,29 +1,20 @@
-import React from 'react'
+import React from "react";
 import {
-  WhatsappShareButton,
   FacebookShareButton,
   LinkedinShareButton,
   TwitterShareButton,
-  EmailShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from 'react-share'
+} from "react-share";
 
-import { Row, Col, Icon } from 'antd'
-import './styles.less'
-
-const SIZE = '40px'
+import { Row, Col, Icon } from "antd";
+import "./styles.less";
 
 class ShareButtons extends React.Component {
   render() {
-    const pageLink = typeof window !== 'undefined' && `${window.location.href}`
+    const pageLink = typeof window !== "undefined" && `${window.location.href}`;
     return (
       <div className="share-buttons">
         <Row>
-          <Col style={{ textAlign: 'center' }}>
+          <Col style={{ textAlign: "center" }}>
             <LinkedinShareButton url={pageLink}>
               <Icon type="linkedin" />
             </LinkedinShareButton>
@@ -36,8 +27,8 @@ class ShareButtons extends React.Component {
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 }
 
-export default ShareButtons
+export default ShareButtons;

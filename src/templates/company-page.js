@@ -12,7 +12,10 @@ import PersonalAction from "../components/PersonalAction";
 import CardsCarousel from "../components/CardsCarousel";
 
 import SEO from "../components/SEO";
-import { useContentfulActions } from "../utils/hooks";
+import useContentfulActions from "../utils/useContentfulActions";
+import useContentfulBlocks from "../utils/useContentfulBlocks";
+import useIntl from "../utils/useIntl";
+import { replaceVars } from "../utils";
 
 const CompanyPageTemplate = ({ data, location, pageContext }) => {
   const {
@@ -24,8 +27,10 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
   } = data.companies;
   const { slug } = pageContext;
   const pageTitle = `${name} - ${config.siteTitle}`;
-  const actionsContent = useContentfulActions();
-  // SEO config
+  const langCode = useIntl().isoCode;
+  const actionsContent = useContentfulActions(langCode);
+  const blocks = useContentfulBlocks(langCode);
+
   const postNode = {
     title: pageTitle,
     description: "We take Climate Action.",
@@ -39,11 +44,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
   };
 
   return (
-    <Layout
-      metadata={data.site.siteMetadata}
-      location={location}
-      activeCompany={name}
-    >
+    <Layout location={location} activeCompany={name}>
       <Helmet>
         <title>{pageTitle}</title>
       </Helmet>
@@ -53,8 +54,10 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
         <Row>
           <Col style={{ alignSelf: "flex-start" }} xs={24} md={12} lg={12}>
             <Header
-              title={`Find out how ${name} reduces their carbon emissions`}
-              subtitle={`We encourage organizations to take climate action. By making their efforts transparent, we inspire others to follow! `}
+              title={replaceVars(blocks["company.header.title"], {
+                name: name,
+              })}
+              subtitle={blocks["company.header.subtitle"]}
             />
           </Col>
           <Col
@@ -81,7 +84,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
               aboutSections.map((section, i) => (
                 <ContentSection
                   key={`content-section-${i}`}
-                  orientation={i % 2 == 0 ? "left" : "right"}
+                  orientation={i % 2 === 0 ? "left" : "right"}
                   image={section.image}
                   heading={section.heading}
                   text={section.text}
@@ -109,13 +112,8 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
         <Row>
           <Col className="simple-header" xs={24} md={{ span: 20, offset: 2 }}>
             <SimpleHeader
-              title={
-                "What every (digital) company should do to fight climate change"
-              }
-              subtitle={`We teamed up with climate experts and scientists to find out what
-              we, as the digital industry can contribute in the fight against
-              the climate crisis. Learn more about effective climate measures
-              for digital companies.`}
+              title={blocks["program.title"]}
+              subtitle={blocks["program.subtitle"]}
             />
           </Col>
         </Row>
@@ -128,22 +126,11 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
       <Element name="personal" className="container-fluid color-primary-light">
         <div className="container">
           <PersonalAction
-            title={`Do your part, take action and accelerate the transition.`}
+            title={blocks["act.title"]}
             description={
-              <div>
-                <p>
-                  The climate crisis affects all of us and we can all contribute
-                  in the fight against it. It’s not enough to point at
-                  politicians and businesses and wait for change. It’s on us to
-                  increase the pressure and actively push for change. We vote
-                  with our daily consumption choices, our political voices and
-                  our personal investments.
-                </p>
-                <p>
-                  Check out our tips for effective personal climate action and
-                  contribute in the fight against the climate crisis.
-                </p>
-              </div>
+              <div
+                dangerouslySetInnerHTML={{ __html: blocks["act.content.html"] }}
+              />
             }
           />
         </div>
@@ -154,14 +141,6 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
 
 export const query = graphql`
   query($id: String!) {
-    site {
-      siteMetadata {
-        languages {
-          defaultLangKey
-          langs
-        }
-      }
-    }
     companies(id: { eq: $id }) {
       id
       url

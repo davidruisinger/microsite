@@ -1,8 +1,9 @@
 import React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 import Helmet from "react-helmet";
 import config from "../utils/siteConfig";
 import Layout from "../components/Layout/Layout";
+import CustomLink from "../components/Elements/CustomLink";
 import { Row, Col, List } from "antd";
 import { PageTitle } from "../components/Elements";
 
@@ -12,7 +13,7 @@ const Homepage = ({ data, location, pageContext }) => {
   const { slug } = pageContext;
   const pageTitle = `${config.siteTitle}`;
   const { nodes: allCompanies } = data.allCompanies;
-  // SEO config
+
   const postNode = {
     title: pageTitle,
     description: "We take Climate Action.",
@@ -24,9 +25,9 @@ const Homepage = ({ data, location, pageContext }) => {
     },
     heroImage: "",
   };
-  console.log("..load homepage");
+
   return (
-    <Layout metadata={data.site.siteMetadata} location={location}>
+    <Layout location={location}>
       <Helmet>
         <title>{pageTitle}</title>
       </Helmet>
@@ -44,14 +45,14 @@ const Homepage = ({ data, location, pageContext }) => {
                 dataSource={allCompanies}
                 renderItem={(company) => (
                   <List.Item>
-                    <Link to={`/e/${company.url}`}>
+                    <CustomLink slug={`e/${company.url}`}>
                       <div className="left-box">
                         <div className="img-wrapper">
-                          <img src={company.logo} />
+                          <img alt="logo" src={company.logo} />
                         </div>
                       </div>
                       <div className="right-box">{company.name}</div>
-                    </Link>
+                    </CustomLink>
                   </List.Item>
                 )}
               />
@@ -66,14 +67,6 @@ const Homepage = ({ data, location, pageContext }) => {
 
 export const query = graphql`
   query {
-    site {
-      siteMetadata {
-        languages {
-          defaultLangKey
-          langs
-        }
-      }
-    }
     allCompanies(filter: { hasBadgeQualification: { eq: true } }) {
       nodes {
         id

@@ -3,7 +3,6 @@ require("dotenv").config({
 });
 
 const config = require("./src/utils/siteConfig");
-const languages = require("./src/data/languages");
 
 // Antd Config
 const path = require("path");
@@ -49,7 +48,6 @@ const contentfulConfigApp = {
 module.exports = {
   siteMetadata: {
     siteUrl: config.siteUrl,
-    languages,
     rssMetadata: {
       site_url: config.siteUrl,
       feed_url: `${config.siteUrl}/rss.xml`,
@@ -142,14 +140,6 @@ module.exports = {
       resolve: "gatsby-plugin-antd",
       options: {
         style: true,
-      },
-    },
-    {
-      resolve: "gatsby-plugin-i18n",
-      options: {
-        langKeyForNull: "any",
-        langKeyDefault: languages.defaultLangKey,
-        useLangKeyLayout: false,
       },
     },
     {

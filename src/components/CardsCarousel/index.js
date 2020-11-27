@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Carousel, Modal, Card, Button, Row, Col } from "antd";
+import { Carousel, Modal, Card, Row, Col } from "antd";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import "./styles.less";
 import { richTextOptions } from "../../utils/richTextOptions";
@@ -9,24 +9,30 @@ import IconArrowLeft from "../../assets/icons/arrow-left.svg";
 
 const MODAL_CONTENT_STRUCTURE = { header: "-", body: "-" };
 
-const NextArrow = ({ className, style, onClick }) => {
+const NextArrow = ({ className, onClick }) => {
   const isDisabled = className.indexOf("slick-disabled") > -1;
   return (
     <div
       className={`${isDisabled ? "disabled" : ""} arrow next`}
       onClick={onClick}
+      onKeyDown={onClick}
+      role="button"
+      tabIndex="0"
     >
       <Icon component={IconArrowRight} />
     </div>
   );
 };
 
-const PrevArrow = ({ className, style, onClick }) => {
+const PrevArrow = ({ className, onClick }) => {
   const isDisabled = className.indexOf("slick-disabled") > -1;
   return (
     <div
       className={`${isDisabled ? "disabled" : ""} arrow prev`}
       onClick={onClick}
+      onKeyDown={onClick}
+      role="button"
+      tabIndex="0"
     >
       <Icon component={IconArrowLeft} />
     </div>
@@ -42,7 +48,7 @@ const SliderCard = ({ title, supertext, icon, opacity }) => {
             <div className="super-text">{supertext}</div>
             <h3>{title}</h3>
           </div>
-          <img src={icon && icon.file.url} />
+          <img alt="symbol" src={icon && icon.file.url} />
         </div>
       </Card>
     </div>
@@ -92,8 +98,6 @@ const CardsCarousel = (props) => {
       >
         {props.actionsContent &&
           props.actionsContent.list.map((action, i) => {
-            // let opacity = 1 - 1 / (10 / (i + 1));
-            // if (opacity < 0) opacity = -opacity;
             return (
               <a onClick={() => showModal(i)} key={`slider-${i}`}>
                 <SliderCard

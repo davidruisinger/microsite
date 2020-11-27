@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import { graphql, useStaticQuery, Link } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 import { Layout, Menu, Drawer, List, Badge } from "antd";
 import { TopBar, CustomLink } from "../../Elements";
-import { defaultLangKey } from "../../../data/languages";
-import { UnorderedListOutlined } from "@ant-design/icons";
+import Icon, { UnorderedListOutlined } from "@ant-design/icons";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
-import { replaceVar } from "../../../utils";
-
-import Icon from "@ant-design/icons";
+import { replaceVars } from "../../../utils";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -18,9 +15,6 @@ const LeftMenu = (props) => (
   <div className="left-menu">
     <div className="logo">
       <CustomLink slug={"/"}>
-        {/* <Icon component={props.logo} /> */}
-        {/* <img src={props.logo} /> */}
-        {props.logo}
         <div className="logo-wrapper" />
       </CustomLink>
     </div>
@@ -30,13 +24,12 @@ const LeftMenu = (props) => (
 const RightMenu = ({
   items,
   activePath,
-  langKey,
-  langsMenu,
   openCompanies,
   companiesCount,
   activeCompany,
 }) => {
   const isMobile = useIsMobile();
+
   return (
     <Menu
       className="right-menu"
@@ -67,34 +60,13 @@ const RightMenu = ({
             activeCompany && (
               <Menu.Item key={item.id}>
                 <CustomLink url={item.url} slug={item.slug}>
-                  {replaceVar(item.title, activeCompany)}
+                  {replaceVars(item.title, { company: activeCompany })}
                 </CustomLink>
               </Menu.Item>
             )
           )
         )}
-      {/* <SubMenu
-        className="lang-submenu"
-        key={"lang-switcher"}
-        title={
-          <span className="submenu-title lang">
-            {langKey.substring(0, 2)}
-            <Icon component={inverse ? IconArrowDownInverse : IconArrowDown} />
-          </span>
-        }
-      >
-        {langsMenu.map((lang) => (
-          <Menu.Item key={lang.langKey}>
-            <Link
-              to={lang.langKey === defaultLangKey ? "/" : lang.link}
-              key={lang.langKey}
-              className="lang-item"
-            >
-              {lang.langKey.substring(0, 2)}
-            </Link>
-          </Menu.Item>
-        ))}
-      </SubMenu> */}
+
       <Menu.Item
         className="simple-menu-item"
         key="open-companies"
@@ -113,19 +85,17 @@ const RightMenu = ({
   );
 };
 
-const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
-  // select the right locale
+const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
   const { nodes: allCompanies } = data.allCompanies;
-  const { nodes: intlNodes } = data.allContentfulNavigation;
-  const selectedMenu = intlNodes.find((node) => node.node_locale === langKey);
+  const selectedMenu = navigation[langKey];
+
   const { elements } = selectedMenu;
   const menuItems = elements;
-  // state for hamburger menu
+
   const [open, setOpen] = useState(false);
   const [openCompanies, setOpenCompanies] = useState(false);
   const isMobile = useIsMobile();
   const hamburgerClass = `hamburger hamburger--spin ${open && "is-active"}`;
-  // const pageLogo = isMobile ? logoMobile : logoDesktop;
 
   return (
     <Header className={"page-header"}>
@@ -133,10 +103,7 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
       <div className="container">
         <nav className="menu-bar">
           <div className="menu-con">
-            <LeftMenu
-              langKey={langKey}
-              // logo={isMobile ? <LogoMobile /> : <LogoDesktop />}
-            />
+            <LeftMenu langKey={langKey} />
 
             <button
               className={hamburgerClass}
@@ -149,7 +116,6 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
             </button>
             <RightMenu
               langKey={langKey}
-              langsMenu={langsMenu}
               items={menuItems}
               openCompanies={setOpenCompanies}
               companiesCount={allCompanies.length}
@@ -166,7 +132,6 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
               <h2>Navigation</h2>
               <RightMenu
                 langKey={langKey}
-                langsMenu={langsMenu}
                 items={menuItems}
                 openCompanies={setOpenCompanies}
                 companiesCount={allCompanies.length}
@@ -188,14 +153,14 @@ const PageHeader = ({ langsMenu, langKey, data, activeCompany }) => {
                 dataSource={allCompanies}
                 renderItem={(company) => (
                   <List.Item>
-                    <Link to={`/e/${company.url}`}>
+                    <CustomLink slug={`e/${company.url}`}>
                       <div className="left-box">
                         <div className="img-wrapper">
-                          <img src={company.logo} />
+                          <img alt="logo" src={company.logo} />
                         </div>
                       </div>
                       <div className="right-box">{company.name}</div>
-                    </Link>
+                    </CustomLink>
                   </List.Item>
                 )}
               />
@@ -221,34 +186,45 @@ const DataWrapper = (props) => {
         }
       }
       allContentfulNavigation(filter: { menuId: { eq: "mainMenu" } }) {
-        nodes {
-          id
-          node_locale
-          elements {
-            ... on ContentfulNavigation {
-              id
-              title
-              elements {
-                ... on ContentfulNavigationElement {
-                  id
-                  slug
-                  url
-                  title
+        group(field: node_locale) {
+          fieldValue
+          nodes {
+            id
+            node_locale
+            elements {
+              ... on ContentfulNavigation {
+                id
+                title
+                elements {
+                  ... on ContentfulNavigationElement {
+                    id
+                    slug
+                    url
+                    title
+                  }
                 }
               }
-            }
-            ... on ContentfulNavigationElement {
-              id
-              slug
-              url
-              title
+              ... on ContentfulNavigationElement {
+                id
+                slug
+                url
+                title
+              }
             }
           }
         }
       }
     }
   `);
-  return <PageHeader data={data} {...props} />;
+  const { group: intlNodes } = data.allContentfulNavigation;
+
+  const navByLocale = intlNodes.reduce((acc, curr) => {
+    if (!acc[curr.fieldValue]) {
+      acc[curr.fieldValue] = curr.nodes[0];
+    }
+    return acc;
+  }, {});
+  return <PageHeader navigation={navByLocale} data={data} {...props} />;
 };
 
 export default DataWrapper;

@@ -1,5 +1,5 @@
 const path = require(`path`);
-const languages = require("./src/data/languages");
+const { getI18nPrefix } = require("./src/utils/shared");
 
 // warnings in netlify deploy log
 exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
@@ -21,6 +21,18 @@ exports.createPages = ({ graphql, actions }) => {
   const loadPages = new Promise((resolve, reject) => {
     graphql(`
       {
+        contentfulMetaData(name: { eq: "Main" }) {
+          languages {
+            name
+            isoCode
+            countryCode
+            icon {
+              file {
+                url
+              }
+            }
+          }
+        }
         allContentfulPageGlobal {
           edges {
             node {
@@ -44,44 +56,47 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     `).then((result) => {
-      // Create custom pages for companies
+      const { languages } = result.data.contentfulMetaData;
       const companies = result.data.allCompanies.nodes;
 
-      companies.forEach((company) => {
-        const slug = `/e/${company.url}`;
+      // Create pages in different languages
+      for (const language of languages) {
+        const prefix = getI18nPrefix(language.isoCode);
+        const urlFirstPart = !prefix ? "" : `/${prefix}`;
+
+        companies.forEach((company) => {
+          const slug = `${urlFirstPart}/e/${company.url}`;
+          createPage({
+            path: slug,
+            component: path.resolve(`src/templates/company-page.js`),
+            context: { id: company.id, slug: slug },
+          });
+        });
+
+        // Create homepage
+        const slug = `/${getI18nPrefix(language.isoCode)}`;
         createPage({
           path: slug,
-          component: path.resolve(`src/templates/company-page.js`),
-          context: { id: company.id, slug: slug },
+          component: path.resolve(`src/templates/homepage.js`),
+          context: { slug: slug },
         });
-      });
 
-      // Create homepage
-      createPage({
-        path: `/`,
-        component: path.resolve(`src/templates/homepage.js`),
-        context: { slug: `/` },
-      });
-
-      // Create simple pages like Imprint etc.
-      const pages = result.data.allContentfulPageGlobal.edges;
-      pages.map(({ node }) => {
-        const locale = node.node_locale;
-        // for default language use the root domain
-        const pagePath =
-          locale === languages.defaultLangKey
-            ? `/${node.slug}/`
-            : `/${locale}/${node.slug}/`;
-        const pageId = node.localized.id;
-        createPage({
-          path: pagePath,
-          component: path.resolve(`./src/templates/page.js`),
-          context: {
-            id: pageId,
-            slug: node.slug,
-          },
+        // Create simple pages like Imprint etc.
+        const pages = result.data.allContentfulPageGlobal.edges;
+        pages.map(({ node }) => {
+          const slug = `${urlFirstPart}/${node.slug}`;
+          const pageId = node.localized.id;
+          createPage({
+            path: slug,
+            component: path.resolve(`./src/templates/page.js`),
+            context: {
+              id: pageId,
+              slug: slug,
+            },
+          });
         });
-      });
+      }
+
       resolve();
     });
   });

@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "gatsby";
-import { useIntl } from "react-intl";
 import { Link as ScrollLink } from "react-scroll";
-import { defaultLangKey } from "../../../data/languages";
+import { defaultLangKey } from "../../../utils/siteConfig";
+import { getI18nPrefix } from "../../../utils/shared";
+import useIntl from "../../../utils/useIntl";
 
 const CustomLink = ({ slug, url, children }) => {
-  const intl = useIntl();
-  const urlPrefix = intl.locale;
+  const locale = useIntl().isoCode; // { locale: 'de-DE' }
+  const urlPrefix = getI18nPrefix(locale);
+
   const isInternal = slug && slug.length > 0;
+
   // if the slug links to an element on this page
   const isOnPage = slug && slug.indexOf("#") === 0;
   if (isOnPage) {
@@ -19,13 +22,13 @@ const CustomLink = ({ slug, url, children }) => {
     );
   }
 
-  // make sure that root links to en-US go to root
-  const isDefaultLang = urlPrefix === defaultLangKey;
   let customSlug = slug;
-  if (slug === "/") customSlug = "";
-  const linkTo = isDefaultLang
-    ? `/${customSlug}`
-    : `/${urlPrefix}/${customSlug}`;
+  if (slug === "/") {
+    customSlug = "";
+  }
+
+  const urlFirstPart = !urlPrefix ? "" : `/${urlPrefix}`;
+  const linkTo = `${urlFirstPart}/${customSlug}`;
 
   if (isInternal) {
     return <Link to={linkTo}>{children}</Link>;
