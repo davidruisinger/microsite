@@ -4,6 +4,7 @@ import { navigate, graphql, useStaticQuery } from "gatsby";
 import { CustomLink } from "../../Elements";
 import { getI18nPrefix } from "../../../utils/shared";
 import { isBrowser, getPath } from "../../../utils";
+import { LinkedinFilled, TwitterSquareFilled } from "@ant-design/icons";
 import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 
@@ -81,10 +82,10 @@ const Footer = ({ langKey, navigation, languages }) => {
               className="social-link"
               href="https://www.linkedin.com/company/leaders-for-climate-action/"
             >
-              <Icon type="linkedin" />
+              <LinkedinFilled />
             </a>
             <a className="social-link" href="https://twitter.com/Leaders4CA">
-              <Icon type="twitter" />
+              <TwitterSquareFilled />
             </a>
             <h5>Powered by</h5>
 
