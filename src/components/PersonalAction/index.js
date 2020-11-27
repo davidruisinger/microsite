@@ -2,34 +2,38 @@ import React from "react";
 import { ActionLink } from "../Elements";
 import { Col, Row } from "antd";
 import "./styles.less";
+import useIntl from "../../utils/useIntl";
+import useContentfulBlocks from "../../utils/useContentfulBlocks";
 
 const PersonalAction = (props) => {
+  const langCode = useIntl().isoCode;
+  const blocks = useContentfulBlocks(langCode);
   return (
     <Row className="personal-action">
       <Col xs={24} md={12}>
-        <h2>{props.title}</h2>
+        <h2> {props.title}</h2>
         {props.description}
       </Col>
       <Col xs={24} md={12}>
         <ActionLink
-          title={"Move your money to Green Investments"}
-          description={`Many banks and insurances are still financing new coal and oil plants. Move your money into green investment vecicles like Sustainable ETF’s and switch to a green bank like Tomorrow or bunq. `}
+          title={blocks["act.action1.title"]}
+          description={blocks["act.action1.description"]}
           link={
             "https://www.cnbc.com/2019/12/14/your-complete-guide-to-socially-responsible-investing.html"
           }
-          linkText={"Invest green now"}
+          linkText={blocks["act.action1.link"]}
         />
         <ActionLink
-          title={"Measure and reduce your personal footprint"}
-          description={`Lead by example, inform yourself about climate change. Figure out what you can change in your personal life and talk to friends and family about the problem. Use our free calculator `}
+          title={blocks["act.action2.title"]}
+          description={blocks["act.action2.description"]}
           link={"https://footprint.lfca.earth/"}
-          linkText={"Measure and compensate"}
+          linkText={blocks["act.action2.link"]}
         />
         <ActionLink
-          title={"Raise your voice and engage in peaceful activism"}
-          description={`Fridays for Future, Extinction Rebellion, .. So many great organizations helped to increase the pressure on politics and businesses. Join them and think about who you `}
+          title={blocks["act.action3.title"]}
+          description={blocks["act.action3.description"]}
           link={"https://fridaysforfuture.org/"}
-          linkText={"Engage"}
+          linkText={blocks["act.action3.link"]}
         />
       </Col>
     </Row>
