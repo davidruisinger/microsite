@@ -61,8 +61,11 @@ exports.createPages = ({ graphql, actions }) => {
 
       // Create pages in different languages
       for (const language of languages) {
+        const prefix = getI18nPrefix(language.isoCode);
+        const urlFirstPart = !prefix ? "" : `/${prefix}`;
+
         companies.forEach((company) => {
-          const slug = `/${getI18nPrefix(language.isoCode)}/e/${company.url}`;
+          const slug = `${urlFirstPart}/e/${company.url}`;
           createPage({
             path: slug,
             component: path.resolve(`src/templates/company-page.js`),
@@ -81,14 +84,14 @@ exports.createPages = ({ graphql, actions }) => {
         // Create simple pages like Imprint etc.
         const pages = result.data.allContentfulPageGlobal.edges;
         pages.map(({ node }) => {
-          const pagePath = `/${getI18nPrefix(language.isoCode)}/${node.slug}`;
+          const slug = `${urlFirstPart}/${node.slug}`;
           const pageId = node.localized.id;
           createPage({
-            path: pagePath,
+            path: slug,
             component: path.resolve(`./src/templates/page.js`),
             context: {
               id: pageId,
-              slug: node.slug,
+              slug: slug,
             },
           });
         });

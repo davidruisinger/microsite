@@ -23,9 +23,10 @@ const Footer = ({ langKey, navigation, languages }) => {
   const activeIcon = activeItem.icon && activeItem.icon.file.url;
 
   const switchLanguage = ({ key }) => {
-    const navTo = getI18nPrefix(key);
+    const prefix = getI18nPrefix(key);
+    const urlFirstPart = !prefix ? "" : `/${prefix}`;
     const currentPath = isBrowser() && getPath(window.location.pathname);
-    navigate(`/${navTo}${currentPath}`);
+    navigate(`${urlFirstPart}${currentPath}`);
   };
 
   return (

@@ -22,15 +22,13 @@ const CustomLink = ({ slug, url, children }) => {
     );
   }
 
-  // make sure that root links to en-US go to root
-  const isDefaultLang = urlPrefix === defaultLangKey;
   let customSlug = slug;
   if (slug === "/") {
     customSlug = "";
   }
-  const linkTo = isDefaultLang
-    ? `/${customSlug}`
-    : `/${urlPrefix}/${customSlug}`;
+
+  const urlFirstPart = !urlPrefix ? "" : `/${urlPrefix}`;
+  const linkTo = `${urlFirstPart}/${customSlug}`;
 
   if (isInternal) {
     return <Link to={linkTo}>{children}</Link>;

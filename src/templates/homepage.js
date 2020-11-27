@@ -45,7 +45,7 @@ const Homepage = ({ data, location, pageContext }) => {
                 dataSource={allCompanies}
                 renderItem={(company) => (
                   <List.Item>
-                    <CustomLink slug={`/e/${company.url}`}>
+                    <CustomLink slug={`e/${company.url}`}>
                       <div className="left-box">
                         <div className="img-wrapper">
                           <img alt="logo" src={company.logo} />
