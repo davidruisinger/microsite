@@ -16,6 +16,7 @@ const InfoBox = (props) => {
   const blocks = useContentfulBlocks(langCode);
   const [showMore, setShowMore] = useState(false);
   const mergedActions = mergeActions(props.actionsContent, props.actions);
+
   const useShowMore = mergedActions.length > 5;
   const collapseStyle = useShowMore
     ? showMore

@@ -7,7 +7,6 @@ import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 import { useIsMobile } from "../../../utils/IsMobileProvider";
 import { replaceVars } from "../../../utils";
-import { getFirebaseI18nPrefix } from "../../../utils/shared";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -16,7 +15,6 @@ const LeftMenu = (props) => (
   <div className="left-menu">
     <div className="logo">
       <CustomLink slug={"/"}>
-        {/* {props.logo} */}
         <div className="logo-wrapper" />
       </CustomLink>
     </div>
@@ -26,21 +24,11 @@ const LeftMenu = (props) => (
 const RightMenu = ({
   items,
   activePath,
-  langKey,
-  langsMenu,
   openCompanies,
   companiesCount,
   activeCompany,
 }) => {
   const isMobile = useIsMobile();
-
-  const activeItem = langsMenu.find((lang) => lang.isoCode === langKey);
-  const activeIcon = activeItem.icon && activeItem.icon.file.url;
-
-  const switchLanguage = (langKey) => {
-    const navTo = getFirebaseI18nPrefix(langKey) || "/";
-    navigate(navTo);
-  };
 
   return (
     <Menu
@@ -79,41 +67,6 @@ const RightMenu = ({
           )
         )}
 
-      <SubMenu
-        className="lang-submenu"
-        key={"lang-switcher"}
-        title={
-          <span className="submenu-title lang">
-            <Button size="small" type="link">
-              <img alt={langKey} src={activeIcon} />
-
-              <Icon component={IconArrowDown} />
-            </Button>
-          </span>
-        }
-      >
-        {langsMenu.map((language) => {
-          const langKey = language.isoCode;
-          return (
-            <Menu.Item key={language.isoCode}>
-              <Button
-                onClick={() => switchLanguage(langKey)}
-                type="link"
-                key={langKey}
-                className="lang-item"
-              >
-                <img
-                  style={{ marginRight: "10px" }}
-                  alt={langKey}
-                  src={language.icon && language.icon.file.url}
-                />
-                {language.name}
-              </Button>
-            </Menu.Item>
-          );
-        })}
-      </SubMenu>
-
       <Menu.Item
         className="simple-menu-item"
         key="open-companies"
@@ -151,10 +104,7 @@ const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
       <div className="container">
         <nav className="menu-bar">
           <div className="menu-con">
-            <LeftMenu
-              langKey={langKey}
-              // logo={isMobile ? <LogoMobile /> : <LogoDesktop />}
-            />
+            <LeftMenu langKey={langKey} />
 
             <button
               className={hamburgerClass}

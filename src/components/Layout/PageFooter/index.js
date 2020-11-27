@@ -1,12 +1,16 @@
 import React from "react";
-import { Row, Col, Icon } from "antd";
-import { graphql, useStaticQuery } from "gatsby";
+import { Row, Col, Icon, Menu } from "antd";
+import { navigate, graphql, useStaticQuery } from "gatsby";
 import { CustomLink } from "../../Elements";
+import { getFirebaseI18nPrefix } from "../../../utils/shared";
+import { isBrowser, getPath } from "../../../utils";
+import IconArrowDown from "../../../assets/icons/small-down.svg";
 import "./styles.less";
 
-const Footer = ({ langKey, navigation }) => {
+const { SubMenu } = Menu;
+
+const Footer = ({ langKey, navigation, languages }) => {
   const selectedMenu = navigation[langKey];
-  console.log(selectedMenu);
   const { elements } = selectedMenu;
   const elementsById = elements.reduce((acc, element) => {
     acc[element.menuId] = {
@@ -14,6 +18,16 @@ const Footer = ({ langKey, navigation }) => {
     };
     return acc;
   }, {});
+
+  const activeItem = languages.find((lang) => lang.isoCode === langKey);
+  const activeIcon = activeItem.icon && activeItem.icon.file.url;
+
+  const switchLanguage = ({ key }) => {
+    const navTo = getFirebaseI18nPrefix(key);
+    const currentPath = isBrowser() && getPath(window.location.pathname);
+    navigate(`${navTo}${currentPath}`);
+  };
+
   return (
     <footer className="page-footer">
       <div className="container core">
@@ -71,7 +85,7 @@ const Footer = ({ langKey, navigation }) => {
             <a className="social-link" href="https://twitter.com/Leaders4CA">
               <Icon type="twitter" />
             </a>
-            <h5>Other</h5>
+            <h5>Powered by</h5>
 
             <div style={{ marginTop: "20px" }}>
               <a
@@ -89,7 +103,47 @@ const Footer = ({ langKey, navigation }) => {
           </Col>
         </Row>
         <Row style={{ textAlign: "center", margin: "50px 0 0" }}>
-          <Col xs={24}>©LFCA Umweltschutz e.V. 2020</Col>
+          <Col xs={24}>
+            <div
+              style={{
+                display: "inline-block",
+                margin: "12px",
+                verticalAlign: "top",
+              }}
+            >
+              ©LFCA Umweltschutz e.V. 2020
+            </div>
+
+            <Menu
+              style={{ maxWidth: "200px", display: "inline-block" }}
+              onClick={switchLanguage}
+            >
+              <SubMenu
+                className="lang-submenu"
+                key={"lang-switcher"}
+                title={
+                  <span className="submenu-title lang">
+                    <img alt={langKey} src={activeIcon} />
+                    {/* {activeItem.name} */}
+                    <Icon component={IconArrowDown} />
+                  </span>
+                }
+              >
+                {languages.map((language) => {
+                  return (
+                    <Menu.Item key={language.isoCode}>
+                      <img
+                        style={{ marginRight: "10px" }}
+                        alt={language.isoCode}
+                        src={language.icon && language.icon.file.url}
+                      />
+                      {language.name}
+                    </Menu.Item>
+                  );
+                })}
+              </SubMenu>
+            </Menu>
+          </Col>
         </Row>
       </div>
     </footer>
@@ -99,6 +153,18 @@ const Footer = ({ langKey, navigation }) => {
 const DataWrapper = (props) => {
   const data = useStaticQuery(graphql`
     query {
+      contentfulMetaData(name: { eq: "Main" }) {
+        name
+        languages {
+          name
+          isoCode
+          icon {
+            file {
+              url
+            }
+          }
+        }
+      }
       allContentfulNavigation(filter: { menuId: { eq: "footer" } }) {
         group(field: node_locale) {
           fieldValue
@@ -137,7 +203,10 @@ const DataWrapper = (props) => {
     }
     return acc;
   }, {});
-  return <Footer navigation={navByLocale} {...props} />;
+
+  const { languages } = data.contentfulMetaData;
+
+  return <Footer languages={languages} navigation={navByLocale} {...props} />;
 };
 
 export default DataWrapper;

@@ -1,30 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Helmet from "react-helmet";
 import favicon from "../../images/favicon.ico";
 import config from "../../utils/siteConfig";
-import { CookiesProvider, useCookies } from "react-cookie";
+import { CookiesProvider } from "react-cookie";
 import CookieConsent from "../CookieConsent";
 import PageHeader from "./PageHeader";
 import PageFooter from "./PageFooter";
 import IsMobileProvider from "../../utils/IsMobileProvider";
-import useIntl from "../../utils/useIntl";
-import { setLangCookies, findLangKeyByUrl } from "../../utils";
-
+import { findLangKeyByUrl } from "../../utils";
 // Main styles
 import "../../assets/less/styles.less";
 
 const Template = ({ children, location, activeCompany }) => {
-  // const [cookies, setCookie] = useCookies();
-  // const countryCookie = cookies["firebase-country-override"];
-
-  // const langKey = useIntl().isoCode;
   const langKey = findLangKeyByUrl(location.pathname);
-
-  // useEffect(() => {
-  //   if (!countryCookie || langKey !== urlLangKey) {
-  //     setLangCookies(setCookie, urlLangKey);
-  //   }
-  // }, []);
 
   return (
     <IsMobileProvider>

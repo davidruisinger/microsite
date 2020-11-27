@@ -27,8 +27,8 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
   } = data.companies;
   const { slug } = pageContext;
   const pageTitle = `${name} - ${config.siteTitle}`;
-  const actionsContent = useContentfulActions();
   const langCode = useIntl().isoCode;
+  const actionsContent = useContentfulActions(langCode);
   const blocks = useContentfulBlocks(langCode);
 
   const postNode = {

@@ -71,13 +71,25 @@ export const setLangCookies = (setCookie, langKey) => {
 };
 
 export const findLangKeyByUrl = (url) => {
-  if (!url) return "en-US";
+  const { defaultLangKey } = require("../utils/siteConfig");
+  if (!url) return defaultLangKey;
   const urlParts = url.split("/");
   const urlPartLang = urlParts[1];
   if (urlPartLang.length === 2) {
     return urlPartLang;
   } else {
-    return "en-US";
+    return defaultLangKey;
+  }
+};
+
+export const getPath = (path) => {
+  if (!path) return path;
+  const urlParts = path.split("/");
+  const urlPartLang = urlParts[1];
+  if (urlPartLang.length === 2) {
+    return path.substring(3);
+  } else {
+    return path;
   }
 };
 
