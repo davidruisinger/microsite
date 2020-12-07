@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
 import { Link as ScrollLink } from "react-scroll";
-import { defaultLangKey } from "../../../utils/siteConfig";
 import { getI18nPrefix } from "../../../utils/shared";
 import useIntl from "../../../utils/useIntl";
 
