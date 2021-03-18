@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Collapse, Popover, Button } from "antd";
-import Icon, { LinkOutlined } from "@ant-design/icons";
+import Icon, { LinkOutlined, InfoOutlined } from "@ant-design/icons";
 import { Link as ScrollLink } from "react-scroll";
 import IconDown from "../../assets/icons/ctrl-down.svg";
 import IconCheckSmall from "../../assets/icons/check-single.svg";
@@ -29,9 +29,9 @@ const InfoBox = (props) => {
         <div className="label">{blocks["infobox.label"]}</div>
         <div className="left-box">
           <h4>{props.name}</h4>
-          <a className="link" href={props.website}>
-            Website <LinkOutlined />
-          </a>
+          <div className="link">
+            Info <InfoOutlined />
+          </div>
         </div>
         <div className="right-box">
           <div className="img-wrapper">
