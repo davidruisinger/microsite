@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Collapse, Popover, Button } from "antd";
-import Icon, { LinkOutlined, InfoOutlined } from "@ant-design/icons";
+import Icon, { InfoCircleOutlined } from "@ant-design/icons";
 import { Link as ScrollLink } from "react-scroll";
 import IconDown from "../../assets/icons/ctrl-down.svg";
 import IconCheckSmall from "../../assets/icons/check-single.svg";
@@ -30,7 +30,7 @@ const InfoBox = (props) => {
         <div className="left-box">
           <h4>{props.name}</h4>
           <div className="link">
-            Info <InfoOutlined />
+            Info <InfoCircleOutlined />
           </div>
         </div>
         <div className="right-box">
