@@ -47,7 +47,7 @@ exports.createPages = ({ graphql, actions }) => {
         allCompanies(
           filter: {
             hasBadgeQualification: { eq: true }
-            hidePage: { neq: true }
+            hidePage: { ne: true }
           }
         ) {
           nodes {
