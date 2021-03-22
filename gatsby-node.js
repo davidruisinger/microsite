@@ -44,7 +44,12 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
-        allCompanies(filter: { hasBadgeQualification: { eq: true } }) {
+        allCompanies(
+          filter: {
+            hasBadgeQualification: { eq: true }
+            hidePage: { neq: true }
+          }
+        ) {
           nodes {
             id
             url

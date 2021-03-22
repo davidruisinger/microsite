@@ -99,9 +99,7 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
                   textAlign: "center",
                 }}
               >
-                <h3 style={{ textAlign: "center" }}>
-                  Please add content to the about section.
-                </h3>
+                <h3 style={{ textAlign: "center" }}></h3>
               </div>
             )}
           </Row>
