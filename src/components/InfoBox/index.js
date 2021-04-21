@@ -82,7 +82,7 @@ const InfoBox = (props) => {
                       <li key={`list-${i}`}>{requirement.title}</li>
                     ))}
                 </ul>
-                {blocks["infobox.more.text"]}
+                {blocks["infobox.more.text"]}{" "}
                 <ScrollLink smooth to={"initiative"}>
                   {blocks["infobox.more.link"]}
                 </ScrollLink>
