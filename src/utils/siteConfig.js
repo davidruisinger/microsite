@@ -4,7 +4,7 @@ module.exports = {
   publisher: "LFCA Umweltschutz e.V.", // Organization name used for SEO schema
   siteDescription:
     "A global community that drives climate action in organizations & beyond.",
-  siteUrl: "https://www.lfca.earth", // Site domain. Do not include a trailing slash! If you wish to use a path prefix you can read more about that here: https://www.gatsbyjs.org/docs/path-prefix/
+  siteUrl: "https://wtca.lfca.earth", // Site domain. Do not include a trailing slash! If you wish to use a path prefix you can read more about that here: https://www.gatsbyjs.org/docs/path-prefix/
   author: "Timo Müller", // Author for RSS author segment and SEO schema
   authorUrl: "", // URL used for author and publisher schema, can be a social profile or other personal site
   userTwitter: "Leaders4CA", // Change for Twitter Cards
