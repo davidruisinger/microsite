@@ -25,7 +25,7 @@ export const colorMap = {
   orange: "#FFD3B6",
   lightOrange: "#f4f4f4",
   green: "#CDDFDB",
-  blue: "#9DD3E5",
+  blue: "#9DD3E6",
 };
 
 export const colorTextMap = {
