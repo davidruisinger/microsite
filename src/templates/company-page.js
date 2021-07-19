@@ -18,13 +18,7 @@ import useIntl from "../utils/useIntl";
 import { replaceVars } from "../utils";
 
 const CompanyPageTemplate = ({ data, location, pageContext }) => {
-  const {
-    name,
-    logo,
-    publicActions: actions,
-    aboutSections,
-    website,
-  } = data.companies;
+  const { name, logo, actions, aboutSections, website } = data.companies;
   const { slug } = pageContext;
   const pageTitle = `${name} - ${config.siteTitle}`;
   const langCode = useIntl().isoCode;
@@ -152,7 +146,7 @@ export const query = graphql`
         text
         heading
       }
-      publicActions {
+      actions {
         isComplete
         uid
         actionId

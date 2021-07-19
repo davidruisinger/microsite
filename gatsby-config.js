@@ -76,14 +76,14 @@ module.exports = {
         types: [
           {
             type: "Companies",
-            path: "public_companies",
+            path: "companies",
             query: (ref) => ref,
             map: (node) => {
               // overwrite actions as list
               const actionsList =
-                node.publicActions &&
-                Object.keys(node.publicActions).map((key, i) => {
-                  const { requirements, ...rest } = node.publicActions[key];
+                node.actions &&
+                Object.keys(node.actions).map((key, i) => {
+                  const { requirements, ...rest } = node.actions[key];
                   const reqsList =
                     requirements &&
                     Object.keys(requirements).map((reqId) => {
@@ -101,7 +101,7 @@ module.exports = {
                   };
                 });
 
-              node.publicActions = actionsList;
+              node.actions = actionsList;
 
               // convert aboutSections into array
               const aboutSections =
