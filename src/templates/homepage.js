@@ -20,7 +20,7 @@ const Homepage = ({ data, location, pageContext }) => {
     metaDescription: {
       internal: {
         content:
-          "We encourage organizations to take climate action. By making their efforts transparent, we inspire others to follow!",
+          "We encourage organizations to take climate action. By making their efforts transparent, we inspire others to follow! ",
       },
     },
     heroImage: "",
