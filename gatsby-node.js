@@ -46,15 +46,16 @@ exports.createPages = ({ graphql, actions }) => {
         }
         allCompanies(
           filter: {
-            hasBadgeQualification: { eq: true }
+            achievements: { hasBadgeQualification: { eq: true } }
             hidePage: { ne: true }
           }
         ) {
           nodes {
             id
             url
-            companyPledgeStatus
-            hasBadgeQualification
+            achievements {
+              hasBadgeQualification
+            }
             name
             logo
           }

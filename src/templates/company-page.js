@@ -136,7 +136,9 @@ export const query = graphql`
     companies(id: { eq: $id }) {
       id
       url
-      companyPledgeStatus
+      achievements {
+        hasBadgeQualification
+      }
       name
       website
       companyPledge

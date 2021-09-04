@@ -175,12 +175,15 @@ const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
 const DataWrapper = (props) => {
   const data = useStaticQuery(graphql`
     query {
-      allCompanies(filter: { hasBadgeQualification: { eq: true } }) {
+      allCompanies(
+        filter: { achievements: { hasBadgeQualification: { eq: true } } }
+      ) {
         nodes {
           id
           url
-          hasBadgeQualification
-          companyPledgeStatus
+          achievements {
+            hasBadgeQualification
+          }
           name
           logo
         }
