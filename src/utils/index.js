@@ -124,7 +124,6 @@ export const mergeActions = (content, data) => {
     // get corresponding content for item
     const contentItem = content[dataItem.actionId];
 
-    // if category b, do not consider
     if (contentItem) {
       // extract requirements from data
       const { requirements: dataReqs, ...restData } = dataItem;

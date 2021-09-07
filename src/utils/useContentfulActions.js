@@ -25,7 +25,7 @@ const useContentfulActions = (langKey) => {
     query {
       allContentfulAction(
         sort: { fields: order, order: ASC }
-        filter: { type: { ne: "personal" }, category: { eq: "A" } }
+        filter: { type: { ne: "personal" } }
       ) {
         group(field: node_locale) {
           fieldValue
