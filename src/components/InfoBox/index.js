@@ -63,11 +63,13 @@ const InfoBox = (props) => {
                 }
                 key={i}
               >
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: action.about.childMarkdownRemark.html,
-                  }}
-                />
+                {action.about && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: action.about.childMarkdownRemark.html,
+                    }}
+                  />
+                )}
                 <Popover
                   placement="left"
                   content={blocks["infobox.popover.content"]}
