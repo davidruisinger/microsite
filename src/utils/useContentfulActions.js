@@ -1,4 +1,5 @@
 import { useStaticQuery, graphql } from "gatsby";
+import { defaultLangKey } from "../utils/siteConfig";
 
 const parseActions = (actions) =>
   actions.reduce((acc, curr) => {
@@ -99,9 +100,11 @@ const useContentfulActions = (langKey) => {
     return acc;
   }, {});
 
+  const content = actionsByLocale[langKey] || actionsByLocale[defaultLangKey];
+
   return {
     list: actionsList,
-    object: actionsByLocale[langKey],
+    object: content,
   };
 };
 

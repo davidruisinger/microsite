@@ -36,6 +36,7 @@ const useContentfulBlocks = (langCode) => {
     }
     return acc;
   }, {});
+
   const currentLocale = blocksByLocale[langCode] || {};
   return currentLocale;
 };
