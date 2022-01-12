@@ -71,6 +71,7 @@ exports.createPages = ({ graphql, actions }) => {
         const urlFirstPart = !prefix ? "" : `/${prefix}`;
 
         companies.forEach((company) => {
+          if (!company) return;
           const slug = `${urlFirstPart}/e/${company.url}`;
           createPage({
             path: slug,
@@ -91,7 +92,8 @@ exports.createPages = ({ graphql, actions }) => {
         const pages = result.data.allContentfulPageGlobal.edges;
         pages.map(({ node }) => {
           const slug = `${urlFirstPart}/${node.slug}`;
-          const pageId = node.localized.id;
+          const pageId = node.localized?.id;
+          if (!pageId) return;
           createPage({
             path: slug,
             component: path.resolve(`./src/templates/page.js`),
