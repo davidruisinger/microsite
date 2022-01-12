@@ -16,7 +16,7 @@ const Homepage = ({ data, location, pageContext }) => {
 
   const postNode = {
     title: pageTitle,
-    description: "We take Climate Action",
+    description: "We take Climate Action ",
     metaDescription: {
       internal: {
         content:
