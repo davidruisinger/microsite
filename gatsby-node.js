@@ -92,7 +92,7 @@ exports.createPages = ({ graphql, actions }) => {
         const pages = result.data.allContentfulPageGlobal.edges;
         pages.map(({ node }) => {
           const slug = `${urlFirstPart}/${node.slug}`;
-          const pageId = node.localized?.id;
+          const pageId = node.localized && node.localized.id;
           if (!pageId) return;
           createPage({
             path: slug,
