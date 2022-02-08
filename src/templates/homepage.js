@@ -12,7 +12,7 @@ import SEO from "../components/SEO";
 const Homepage = ({ data, location, pageContext }) => {
   const { slug } = pageContext;
   const pageTitle = `${config.siteTitle}`;
-  const { nodes: allCompanies } = data.allCompanies;
+  const allCompanies = data.lfcaBackend?.qualifiedCompanies;
 
   const postNode = {
     title: pageTitle,
@@ -43,15 +43,22 @@ const Homepage = ({ data, location, pageContext }) => {
                 className="company-listing"
                 bordered={false}
                 dataSource={allCompanies}
-                renderItem={(company) => (
+                renderItem={(qualifiedCompany) => (
                   <List.Item>
-                    <CustomLink slug={`e/${company.url}`}>
+                    <CustomLink
+                      slug={`e/${qualifiedCompany?.company.micrositeSlug}`}
+                    >
                       <div className="left-box">
                         <div className="img-wrapper">
-                          <img alt="logo" src={company.logo} />
+                          <img
+                            alt="logo"
+                            src={qualifiedCompany?.company.logoUrl}
+                          />
                         </div>
                       </div>
-                      <div className="right-box">{company.name}</div>
+                      <div className="right-box">
+                        {qualifiedCompany?.company.name}
+                      </div>
                     </CustomLink>
                   </List.Item>
                 )}
@@ -67,17 +74,15 @@ const Homepage = ({ data, location, pageContext }) => {
 
 export const query = graphql`
   query {
-    allCompanies(
-      filter: { achievements: { hasBadgeQualification: { eq: true } } }
-    ) {
-      nodes {
-        id
-        url
-        achievements {
-          hasBadgeQualification
+    lfcaBackend {
+      qualifiedCompanies {
+        company {
+          id
+          logoUrl
+          name
+          websiteUrl
+          micrositeSlug
         }
-        name
-        logo
       }
     }
   }

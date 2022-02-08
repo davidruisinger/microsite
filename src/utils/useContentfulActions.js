@@ -53,7 +53,7 @@ const useContentfulActions = (langKey) => {
             createdAt
             shortDescription
             explanation {
-              json
+              raw
             }
             icon {
               file {

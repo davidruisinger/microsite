@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Carousel, Modal, Card, Row, Col } from "antd";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { renderRichText } from "gatsby-source-contentful/rich-text";
 import "./styles.less";
 import { richTextOptions } from "../../utils/richTextOptions";
 import Icon from "@ant-design/icons";
 import IconArrowRight from "../../assets/icons/arrow-right.svg";
 import IconArrowLeft from "../../assets/icons/arrow-left.svg";
 
-const MODAL_CONTENT_STRUCTURE = { header: "-", body: "-" };
+const MODAL_CONTENT_STRUCTURE = {
+  header: "-",
+  explanation: { raw: null },
+};
 
 const NextArrow = ({ className, onClick }) => {
   const isDisabled = className.indexOf("slick-disabled") > -1;
@@ -64,8 +67,7 @@ const CardsCarousel = (props) => {
     setModalContent({
       header: item.title,
       icon: item.icon,
-      body: item.shortDescription,
-      explanation: item.explanation && item.explanation.json,
+      explanation: item.explanation,
     });
     setModalVisible(true);
   };
@@ -126,11 +128,8 @@ const CardsCarousel = (props) => {
           </Col>
           <Col xs={24} md={15}>
             <article>
-              {/* <p>{modalContent.body}</p> */}
-              {documentToReactComponents(
-                modalContent.explanation,
-                richTextOptions
-              )}
+              {modalContent.explanation &&
+                renderRichText(modalContent.explanation, richTextOptions)}
             </article>
           </Col>{" "}
         </Row>

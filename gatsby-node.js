@@ -2,17 +2,15 @@ const path = require(`path`);
 const { getI18nPrefix } = require("./src/utils/shared");
 
 // warnings in netlify deploy log
-exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
-  if (stage === "build-javascript") {
-    const config = getConfig();
-    const miniCssExtractPlugin = config.plugins.find(
-      (plugin) => plugin.constructor.name === "MiniCssExtractPlugin"
-    );
-    if (miniCssExtractPlugin) {
-      miniCssExtractPlugin.options.ignoreOrder = true;
-    }
-    actions.replaceWebpackConfig(config);
+exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
+  const config = getConfig();
+  const miniCssExtractPlugin = config.plugins.find(
+    (plugin) => plugin.constructor.name === "MiniCssExtractPlugin"
+  );
+  if (miniCssExtractPlugin) {
+    miniCssExtractPlugin.options.ignoreOrder = true;
   }
+  actions.replaceWebpackConfig(config);
 };
 
 exports.createPages = ({ graphql, actions }) => {
@@ -44,35 +42,54 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
-        allCompanies(
-          filter: {
-            achievements: { hasBadgeQualification: { eq: true } }
-            hidePage: { ne: true }
-          }
-        ) {
-          nodes {
-            id
-            url
-            achievements {
-              hasBadgeQualification
+        lfcaBackend {
+          qualifiedCompanies {
+            company {
+              id
+              logoUrl
+              name
+              websiteUrl
+              micrositeSlug
+              aboutSections {
+                heading
+                imageUrl
+                text
+              }
             }
-            name
-            logo
+            completedCompanyActions {
+              contentId
+              description
+              id
+              requirements {
+                contentId
+                description
+                id
+                title
+              }
+              title
+            }
+            programId
+            programName
           }
         }
       }
     `).then((result) => {
-      const { languages } = result.data.contentfulMetaData;
-      const companies = result.data.allCompanies.nodes;
+      const { languages } = result.data?.contentfulMetaData;
+      const companies = result.data?.lfcaBackend?.qualifiedCompanies;
+
+      console.log(`...building microsites for ${companies.length} companies`);
+      if (!companies) throw new Error("No qualified companies found");
+
+      // @TODO: if api is down, do no build! throw error
 
       // Create pages in different languages
       for (const language of languages) {
         const prefix = getI18nPrefix(language.isoCode);
         const urlFirstPart = !prefix ? "" : `/${prefix}`;
 
-        companies.forEach((company) => {
+        companies.forEach(({ company }) => {
           if (!company) return;
-          const slug = `${urlFirstPart}/e/${company.url}`;
+          const slug = `${urlFirstPart}/e/${company.micrositeSlug}`;
           createPage({
             path: slug,
             component: path.resolve(`src/templates/company-page.js`),

@@ -77,7 +77,7 @@ const RightMenu = ({
           offset={[13, -3]}
           count={companiesCount}
         >
-          <UnorderedListOutlined />
+          <UnorderedListOutlined style={{ marginRight: "6px" }} />
           All Companies
         </Badge>
       </Menu.Item>
@@ -86,7 +86,7 @@ const RightMenu = ({
 };
 
 const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
-  const { nodes: allCompanies } = data.allCompanies;
+  const allCompanies = data.lfcaBackend.qualifiedCompanies;
   const selectedMenu = navigation[langKey];
 
   const { elements } = selectedMenu;
@@ -151,15 +151,22 @@ const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
                 className="company-listing"
                 bordered={false}
                 dataSource={allCompanies}
-                renderItem={(company) => (
+                renderItem={(qualifiedCompany) => (
                   <List.Item>
-                    <CustomLink slug={`e/${company.url}`}>
+                    <CustomLink
+                      slug={`e/${qualifiedCompany?.company.micrositeSlug}`}
+                    >
                       <div className="left-box">
                         <div className="img-wrapper">
-                          <img alt="logo" src={company.logo} />
+                          <img
+                            alt="logo"
+                            src={qualifiedCompany?.company.logoUrl}
+                          />
                         </div>
                       </div>
-                      <div className="right-box">{company.name}</div>
+                      <div className="right-box">
+                        {qualifiedCompany?.company.name}
+                      </div>
                     </CustomLink>
                   </List.Item>
                 )}
@@ -175,17 +182,15 @@ const PageHeader = ({ langKey, data, navigation, activeCompany }) => {
 const DataWrapper = (props) => {
   const data = useStaticQuery(graphql`
     query {
-      allCompanies(
-        filter: { achievements: { hasBadgeQualification: { eq: true } } }
-      ) {
-        nodes {
-          id
-          url
-          achievements {
-            hasBadgeQualification
+      lfcaBackend {
+        qualifiedCompanies {
+          company {
+            id
+            logoUrl
+            name
+            websiteUrl
+            micrositeSlug
           }
-          name
-          logo
         }
       }
       allContentfulNavigation(filter: { menuId: { eq: "mainMenu" } }) {

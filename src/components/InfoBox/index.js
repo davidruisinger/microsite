@@ -5,19 +5,17 @@ import { Link as ScrollLink } from "react-scroll";
 import IconDown from "../../assets/icons/ctrl-down.svg";
 import IconCheckSmall from "../../assets/icons/check-single.svg";
 import "./styles.less";
-import { mergeActions } from "../../utils";
 import useIntl from "../../utils/useIntl";
 import useContentfulBlocks from "../../utils/useContentfulBlocks";
 
 const { Panel } = Collapse;
 
-const InfoBox = (props) => {
+const InfoBox = ({ actions, name, logo }) => {
   const langCode = useIntl().isoCode;
   const blocks = useContentfulBlocks(langCode);
   const [showMore, setShowMore] = useState(false);
-  const mergedActions = mergeActions(props.actionsContent, props.actions);
-
-  const useShowMore = mergedActions.length > 5;
+  console.log(actions);
+  const useShowMore = actions.length > 5;
   const collapseStyle = useShowMore
     ? showMore
       ? { maxHeight: "none", paddingBottom: "40px" }
@@ -28,14 +26,14 @@ const InfoBox = (props) => {
       <Row className="wrapper">
         <div className="label">{blocks["infobox.label"]}</div>
         <div className="left-box">
-          <h4>{props.name}</h4>
+          <h4>{name}</h4>
           <div className="link">
             Info <InfoCircleOutlined />
           </div>
         </div>
         <div className="right-box">
           <div className="img-wrapper">
-            <img src={props.logo} />
+            <img src={logo} />
           </div>
         </div>
       </Row>
@@ -48,8 +46,8 @@ const InfoBox = (props) => {
         accordion
         style={collapseStyle}
       >
-        {mergedActions &&
-          mergedActions.map((action, i) => {
+        {actions &&
+          actions.map((action, i) => {
             return (
               <Panel
                 className="actions-container"

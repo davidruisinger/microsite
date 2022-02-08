@@ -1,9 +1,7 @@
 export { default as CallToAction } from "./CallToAction";
 export { default as PageTitle } from "./PageTitle";
 export { default as ArticleLink } from "./ArticleLink";
-export { default as ArticleCard } from "./ArticleCard";
 export { default as TileLink } from "./TileLink";
-export { default as HeroArticle } from "./HeroArticle";
 export { default as ShareButtons } from "./ShareButtons";
 export { default as SuperText } from "./SuperText";
 export { default as TopBar } from "./TopBar";

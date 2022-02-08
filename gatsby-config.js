@@ -16,22 +16,6 @@ const themeVariables = lessToJs(
   )
 );
 
-// Firebase config
-const firebaseConfig = {
-  type: "service_account",
-  project_id: "leaders-for-climate-action",
-  private_key_id: process.env.FB_PRIVATE_KEY_ID,
-  private_key: process.env.FB_PRIVATE_KEY.replace(/\\n/g, "\n"),
-  client_email:
-    "firebase-adminsdk-l0a9d@leaders-for-climate-action.iam.gserviceaccount.com",
-  client_id: "114062250503267573038",
-  auth_uri: "https://accounts.google.com/o/oauth2/auth",
-  token_uri: "https://oauth2.googleapis.com/token",
-  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-  client_x509_cert_url:
-    "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-l0a9d%40leaders-for-climate-action.iam.gserviceaccount.com",
-};
-
 // Contentful config
 const contentfulConfig = {
   host: process.env.CF_APP_HOST_URL,
@@ -60,65 +44,14 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: "gatsby-plugin-matomo",
+      resolve: "gatsby-source-graphql",
       options: {
-        siteId: "3",
-        matomoUrl: "https://lfcaearth.matomo.cloud",
-        siteUrl: "https://wtca.lfca.earth",
-        requireConsent: true,
-      },
-    },
-    {
-      resolve: `gatsby-source-firebase`,
-      options: {
-        credential: firebaseConfig,
-        databaseURL: process.env.FB_DB_URL,
-        types: [
-          {
-            type: "Companies",
-            path: "companies",
-            query: (ref) => ref,
-            map: (node) => {
-              // overwrite actions as list
-              const actionsList =
-                node.actions &&
-                Object.keys(node.actions).map((key, i) => {
-                  const { requirements, ...rest } = node.actions[key];
-                  const reqsList =
-                    requirements &&
-                    Object.keys(requirements).map((reqId) => {
-                      const { isDone, ...rest } = requirements[reqId];
-                      return {
-                        uid: reqId,
-                        ...rest,
-                        isDone: !!isDone,
-                      };
-                    });
-                  return {
-                    ...rest,
-                    requirements: reqsList,
-                    uid: key,
-                  };
-                });
-
-              node.actions = actionsList;
-
-              // convert aboutSections into array
-              const aboutSections =
-                node.aboutSections &&
-                Object.keys(node.aboutSections).map((sectionKey) => {
-                  return {
-                    uid: sectionKey,
-                    ...node.aboutSections[sectionKey],
-                  };
-                });
-
-              node.aboutSections = aboutSections;
-
-              return node;
-            },
-          },
-        ],
+        typeName: "companies",
+        fieldName: "lfcaBackend",
+        url: process.env.GQL_API_URL,
+        headers: {
+          Authorization: `Bearer ${process.env.GQL_ADMIN_ACCESS_TOKEN}`,
+        },
       },
     },
     {
@@ -132,8 +65,10 @@ module.exports = {
     {
       resolve: `gatsby-plugin-less`,
       options: {
-        javascriptEnabled: true,
-        modifyVars: themeVariables,
+        lessOptions: {
+          modifyVars: themeVariables,
+          javascriptEnabled: true,
+        },
       },
     },
     {
@@ -174,6 +109,8 @@ module.exports = {
       resolve: "gatsby-source-contentful",
       options: contentfulConfigApp,
     },
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
     "gatsby-plugin-sitemap",
     {
       resolve: "gatsby-plugin-manifest",
@@ -188,13 +125,11 @@ module.exports = {
         icon: `static${config.favicon}`,
       },
     },
-    "gatsby-plugin-offline",
     {
       resolve: "gatsby-plugin-nprogress",
       options: {
         color: config.themeColor,
       },
     },
-    "gatsby-plugin-netlify",
   ],
 };

@@ -4,7 +4,16 @@ import config from "../utils/siteConfig";
 import useIntl from "../utils/useIntl";
 
 const SEO = (props) => {
-  const { postNode, pagePath, postSEO, pageSEO, customTitle } = props;
+  const {
+    postNode,
+    pagePath,
+    postSEO,
+    pageSEO,
+    customTitle,
+    ogImage,
+    ogImageWidth,
+    ogImageHeight,
+  } = props;
   const langKey = useIntl().isoCode;
   const isRoot = pagePath === "/";
   const isDefaultLanguage = langKey === config.defaultLangKey;
@@ -19,9 +28,9 @@ const SEO = (props) => {
   // Set Default OpenGraph Parameters for Fallback
   title = config.siteTitle;
   description = config.siteDescription;
-  image = config.siteUrl + config.shareImage;
-  imgWidth = config.shareImageWidth;
-  imgHeight = config.shareImageHeight;
+  image = ogImage || config.siteUrl + config.shareImage;
+  imgWidth = ogImageWidth || config.shareImageWidth;
+  imgHeight = ogImageHeight || config.shareImageHeight;
   pageUrl = config.siteUrl;
 
   // create pageUrl incl langKey
