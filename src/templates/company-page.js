@@ -25,7 +25,8 @@ const getImageName = (image) => {
 const IMAGE_URL = "Backgrounds/linkedin-microsite-placeholder_bxzknd.jpg";
 
 const CompanyPageTemplate = ({ data, location, pageContext }) => {
-  const [qualifiedCompany] = data.lfcaBackend.qualifiedCompanies;
+  const qualifiedCompany = pageContext.data;
+
   if (!qualifiedCompany) return null;
   const { completedCompanyActions, company } = qualifiedCompany;
   const { name, logoUrl: logo, aboutSections, websiteUrl: website } = company;
@@ -173,40 +174,5 @@ const CompanyPageTemplate = ({ data, location, pageContext }) => {
     </Layout>
   );
 };
-
-export const query = graphql`
-  query ($id: String!) {
-    lfcaBackend {
-      qualifiedCompanies(input: { filter: { companyIds: [$id] } }) {
-        company {
-          id
-          logoUrl
-          name
-          websiteUrl
-          micrositeSlug
-          aboutSections {
-            heading
-            imageUrl
-            text
-          }
-        }
-        completedCompanyActions {
-          contentId
-          description
-          id
-          requirements {
-            contentId
-            description
-            id
-            title
-          }
-          title
-        }
-        programId
-        programName
-      }
-    }
-  }
-`;
 
 export default CompanyPageTemplate;

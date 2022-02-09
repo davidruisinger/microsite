@@ -14,7 +14,6 @@ const InfoBox = ({ actions, name, logo }) => {
   const langCode = useIntl().isoCode;
   const blocks = useContentfulBlocks(langCode);
   const [showMore, setShowMore] = useState(false);
-  console.log(actions);
   const useShowMore = actions.length > 5;
   const collapseStyle = useShowMore
     ? showMore

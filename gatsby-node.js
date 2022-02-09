@@ -87,13 +87,18 @@ exports.createPages = ({ graphql, actions }) => {
         const prefix = getI18nPrefix(language.isoCode);
         const urlFirstPart = !prefix ? "" : `/${prefix}`;
 
-        companies.forEach(({ company }) => {
+        companies.forEach((data) => {
+          const { company } = data;
           if (!company) return;
           const slug = `${urlFirstPart}/e/${company.micrositeSlug}`;
           createPage({
             path: slug,
             component: path.resolve(`src/templates/company-page.js`),
-            context: { id: company.id, slug: slug },
+            context: {
+              id: company.id,
+              slug: slug,
+              data,
+            },
           });
         });
 
