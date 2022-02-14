@@ -1,34 +1,55 @@
 module.exports = {
-  env: {
-    browser: true,
-    es6: true,
-    node: true,
-  },
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "standard",
-    "prettier",
+    'plugin:prettier/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:@next/next/recommended',
   ],
-  globals: {
-    Atomics: "readonly",
-    SharedArrayBuffer: "readonly",
-  },
-  parser: "babel-eslint",
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2018,
-    sourceType: "module",
+    ecmaVersion: 2021,
+    sourceType: 'module',
   },
-  plugins: ["react"],
+  plugins: [
+    'react',
+    'react-hooks',
+    'simple-import-sort',
+    'sort-destructure-keys',
+  ],
   rules: {
-    "react/prop-types": 0,
+    'no-console': [
+      'error',
+      {
+        allow: ['info', 'error'],
+      },
+    ],
+    'react-hooks/exhaustive-deps': 'warn',
+    'react/jsx-sort-props': [
+      'error',
+      {
+        ignoreCase: false,
+      },
+    ],
+    'react/prop-types': 'off',
+    'simple-import-sort/exports': 'error',
+    'simple-import-sort/imports': 'error',
+    'sort-destructure-keys/sort-destructure-keys': 'error',
+    'sort-keys': [
+      'error',
+      'asc',
+      {
+        caseSensitive: false,
+        minKeys: 2,
+        natural: false,
+      },
+    ],
+    'sort-vars': 'error',
   },
   settings: {
     react: {
-      version: "detect",
+      version: 'detect',
     },
   },
-};
+}
