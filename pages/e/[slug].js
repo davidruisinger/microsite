@@ -64,7 +64,7 @@ const CompanyPage = ({ actionsContent, company: qualifiedCompany }) => {
   })
 
   const postNode = {
-    description: 'We take Climate Action.',
+    description: 'We take Climate Action',
     heroImage: '',
     metaDescription: {
       internal: {
