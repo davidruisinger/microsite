@@ -15,7 +15,7 @@ const Homepage = ({ allCompanies, slug }) => {
   const pageTitle = `${config.siteTitle}`
 
   const postNode = {
-    description: 'We take Climate Action',
+    description: 'We take Climate Action ',
     heroImage: '',
     metaDescription: {
       internal: {
