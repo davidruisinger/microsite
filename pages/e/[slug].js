@@ -74,7 +74,7 @@ const CompanyPage = ({ actionsContent, company: qualifiedCompany }) => {
     },
     title: pageTitle,
   }
-
+  console.log(aboutSections)
   return (
     <Layout activeCompany={name}>
       <Head>

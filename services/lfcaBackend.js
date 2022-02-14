@@ -33,6 +33,11 @@ export async function fetchQualifiedCompanies(variables) {
           micrositeSlug
           name
           logoUrl
+          aboutSections {
+            heading
+            text
+            imageUrl
+          }
         }
         completedCompanyActions {
           contentId
