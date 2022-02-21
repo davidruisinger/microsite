@@ -1,19 +1,17 @@
-import { gql, request } from 'graphql-request'
+import { gql, GraphQLClient, request } from 'graphql-request'
 
 const apiUrl = process.env.GQL_API_URL
 const accessToken = process.env.ADMIN_ACCESS_TOKEN
 
+const graphQLClient = new GraphQLClient(apiUrl, {
+  headers: {
+    authorization: `Bearer ${accessToken}`,
+  },
+})
+
 export async function fetchData(query, variables) {
   try {
-    const res = await request({
-      document: query,
-      requestHeaders: {
-        authorization: `Bearer ${accessToken}`,
-        'content-type': 'application/json',
-      },
-      url: apiUrl,
-      variables,
-    })
+    const res = await graphQLClient.request(query, variables)
     return res
   } catch (error) {
     console.error(
