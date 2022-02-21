@@ -2,7 +2,6 @@ import { Col, Row } from 'antd'
 import cloudinary from 'cloudinary-core'
 import { gql } from 'graphql-request'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { Element } from 'react-scroll'
 
@@ -15,7 +14,7 @@ import PersonalAction from '../../components/PersonalAction'
 import SEO from '../../components/SEO'
 import { useTranslation } from '../../hooks/useTranslation'
 import { fetchContent } from '../../services/contentfulApp'
-import { fetchQualifiedCompanies } from '../../services/lfcaBackend'
+import { fetchData } from '../../services/lfcaBackend'
 import { replaceVars } from '../../utils'
 import config from '../../utils/siteConfig'
 
@@ -191,7 +190,7 @@ const CompanyPage = ({ actionsContent, company: qualifiedCompany }) => {
 }
 
 export async function getStaticProps({ params }) {
-  const query = gql`
+  const contentQuery = gql`
     query {
       actionCollection {
         items {
@@ -209,15 +208,47 @@ export async function getStaticProps({ params }) {
     }
   `
 
+  const dataQuery = gql`
+    query qualifiedCompanies($input: QualifiedCompaniesInput) {
+      qualifiedCompanies(input: $input) {
+        company {
+          id
+          micrositeSlug
+          name
+          logoUrl
+          aboutSections {
+            heading
+            text
+            imageUrl
+          }
+        }
+        completedCompanyActions {
+          contentId
+          description
+          id
+          requirements {
+            contentId
+            description
+            id
+            title
+          }
+          title
+        }
+        programId
+        programName
+      }
+    }
+  `
+
   try {
-    const { actionCollection } = await fetchContent(query)
+    const { actionCollection } = await fetchContent(contentQuery)
     const items = actionCollection?.items
     const asObject = items.reduce((acc, item) => {
       acc[item.actionId] = item
       return acc
     }, {})
 
-    const filteredQualifiedCompanies = await fetchQualifiedCompanies({
+    const filteredQualifiedCompaniesResult = await fetchData(dataQuery, {
       input: {
         filter: {
           companyMicrositeSlugs: [params.slug],
@@ -225,7 +256,7 @@ export async function getStaticProps({ params }) {
       },
     })
 
-    const company = filteredQualifiedCompanies[0]
+    const company = filteredQualifiedCompaniesResult.qualifiedCompanies[0]
 
     if (!company) {
       return {
@@ -239,7 +270,7 @@ export async function getStaticProps({ params }) {
           list: items,
           object: asObject,
         },
-        company: filteredQualifiedCompanies[0] || null,
+        company,
       },
       revalidate: 86400, // 24h
     }

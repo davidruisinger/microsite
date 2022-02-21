@@ -1,4 +1,5 @@
 import { Col, List, Row } from 'antd'
+import { gql } from 'graphql-request'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -7,7 +8,7 @@ import { PageTitle } from '../components/Elements'
 import CustomLink from '../components/Elements/CustomLink'
 import Layout from '../components/Layout/Layout'
 import SEO from '../components/SEO'
-import { fetchQualifiedCompanies } from '../services/lfcaBackend'
+import { fetchData } from '../services/lfcaBackend'
 import config from '../utils/siteConfig'
 
 const Homepage = ({ allCompanies, slug }) => {
@@ -79,11 +80,24 @@ const Homepage = ({ allCompanies, slug }) => {
 }
 
 export async function getStaticProps() {
-  const qualifiedCompanies = await fetchQualifiedCompanies()
+  const query = gql`
+    query qualifiedCompanies($input: QualifiedCompaniesInput) {
+      qualifiedCompanies(input: $input) {
+        company {
+          id
+          micrositeSlug
+          name
+          logoUrl
+        }
+      }
+    }
+  `
+
+  const qualifiedCompaniesResult = await fetchData(query)
 
   return {
     props: {
-      allCompanies: qualifiedCompanies,
+      allCompanies: qualifiedCompaniesResult.qualifiedCompanies,
     },
   }
 }
