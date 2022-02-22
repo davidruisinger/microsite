@@ -99,6 +99,7 @@ export async function getStaticProps() {
     props: {
       allCompanies: qualifiedCompaniesResult.qualifiedCompanies,
     },
+    revalidate: 604800, // 7d
   }
 }
 
