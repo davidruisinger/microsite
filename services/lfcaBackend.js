@@ -1,4 +1,4 @@
-import { gql, GraphQLClient, request } from 'graphql-request'
+import { GraphQLClient } from 'graphql-request'
 
 const apiUrl = process.env.GQL_API_URL
 const accessToken = process.env.ADMIN_ACCESS_TOKEN

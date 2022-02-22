@@ -29,7 +29,7 @@ const CustomLink = ({ children, slug, url }) => {
 
   if (isInternal) {
     return (
-      <Link href={linkTo}>
+      <Link href={linkTo} prefetch={false}>
         <a>{children}</a>
       </Link>
     )

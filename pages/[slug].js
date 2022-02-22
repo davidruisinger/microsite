@@ -8,8 +8,7 @@ import PageBody from '../components/Layout/PageBody'
 import { fetchContent } from '../services/contentfulBadge'
 import config from '../utils/siteConfig'
 
-// Simple pages aga Impressum etc.
-
+// Simple pages like Impressum etc.
 const Page = ({ pageData }) => {
   const { bodyRichText, slug, title } = pageData
 
