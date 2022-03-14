@@ -248,15 +248,32 @@ export async function getStaticProps({ params }) {
       return acc
     }, {})
 
-    const filteredQualifiedCompaniesResult = await fetchData(dataQuery, {
+    const filteredQualifiedCompaniesResultLFCA = await fetchData(dataQuery, {
       input: {
         filter: {
+          achievementContentIds: ['hasBadgeQualification'],
           companyMicrositeSlugs: [params.slug],
         },
       },
     })
 
-    const company = filteredQualifiedCompaniesResult.qualifiedCompanies[0]
+    let company = filteredQualifiedCompaniesResultLFCA.qualifiedCompanies[0]
+
+    if (!company) {
+      // Check if the company is part of TechZero
+      const filteredQualifiedCompaniesResultTechZero = await fetchData(
+        dataQuery,
+        {
+          input: {
+            filter: {
+              achievementContentIds: ['hasFulfilledTechZeroPledge'],
+              companyMicrositeSlugs: [params.slug],
+            },
+          },
+        }
+      )
+      company = filteredQualifiedCompaniesResultTechZero.qualifiedCompanies[0]
+    }
 
     if (!company) {
       return {
@@ -264,6 +281,7 @@ export async function getStaticProps({ params }) {
         revalidate: 300, // 5min
       }
     }
+
     return {
       props: {
         actionsContent: {

@@ -93,11 +93,31 @@ export async function getStaticProps() {
     }
   `
 
-  const qualifiedCompaniesResult = await fetchData(query)
+  const qualifiedLFCACompaniesResult = await fetchData(query, {
+    input: {
+      filter: {
+        achievementContentIds: ['hasBadgeQualification'],
+      },
+    },
+  })
+
+  const qualifiedTechZeroCompaniesResult = await fetchData(query, {
+    input: {
+      filter: {
+        achievementContentIds: ['hasFulfilledTechZeroPledge'],
+      },
+    },
+  })
+
+  const allCompanies = qualifiedLFCACompaniesResult.qualifiedCompanies
+    .concat(qualifiedTechZeroCompaniesResult.qualifiedCompanies)
+    .sort((a, b) =>
+      new Intl.Collator('de').compare(a.company.name, b.company.name)
+    )
 
   return {
     props: {
-      allCompanies: qualifiedCompaniesResult.qualifiedCompanies,
+      allCompanies,
     },
     revalidate: 604800, // 7d
   }
