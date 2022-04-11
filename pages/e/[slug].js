@@ -290,7 +290,7 @@ export async function getStaticProps({ params }) {
         },
         company,
       },
-      revalidate: 3600, // 1h
+      revalidate: 86400, // 24h
     }
   } catch (e) {
     return {
