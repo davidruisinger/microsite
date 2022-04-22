@@ -82,7 +82,7 @@ const CompanyPage = ({ actionsContent, company: qualifiedCompany }) => {
       </Head>
       <SEO
         ogImage={image}
-        ogImageHeight={1200}
+        ogImageHeight={630}
         ogImageWidth={1200}
         pagePath={slug}
         pageSEO
