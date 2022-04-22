@@ -50,8 +50,8 @@ const CompanyPage = ({ actionsContent, company: qualifiedCompany }) => {
       {
         crop: 'pad',
         height: 130,
-        width: 130,
         overlay: new cloudinary.Layer().publicId(`logos/${imageName}`),
+        width: 130,
       },
       {
         flags: 'layer_apply',
