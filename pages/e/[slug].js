@@ -23,7 +23,7 @@ const getImageName = (image) => {
   return imageUrlParts[imageUrlParts.length - 1] || image
 }
 
-const IMAGE_URL = 'Backgrounds/linkedin-microsite-placeholder_bxzknd.jpg'
+const IMAGE_URL = 'Backgrounds/linkedin-wtca_xh4dra.jpg'
 
 const CompanyPage = ({ actionsContent, company: qualifiedCompany }) => {
   const { company, completedCompanyActions } = qualifiedCompany
@@ -44,20 +44,21 @@ const CompanyPage = ({ actionsContent, company: qualifiedCompany }) => {
       {
         crop: 'fill',
         gravity: 'south',
-        height: 1200,
+        height: 630,
         width: 1200,
       },
       {
-        crop: 'fill',
-        height: 160,
+        crop: 'pad',
+        height: 130,
+        width: 130,
         overlay: new cloudinary.Layer().publicId(`logos/${imageName}`),
       },
       {
         flags: 'layer_apply',
-        gravity: 'north_east',
+        gravity: 'south_east',
         radius: 20,
-        x: 50,
-        y: 70,
+        x: 45,
+        y: 65,
       },
     ],
   })
