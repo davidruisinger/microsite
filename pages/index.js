@@ -52,20 +52,13 @@ const Homepage = ({ allCompanies, slug }) => {
                 dataSource={allCompanies}
                 renderItem={(qualifiedCompany) => (
                   <List.Item>
-                    <CustomLink
-                      slug={`e/${qualifiedCompany?.company.micrositeSlug}`}
-                    >
+                    <CustomLink slug={`e/${qualifiedCompany?.micrositeSlug}`}>
                       <div className="left-box">
                         <div className="img-wrapper">
-                          <img
-                            alt="logo"
-                            src={qualifiedCompany?.company.logoUrl}
-                          />
+                          <img alt="logo" src={qualifiedCompany?.logoUrl} />
                         </div>
                       </div>
-                      <div className="right-box">
-                        {qualifiedCompany?.company.name}
-                      </div>
+                      <div className="right-box">{qualifiedCompany?.name}</div>
                     </CustomLink>
                   </List.Item>
                 )}
@@ -81,39 +74,31 @@ const Homepage = ({ allCompanies, slug }) => {
 
 export async function getStaticProps() {
   const query = gql`
-    query qualifiedCompanies($input: QualifiedCompaniesInput) {
+    query qualifiedCompanies($input: QualifiedCompaniesInput!) {
       qualifiedCompanies(input: $input) {
-        company {
-          id
-          micrositeSlug
-          name
-          logoUrl
-        }
+        id
+        micrositeSlug
+        name
+        logoUrl
       }
     }
   `
 
   const qualifiedLFCACompaniesResult = await fetchData(query, {
     input: {
-      filter: {
-        achievementContentIds: ['hasBadgeQualification'],
-      },
+      achievementContentIds: ['hasBadgeQualification'],
     },
   })
 
   const qualifiedTechZeroCompaniesResult = await fetchData(query, {
     input: {
-      filter: {
-        achievementContentIds: ['hasFulfilledTechZeroPledge'],
-      },
+      achievementContentIds: ['hasFulfilledTechZeroPledge'],
     },
   })
 
   const allCompanies = qualifiedLFCACompaniesResult.qualifiedCompanies
     .concat(qualifiedTechZeroCompaniesResult.qualifiedCompanies)
-    .sort((a, b) =>
-      new Intl.Collator('de').compare(a.company.name, b.company.name)
-    )
+    .sort((a, b) => new Intl.Collator('de').compare(a.name, b.name))
 
   return {
     props: {

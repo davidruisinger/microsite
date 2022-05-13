@@ -25,8 +25,9 @@ const getImageName = (image) => {
 
 const IMAGE_URL = 'Backgrounds/linkedin-wtca_xh4dra.jpg'
 
-const CompanyPage = ({ actionsContent, company: qualifiedCompany }) => {
-  const { company, completedCompanyActions } = qualifiedCompany
+const CompanyPage = ({ actionsContent, company }) => {
+  const { completedCompanyActions } = company
+
   const { aboutSections, logoUrl: logo, name, websiteUrl: website } = company
 
   const slug = company.micrositeSlug
@@ -210,18 +211,16 @@ export async function getStaticProps({ params }) {
   `
 
   const dataQuery = gql`
-    query qualifiedCompanies($input: QualifiedCompaniesInput) {
+    query qualifiedCompanies($input: QualifiedCompaniesInput!) {
       qualifiedCompanies(input: $input) {
-        company {
-          id
-          micrositeSlug
-          name
-          logoUrl
-          aboutSections {
-            heading
-            text
-            imageUrl
-          }
+        id
+        micrositeSlug
+        name
+        logoUrl
+        aboutSections {
+          heading
+          text
+          imageUrl
         }
         completedCompanyActions {
           contentId
@@ -235,8 +234,6 @@ export async function getStaticProps({ params }) {
           }
           title
         }
-        programId
-        programName
       }
     }
   `
@@ -251,8 +248,8 @@ export async function getStaticProps({ params }) {
 
     const filteredQualifiedCompaniesResultLFCA = await fetchData(dataQuery, {
       input: {
+        achievementContentIds: ['hasBadgeQualification'],
         filter: {
-          achievementContentIds: ['hasBadgeQualification'],
           companyMicrositeSlugs: [params.slug],
         },
       },
@@ -266,8 +263,8 @@ export async function getStaticProps({ params }) {
         dataQuery,
         {
           input: {
+            achievementContentIds: ['hasFulfilledTechZeroPledge'],
             filter: {
-              achievementContentIds: ['hasFulfilledTechZeroPledge'],
               companyMicrositeSlugs: [params.slug],
             },
           },
