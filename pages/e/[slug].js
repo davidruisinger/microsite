@@ -255,6 +255,7 @@ export async function getStaticProps({ params }) {
     }
 
     if (!company) {
+      console.error('No company found')
       return {
         notFound: true,
         revalidate: 300, // 5min
@@ -272,6 +273,7 @@ export async function getStaticProps({ params }) {
       revalidate: 86400, // 24h
     }
   } catch (e) {
+    console.error(e)
     return {
       notFound: true,
       revalidate: 300, // 5min
