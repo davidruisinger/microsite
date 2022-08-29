@@ -13,7 +13,7 @@ import Layout from '../../components/Layout/Layout'
 import PersonalAction from '../../components/PersonalAction'
 import SEO from '../../components/SEO'
 import { useTranslation } from '../../hooks/useTranslation'
-import { fetchContent } from '../../services/contentfulApp'
+import { fetchAllActions } from '../../services/contentful'
 import { fetchData } from '../../services/lfcaBackend'
 import { replaceVars } from '../../utils'
 import config from '../../utils/siteConfig'
@@ -192,24 +192,6 @@ const CompanyPage = ({ actionsContent, company }) => {
 }
 
 export async function getStaticProps({ params }) {
-  const contentQuery = gql`
-    query {
-      actionCollection {
-        items {
-          actionId
-          title
-          icon {
-            url
-          }
-          about
-          explanation {
-            json
-          }
-        }
-      }
-    }
-  `
-
   const dataQuery = gql`
     query qualifiedCompanies($input: QualifiedCompaniesInput!) {
       qualifiedCompanies(input: $input) {
@@ -239,8 +221,7 @@ export async function getStaticProps({ params }) {
   `
 
   try {
-    const { actionCollection } = await fetchContent(contentQuery)
-    const items = actionCollection?.items
+    const items = await fetchAllActions()
     const asObject = items.reduce((acc, item) => {
       acc[item.actionId] = item
       return acc
