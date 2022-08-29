@@ -283,14 +283,8 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   return {
-    fallback: false,
-    paths: [
-      {
-        params: {
-          slug: 'aenu',
-        },
-      },
-    ],
+    fallback: 'blocking',
+    paths: [],
   }
 }
 
