@@ -81,7 +81,7 @@ const CardsCarousel = (props) => {
         variableWidth={true}
       >
         {props.actionsContent &&
-          props.actionsContent.list.map((action, i) => {
+          props.actionsContent.items.map((action, i) => {
             return (
               <a key={`slider-${i}`}>
                 <SliderCard

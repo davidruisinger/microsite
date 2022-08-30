@@ -265,8 +265,7 @@ export async function getStaticProps({ params }) {
     return {
       props: {
         actionsContent: {
-          list: items,
-          object: asObject,
+          items,
         },
         company,
       },
