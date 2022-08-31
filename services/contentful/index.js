@@ -1,1 +1,6 @@
 export * from './fetch-all-actions'
+export * from './fetch-all-blocks'
+export * from './fetch-all-meta'
+export * from './fetch-all-navigations'
+export * from './fetch-page-local'
+export * from './fetch-page-local-slugs'

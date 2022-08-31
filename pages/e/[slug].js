@@ -13,7 +13,12 @@ import Layout from '../../components/Layout/Layout'
 import PersonalAction from '../../components/PersonalAction'
 import SEO from '../../components/SEO'
 import { useTranslation } from '../../hooks/useTranslation'
-import { fetchAllActions } from '../../services/contentful'
+import {
+  fetchAllActions,
+  fetchAllBlocks,
+  fetchAllMeta,
+  fetchAllNavigations,
+} from '../../services/contentful'
 import { fetchData } from '../../services/lfcaBackend'
 import { replaceVars } from '../../utils'
 import config from '../../utils/siteConfig'
@@ -25,7 +30,7 @@ const getImageName = (image) => {
 
 const IMAGE_URL = 'Backgrounds/linkedin-wtca_xh4dra.jpg'
 
-const CompanyPage = ({ actionsContent, company }) => {
+const CompanyPage = ({ actions, company }) => {
   const { completedCompanyActions } = company
 
   const { aboutSections, logoUrl: logo, name, websiteUrl: website } = company
@@ -170,7 +175,7 @@ const CompanyPage = ({ actionsContent, company }) => {
       </Element>
 
       <div className="container">
-        <CardsCarousel actionsContent={actionsContent} />
+        <CardsCarousel actions={actions} />
       </div>
 
       <Element className="container-fluid color-primary-light" name="personal">
@@ -191,7 +196,7 @@ const CompanyPage = ({ actionsContent, company }) => {
   )
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ locale, params }) {
   const dataQuery = gql`
     query qualifiedCompanies($input: QualifiedCompaniesInput!) {
       qualifiedCompanies(input: $input) {
@@ -221,11 +226,10 @@ export async function getStaticProps({ params }) {
   `
 
   try {
-    const items = await fetchAllActions()
-    const asObject = items.reduce((acc, item) => {
-      acc[item.actionId] = item
-      return acc
-    }, {})
+    const actions = await fetchAllActions()
+    const blocks = await fetchAllBlocks(locale)
+    const meta = await fetchAllMeta(locale)
+    const navigations = await fetchAllNavigations(locale)
 
     const filteredQualifiedCompaniesResultLFCA = await fetchData(dataQuery, {
       input: {
@@ -264,10 +268,11 @@ export async function getStaticProps({ params }) {
 
     return {
       props: {
-        actionsContent: {
-          items,
-        },
+        actions,
+        blocks,
         company,
+        meta,
+        navigations,
       },
       revalidate: 86400, // 24h
     }

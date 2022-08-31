@@ -8,6 +8,11 @@ import { PageTitle } from '../components/Elements'
 import CustomLink from '../components/Elements/CustomLink'
 import Layout from '../components/Layout/Layout'
 import SEO from '../components/SEO'
+import {
+  fetchAllBlocks,
+  fetchAllMeta,
+  fetchAllNavigations,
+} from '../services/contentful'
 import { fetchData } from '../services/lfcaBackend'
 import config from '../utils/siteConfig'
 
@@ -72,7 +77,11 @@ const Homepage = ({ allCompanies, slug }) => {
   )
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
+  const blocks = await fetchAllBlocks(locale)
+  const meta = await fetchAllMeta(locale)
+  const navigations = await fetchAllNavigations(locale)
+
   const query = gql`
     query qualifiedCompanies($input: QualifiedCompaniesInput!) {
       qualifiedCompanies(input: $input) {
@@ -103,6 +112,9 @@ export async function getStaticProps() {
   return {
     props: {
       allCompanies,
+      blocks,
+      meta,
+      navigations,
     },
     revalidate: 604800, // 7d
   }

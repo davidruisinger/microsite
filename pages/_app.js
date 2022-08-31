@@ -10,7 +10,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <CookiesProvider>
       <IsMobileProvider>
-        <TranslationProvider>
+        <TranslationProvider
+          blocks={pageProps.blocks}
+          meta={pageProps.meta}
+          navigations={pageProps.navigations}
+        >
           <Component {...pageProps} />
         </TranslationProvider>
       </IsMobileProvider>

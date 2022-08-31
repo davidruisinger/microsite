@@ -80,8 +80,8 @@ const CardsCarousel = (props) => {
         swipeToSlide={true}
         variableWidth={true}
       >
-        {props.actionsContent &&
-          props.actionsContent.items.map((action, i) => {
+        {props.actions &&
+          props.actions.map((action, i) => {
             return (
               <a key={`slider-${i}`}>
                 <SliderCard

@@ -81,10 +81,10 @@ const RightMenu = ({ activeCompany, activePath, items }) => {
 
 const PageHeader = ({ activeCompany }) => {
   const { mainMenu } = useNavs()
-  const menuItems = mainMenu?.elementsCollection?.items || []
+
+  const menuItems = mainMenu?.elements || []
 
   const [open, setOpen] = useState(false)
-  const [openCompanies, setOpenCompanies] = useState(false)
   const isMobile = useIsMobile()
   const hamburgerClass = `hamburger hamburger--spin ${open && 'is-active'}`
 
@@ -96,27 +96,31 @@ const PageHeader = ({ activeCompany }) => {
           <div className="menu-con">
             <LeftMenu />
 
-            <button
-              className={hamburgerClass}
-              onClick={() => setOpen(true)}
-              type="button"
-            >
-              <span className="hamburger-box">
-                <span className="hamburger-inner" />
-              </span>
-            </button>
-            <RightMenu activeCompany={activeCompany} items={menuItems} />
-            <Drawer
-              className="nav-drawer"
-              closable={false}
-              onClose={() => setOpen(false)}
-              placement="left"
-              visible={open}
-              width={isMobile ? '280px' : '400px'}
-            >
-              <h2>Navigation</h2>
-              <RightMenu activeCompany={activeCompany} items={menuItems} />
-            </Drawer>
+            {activeCompany ? (
+              <>
+                <button
+                  className={hamburgerClass}
+                  onClick={() => setOpen(true)}
+                  type="button"
+                >
+                  <span className="hamburger-box">
+                    <span className="hamburger-inner" />
+                  </span>
+                </button>
+                <RightMenu activeCompany={activeCompany} items={menuItems} />
+                <Drawer
+                  className="nav-drawer"
+                  closable={false}
+                  onClose={() => setOpen(false)}
+                  placement="left"
+                  visible={open}
+                  width={isMobile ? '280px' : '400px'}
+                >
+                  <h2>Navigation</h2>
+                  <RightMenu activeCompany={activeCompany} items={menuItems} />
+                </Drawer>
+              </>
+            ) : null}
           </div>
         </nav>
       </div>

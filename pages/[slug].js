@@ -1,16 +1,21 @@
-import { gql } from 'graphql-request'
 import Head from 'next/head'
 import React from 'react'
 
 import { PageTitle } from '../components/Elements'
 import Layout from '../components/Layout/Layout'
 import PageBody from '../components/Layout/PageBody'
-import { fetchContent } from '../services/contentfulBadge'
+import {
+  fetchAllBlocks,
+  fetchAllMeta,
+  fetchAllNavigations,
+  fetchPageLocal,
+  fetchPageLocalSlugs,
+} from '../services/contentful'
 import config from '../utils/siteConfig'
 
 // Simple pages like Impressum etc.
 const Page = ({ pageData }) => {
-  const { bodyRichText, slug, title } = pageData
+  const { bodyRichText, title } = pageData
 
   return (
     <Layout>
@@ -27,30 +32,15 @@ const Page = ({ pageData }) => {
   )
 }
 
-export async function getStaticProps({ params }) {
-  const query = gql`
-    query getCollection($slug: String!) {
-      pageLocalCollection(where: { slug: $slug }) {
-        items {
-          slug
-          title
-          bodyRichText {
-            json
-          }
-          metaDescription
-        }
-      }
-    }
-  `
+export async function getStaticProps({ locale, params }) {
+  const blocks = await fetchAllBlocks(locale)
+  const meta = await fetchAllMeta(locale)
+  const navigations = await fetchAllNavigations(locale)
 
   try {
-    const { pageLocalCollection } = await fetchContent(query, {
-      slug: params.slug,
-    })
+    const pageData = await fetchPageLocal(params.slug)
 
-    const item = pageLocalCollection?.items[0] || null
-
-    if (!item) {
+    if (!pageData) {
       return {
         notFound: true,
         revalidate: 86400, // 24h
@@ -59,11 +49,15 @@ export async function getStaticProps({ params }) {
 
     return {
       props: {
-        pageData: item,
+        blocks,
+        meta,
+        navigations,
+        pageData,
       },
       revalidate: 86400, // 24h
     }
   } catch (e) {
+    console.error(e)
     return {
       notFound: true,
       revalidate: 86400, // 24h
@@ -71,20 +65,10 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export async function getStaticPaths() {
-  const query = gql`
-    query {
-      pageLocalCollection {
-        items {
-          slug
-        }
-      }
-    }
-  `
+export async function getStaticPaths({ locales }) {
+  const pageSlugs = await fetchPageLocalSlugs()
 
-  const { pageLocalCollection } = await fetchContent(query)
-  const paths = pageLocalCollection.items.reduce((allPaths, item) => {
-    const locales = ['en', 'de', 'tr']
+  const paths = pageSlugs.reduce((allPaths, item) => {
     const pagePaths = locales.map((locale) => ({
       locale,
       params: { slug: item.slug },

@@ -8,7 +8,7 @@ const PageBody = (props) => {
     <div
       className="page-body"
       dangerouslySetInnerHTML={{
-        __html: documentToHtmlString(props.body.json),
+        __html: documentToHtmlString(props.body),
       }}
     />
   )

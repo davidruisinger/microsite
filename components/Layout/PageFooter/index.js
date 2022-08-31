@@ -15,7 +15,7 @@ const { SubMenu } = Menu
 const Footer = () => {
   const { active: activeLanguage, languages } = useAvailableLanguages()
   const { footer } = useNavs()
-  const subMenus = footer?.elementsCollection?.items
+  const subMenus = footer?.elements
   const router = useRouter()
   const activeIcon = activeLanguage?.icon?.url
   const { isClient, key } = useIsClient()
@@ -38,7 +38,7 @@ const Footer = () => {
               <Col className="footer-col" key={`footer-${i}`} md={6} xs={24}>
                 <h5>{item.title}</h5>
                 <ul>
-                  {item.elementsCollection?.items.map((element, j) => {
+                  {item.elements?.map((element, j) => {
                     return (
                       <li key={`link-${i}-${j}`}>
                         <CustomLink slug={element.slug} url={element.url}>
