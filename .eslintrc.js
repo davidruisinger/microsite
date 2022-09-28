@@ -1,24 +1,17 @@
 module.exports = {
-  extends: [
-    'plugin:prettier/recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:@next/next/recommended',
-  ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2021,
-    sourceType: 'module',
-  },
-  plugins: [
-    'react',
-    'react-hooks',
-    'simple-import-sort',
-    'sort-destructure-keys',
-  ],
+  extends: ['plugin:@typescript-eslint/recommended', 'next', 'prettier'],
+  plugins: ['simple-import-sort', 'sort-destructure-keys'],
   rules: {
+    '@typescript-eslint/ban-ts-ignore': 'off',
+    // See: https://github.com/import-js/eslint-plugin-import/issues/653#issuecomment-840228881
+    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/no-use-before-define': [
+      'error',
+      {
+        functions: false,
+        typedefs: false,
+      },
+    ],
     'no-console': [
       'error',
       {
@@ -46,10 +39,5 @@ module.exports = {
       },
     ],
     'sort-vars': 'error',
-  },
-  settings: {
-    react: {
-      version: 'detect',
-    },
   },
 }

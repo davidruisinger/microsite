@@ -1,0 +1,44 @@
+.actions-list {
+  border-radius: 0;
+  background-color: transparent;
+  max-width: calc(@container-width / 2);
+  .scroll-content-padding-horizontal();
+  padding-top: 10px;
+
+  [class~='ant-collapse-item'] {
+    margin: 10px 0;
+    background: @main-color-dark;
+    border-radius: @border-radius-base;
+    border: 1px solid @border-color-default-darkmode;
+
+    &:last-child {
+      border-radius: @border-radius-base;
+      border-bottom: 1px solid @border-color-default-darkmode;
+    }
+
+    &:hover {
+      background: lighten(@main-color-dark, 2%);
+    }
+
+    [class~='requirements-title'] {
+      color: @white;
+      .font-semi();
+      margin: 0 0 10px;
+    }
+
+    ul {
+      padding-inline-start: 20px;
+    }
+
+    [class~='ant-collapse-content-box'],
+    [class~='ant-collapse-header'] {
+      color: @text-color-darkmode;
+    }
+
+    [class~='ant-collapse-header'] {
+      [class~='ant-collapse-expand-icon'] {
+        color: @text-color-darkmode;
+      }
+    }
+  }
+}

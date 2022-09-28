@@ -1,0 +1,99 @@
+@import './variables.less';
+@import './mixins.less';
+
+// PlusJakartaSans Font
+@font-face {
+  font-family: 'PlusJakartaSans';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''), url('/fonts/PlusJakartaSans-Regular.woff2') format('woff2'),
+    url('/fonts/PlusJakartaSans-Regular.woff2') format('woff');
+}
+@font-face {
+  font-family: 'PlusJakartaSans';
+  font-style: normal;
+  font-weight: 500;
+  src: local(''), url('/fonts/PlusJakartaSans-Medium.woff2') format('woff2'),
+    url('/fonts/PlusJakartaSans-Medium.woff2') format('woff');
+}
+@font-face {
+  font-family: 'PlusJakartaSans';
+  font-style: normal;
+  font-weight: 600;
+  src: local(''), url('/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2'),
+    url('/fonts/PlusJakartaSans-SemiBold.woff2') format('woff');
+}
+@font-face {
+  font-family: 'PlusJakartaSans';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''), url('/fonts/PlusJakartaSans-Bold.woff2') format('woff2'),
+    url('/fonts/PlusJakartaSans-Bold.woff2') format('woff');
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+ * Containers
+ */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+div#__next {
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: @container-width;
+  margin: 0 auto;
+  padding: 0 @default-padding;
+}
+
+/*
+ * Typography
+ */
+h1 {
+  .h1();
+}
+h2 {
+  .h2();
+}
+h3 {
+  .h3();
+}
+h4 {
+  .h4();
+}
+h5 {
+  .h5();
+}
+
+/*
+ * Drawer
+ */
+
+.ant-drawer.drawer-md {
+  .ant-drawer-content-wrapper {
+    width: 100% !important;
+    @media (min-width: @screen-md) {
+      width: 620px !important;
+    }
+  }
+
+  .ant-drawer-content {
+    .ant-drawer-body {
+      padding: 30px;
+      @media (min-width: @screen-md) {
+        padding: 60px 80px;
+      }
+    }
+  }
+}

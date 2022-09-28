@@ -1,0 +1,58 @@
+.framework-elements {
+  max-width: @container-mini-width;
+
+  h2 {
+    .h1();
+  }
+
+  [class~='super-text'] {
+    .font-semi();
+    color: @wine;
+    margin: 0 0 10px;
+  }
+
+  [class~='description'] {
+    font-size: @font-size-xl;
+    margin: 0 0 40px;
+  }
+}
+
+.framework-element {
+  background: fade(@black, 10%);
+  padding: 50px;
+  margin: 0 0 20px;
+  border-radius: @border-radius-lg;
+
+  &[class~='wine'] {
+    background: fade(@wine, 10%);
+  }
+  &[class~='blue'] {
+    background: fade(@blue, 10%);
+  }
+  &[class~='green'] {
+    background: fade(@green, 10%);
+  }
+  &[class~='yellow'] {
+    background: fade(@yellow, 10%);
+  }
+
+  [class~='title'] {
+    .h3();
+  }
+
+  [class~='description'] {
+    font-size: @font-size-xl;
+    margin: 20px 0 0;
+  }
+
+  [class~='icon-wrapper'] {
+    padding: 10px 0 50px;
+    [class~='icon'] {
+      width: 80px;
+      height: 80px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+}

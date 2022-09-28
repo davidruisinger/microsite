@@ -1,21 +1,29 @@
-const withPlugins = require('next-compose-plugins')
-const withAntdLess = require('next-plugin-antd-less')
+const withLess = require('next-with-less')
+const path = require('path')
 
+const lessVariablesFile = path.resolve(__dirname, './styles/variables.less')
+const lessMixinsFile = path.resolve(__dirname, './styles/mixins.less')
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   i18n: {
     defaultLocale: 'en',
     localeDetection: false,
-    locales: ['en', 'de', 'tr'],
+    locales: ['de', 'en', 'tr'],
   },
-}
-
-const pluginAntdLess = withAntdLess({
-  lessVarsFilePath: './assets/less/ant-default-vars.less',
-  lessVarsFilePathAppendToEndOfContent: false,
-  nextjs: {
-    localIdentNameFollowDev: true, // default false, for easy to debug on PROD mode
+  images: {
+    domains: ['images.ctfassets.net', 'res.cloudinary.com'],
   },
-  webpack: (config) => {
+  lessLoaderOptions: {
+    additionalData: (content) =>
+      `${content}\n\n@import '${lessVariablesFile}';\n\n@import '${lessMixinsFile}';`,
+    lessOptions: {
+      javascriptEnabled: true,
+    },
+  },
+  reactStrictMode: true,
+  // swcMinify: true,
+  webpack(config) {
     config.module.rules.push({
       issuer: /\.[jt]sx?$/,
       test: /\.svg$/i,
@@ -24,6 +32,6 @@ const pluginAntdLess = withAntdLess({
 
     return config
   },
-})
+}
 
-module.exports = withPlugins([[pluginAntdLess]], nextConfig)
+module.exports = withLess(nextConfig)

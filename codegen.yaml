@@ -1,0 +1,10 @@
+schema: http://localhost:4001/graphql
+documents: './services/lfca-backend/**/*.graphql'
+generates:
+  ./services/lfca-backend/api/generated.ts:
+    plugins:
+      - add:
+          content: '/* eslint-disable */'
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request

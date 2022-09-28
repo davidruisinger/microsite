@@ -1,0 +1,5 @@
+query counterStats {
+  counterStats {
+    ...CounterStatsResult
+  }
+}

@@ -1,0 +1,28 @@
+.animated-loader {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: @chalk;
+
+  [class~='wrapper'] {
+    max-width: 480px;
+    padding: @default-padding;
+
+    [class~='title'] {
+      color: @black;
+      font-size: 21px;
+      margin: 0 0 10px;
+      .font-semi();
+
+      @media (min-width: @screen-md) {
+        margin: 20px 0 10px;
+      }
+    }
+
+    [class~='label'] {
+      color: @text-color;
+    }
+  }
+}

@@ -1,0 +1,69 @@
+.page-hero {
+  // half page layout
+  .two-col-max-width-left();
+
+  @media (min-width: @screen-md) {
+    padding-right: 90px;
+  }
+
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+  [class~='content'] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 40px 0 40px;
+
+    @media (min-width: @screen-md) {
+      margin: 0 0 10px;
+    }
+
+    h2 {
+      .font-regular();
+      font-size: 22px;
+      color: @text-color;
+      line-height: 1.5;
+
+      @media (min-width: @screen-md) {
+        font-size: 22px;
+      }
+      @media (min-width: @screen-lg) {
+        font-size: 23px;
+      }
+      @media (min-width: @screen-xl) {
+        font-size: 24px;
+      }
+      @media (min-width: @screen-xxl) {
+        font-size: 26px;
+      }
+    }
+
+    [class~='ant-badge-count'] {
+      top: 50%;
+      right: -20px;
+      background: darken(@chalk, 10%);
+      color: @black;
+      font-size: 14px;
+    }
+
+    [class~='ant-space'] {
+      margin: 30px 0 30px;
+      flex-direction: column;
+      align-items: flex-start;
+
+      [class~='ant-space-item'],
+      [class~='ant-space-item'] a {
+        display: flex;
+        align-items: center;
+      }
+
+      @media (min-width: @screen-md) {
+        margin: 30px 0 0;
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+  }
+}

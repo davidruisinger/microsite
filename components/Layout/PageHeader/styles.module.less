@@ -1,0 +1,144 @@
+.page-header {
+  display: flex;
+  width: 100%;
+}
+
+// align hamburger to right
+.hamburger {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url('/img/logo_mobile.svg');
+
+  // change logo on mobile
+  @media (min-width: @screen-md) {
+    width: 177px;
+    height: 90px;
+    background-image: url('/img/logo.svg');
+  }
+}
+
+// styles for hamburger animation
+.hamburger {
+  align-self: flex-start;
+  cursor: pointer;
+  text-transform: none;
+  background-color: transparent;
+  border: 1px solid @border-color-default;
+  border-radius: 8px;
+  padding: 4px 10px;
+  background: @chalk;
+  overflow: visible;
+  display: inline-block;
+  line-height: 48px;
+  height: 58px;
+  width: 58px;
+
+  &:hover {
+    background: lighten(@chalk, 5%);
+  }
+
+  @media (min-width: @screen-md) {
+    background: @main-color;
+    border: 1px solid @border-color-default-darkmode;
+    &:hover {
+      background: lighten(@black, 5%);
+    }
+  }
+
+  [class~='hamburger-box'] {
+    width: 32px;
+    height: 26px;
+    display: inline-block;
+    position: relative;
+
+    [class~='hamburger-inner'],
+    [class~='hamburger-inner']::after {
+      width: 32px;
+      height: 3px;
+      border-radius: 0;
+      position: absolute;
+      background-color: @black;
+
+      @media (min-width: @screen-md) {
+        background-color: @white;
+      }
+    }
+
+    [class~='hamburger-inner'] {
+      display: block;
+      top: 50%;
+      margin-top: 0;
+
+      &::after {
+        content: '';
+        display: block;
+        bottom: -12px;
+      }
+    }
+  }
+}
+
+/*
+ * Spin
+ */
+.hamburger--spin {
+  [class~='hamburger-inner'],
+  [class~='hamburger-inner']::after {
+    transition-property: all;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+  }
+
+  [class~='hamburger-inner'] {
+    transition-duration: 0.22s;
+    transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+    &::after {
+      transition: bottom 0.1s 0.25s ease-in,
+        transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+  }
+  &[class~='is-active'] {
+    [class~='hamburger-inner'] {
+      transform: rotate(225deg);
+      transition-delay: 0.12s;
+      transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      top: 18px;
+
+      &::after {
+        bottom: 0;
+        transform: rotate(-90deg);
+        transition: bottom 0.1s ease-out,
+          transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+    }
+  }
+}
+
+/*
+ * Drawer
+ */
+.nav-drawer {
+  [class~='title'] {
+    .h2();
+    margin: 0 0 30px;
+  }
+  [class~='ant-menu'] {
+    background: transparent;
+    border-right: none;
+
+    [class~='ant-menu-item'] {
+      padding-left: 0;
+      height: auto;
+      .h3();
+    }
+  }
+}

@@ -1,0 +1,131 @@
+.category-filter {
+  [class~='ant-select-selector'] {
+    padding: 4px;
+  }
+  [class~='ant-form-item'] {
+    margin-bottom: 0;
+  }
+  [class~='ant-select-selection-item'] {
+    background: @yellow;
+    color: @black;
+    border-color: @yellow;
+    font-size: 13px;
+    margin: 4px;
+  }
+}
+
+.company-profile {
+  padding-top: 60px;
+
+  @media (min-width: @screen-md) {
+    padding-top: 140px;
+  }
+
+  [class~='disclaimer'] {
+    .scroll-content-padding-horizontal();
+    margin: 30px 0 40px;
+    font-size: @font-size-xs;
+    color: @text-color-darkmode;
+    a {
+      color: @white;
+    }
+  }
+
+  [class~='meta-title'] {
+    font-size: @font-size-lg;
+    color: @white;
+    margin: 50px 0 0;
+    .scroll-content-padding-horizontal();
+    .font-semi();
+  }
+
+  [class~='about-section'] {
+    margin: 30px 0;
+    color: @white;
+    .two-col-max-width-right();
+    .scroll-content-padding-horizontal();
+
+    [class~='about-section-title'] {
+      .font-semi();
+      margin: 20px 0 10px;
+    }
+
+    [class~='about-section-text'] {
+      color: @text-color-darkmode;
+    }
+  }
+
+  [class~='navigation'] {
+    position: sticky;
+    top: 0;
+    color: @white;
+    background: @main-color;
+    z-index: @profile-sticky-navigation-z-index;
+
+    [class~='ant-btn'] {
+      background: transparent;
+      border-radius: 6px;
+      color: @white;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    [class~='ant-tabs'] {
+      .two-col-max-width-right();
+      .scroll-content-padding-horizontal();
+      color: @white;
+
+      [class~='ant-tabs-tab-btn'] {
+        color: @white;
+      }
+
+      [class~='ant-tabs-ink-bar'] {
+        background: @white;
+      }
+
+      [class~='ant-tabs-nav'] {
+        margin-bottom: 0;
+        &::before {
+          border-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+
+      [class~='ant-tabs-tab'] {
+        padding: 22px 0 16px;
+      }
+    }
+  }
+
+  [class~='header'] {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 30px;
+    .two-col-max-width-right();
+    .scroll-content-padding-horizontal();
+
+    [class~='company-logo'] {
+      background: @white;
+      padding: 10px;
+      img {
+        object-fit: contain;
+      }
+    }
+
+    [class~='header-meta'] {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      color: @white;
+
+      [class~='super-title'] {
+        margin-bottom: 10px;
+      }
+
+      [class~='name'] {
+        .h2(@white);
+      }
+    }
+  }
+}

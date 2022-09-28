@@ -1,0 +1,26 @@
+.company-item {
+  display: flex;
+  width: 100%;
+  text-align: left;
+
+  [class~='ant-card-body'] {
+    display: flex;
+
+    [class~='title'] {
+      .font-semi();
+      color: @black;
+      font-size: @font-size-lg;
+      margin: 0 0 10px;
+    }
+
+    [class~='content'] {
+      padding-left: 20px;
+    }
+  }
+
+  [class~='ant-avatar'] {
+    img {
+      object-fit: contain;
+    }
+  }
+}

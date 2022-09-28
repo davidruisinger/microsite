@@ -1,0 +1,19 @@
+.cookies-selector {
+  border-left: 3px solid #ddd;
+  font-size: 14px;
+  padding: 4px 0;
+
+  &[class~='active'] {
+    border-left: 3px solid @blue;
+
+    [class~='anticon'] {
+      color: @blue;
+    }
+  }
+
+  [class~='anticon'] {
+    color: #ddd;
+    font-size: 16px;
+    margin: 0 8px;
+  }
+}

@@ -1,0 +1,25 @@
+fragment CompanyDetails on Company {
+  aboutSections {
+    heading
+    text
+    imageUrl
+  }
+  completedCompanyActions {
+    ...CompanyAction
+  }
+  plannedCompanyActions {
+    ...CompanyAction
+  }
+  id
+  logoUrl
+  micrositeSlug
+  name
+  achievementContendIdsReachedOnce
+  program {
+    contentId
+    achievements {
+      ...CompanyAchievement
+    }
+  }
+  subscriptionType
+}

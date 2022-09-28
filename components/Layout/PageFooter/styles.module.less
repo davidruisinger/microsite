@@ -1,0 +1,25 @@
+.footer {
+  padding: 60px 0;
+  text-align: center;
+
+  [class~='ant-menu'] {
+    justify-content: center;
+    border-right: none;
+
+    [class~='ant-menu-submenu'] {
+      border-bottom: 1px solid @border-color-default;
+    }
+
+    [class~='ant-menu-submenu-arrow'],
+    [class~='ant-menu-submenu-title'] {
+      color: @black;
+    }
+    [class~='ant-menu-submenu-title'] {
+      padding-left: 0 !important;
+    }
+  }
+
+  [class~='container'] {
+    max-width: @container-mini-width;
+  }
+}

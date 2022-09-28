@@ -1,0 +1,5 @@
+query companyDetails($input: CompanyInput!) {
+  company(input: $input) {
+    ...CompanyDetails
+  }
+}

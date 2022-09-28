@@ -1,0 +1,223 @@
+@import '~antd/lib/style/themes/default.less';
+
+// -------- Colors -----------
+// Palette
+@blue: #042b4f;
+@green: #06503d;
+@orange: #ff832c;
+@wine: #6a1246;
+@yellow: #ffc839;
+@chalk: #fbf7f0;
+
+// White and black
+@white: #fff;
+@white-grey: #f9f9f9;
+@black: #131212;
+@black-dark: darken(@black, 3%);
+@grey-light: #e4e4e4;
+@grey-white: #f1f1f1;
+@grey: #ddd;
+@grey-medium: rgb(173, 173, 173);
+@bg-accent: #f0f0f0;
+@bg-accent-darkmode: #252528;
+@bg-accent-strong: @grey-light;
+@bg-accent-strong-darkmode: #48484e;
+@border-color-default-darkmode: rgba(255, 255, 255, 0.2);
+@border-color-default: rgba(0, 0, 0, 0.05);
+
+// Ant design colors
+@primary-color: @yellow;
+@main-color: darken(@blue, 4%);
+@main-color-dark: darken(@main-color, 4%);
+
+// Layout
+@layout-highlight: @black;
+@layout-header-background: @white;
+@layout-body-background: @white;
+@layout-footer-background: @white;
+@layout-sider-background-light: @chalk;
+@layout-trigger-background: fade(@black, 10%);
+@layout-header-height: 95px;
+@layout-trigger-background-light: fade(@black, 5%);
+@sider-section-width: 270px;
+@steps-sider-section-width: 320px;
+
+// Menu
+@menu-item-active-bg: fade(@black, 5%);
+@menu-bg: @chalk;
+@menu-highlight-color: @black;
+@menu-inline-submenu-bg: fade(@black, 3%);
+
+// Fonts
+@font-family: 'Plus Jakarta Sans', -apple-system, Helvetica, Arial, sans-serif;
+@font-size-base: 17px;
+@font-size-lg: 18px;
+@font-size-sm: 16px;
+@font-size-xs: 15px;
+@font-size-xl: 19px;
+@line-height-base: 1.5;
+@text-color: fade(@black, 65%);
+@text-color-darkmode: fade(@white, 65%);
+@text-color-strong: fade(@black, 95%);
+@text-color-strong-darkmode: fade(@white, 95%);
+@text-color-light: fade(@black, 55%);
+@text-color-light-darkmode: fade(@white, 55%);
+@heading-color: @black;
+@typography-title-font-weight: 800;
+@link-decoration: underline;
+@link-color: @black;
+
+// Border radius
+@border-radius-base: 10px;
+@border-radius-sm: 8px;
+@border-radius-lg: 12px;
+
+// height rules
+@height-base: 48px;
+@height-lg: 56px;
+@height-sm: 40px;
+
+@select-multiple-item-height-lg: @height-lg;
+@select-dropdown-height-lg: @height-lg;
+@select-single-item-height-lg: @height-lg;
+
+@dropdown-line-height: 28px;
+@dropdown-vertical-padding: 7px;
+
+// Buttons
+@btn-font-weight: 500;
+@btn-border-radius-base: @border-radius-base;
+@btn-border-radius-sm: @border-radius-base;
+@btn-border-radius-lg: @border-radius-base;
+@btn-shadow: none;
+@btn-primary-shadow: none;
+@btn-text-shadow: none;
+@btn-primary-color: @black;
+@btn-primary-bg: @primary-color;
+@btn-default-color: @black;
+@btn-default-bg: @white;
+
+@btn-default-ghost-color: @black;
+@btn-default-ghost-bg: transparent;
+@btn-default-ghost-border: @black;
+
+@btn-font-size-lg: @font-size-xl;
+@btn-font-size-sm: 16px;
+@btn-padding-horizontal-base: 25px;
+@btn-padding-horizontal-lg: 30px;
+@btn-padding-horizontal-sm: 20px;
+
+@btn-height-base: @height-base;
+@btn-height-lg: @height-lg;
+@btn-height-sm: @height-sm;
+@btn-line-height: @line-height-base;
+
+// Checkbox
+@checkbox-size: 20px;
+@checkbox-border-radius: 4px;
+
+// Card
+@card-shadow: 0 2px 2px 2px rgb(0 0 0 / 10%);
+
+// Background
+@body-background: @chalk;
+@card-background: @white;
+
+// Avatar
+@avatar-size-base: 32px;
+@avatar-size-lg: 40px;
+@avatar-size-sm: 24px;
+@avatar-font-size-base: 18px;
+@avatar-font-size-lg: 24px;
+@avatar-font-size-sm: 14px;
+@avatar-group-overlapping: -8px;
+
+// Star
+@rate-star-size: 17px;
+@rate-star-color: @yellow;
+
+// Tags
+// @tag-font-size: 13px;
+// @tag-line-height: 20px;
+
+// Tabs
+@tabs-card-active-color: @black;
+@tabs-active-color: @black;
+@tabs-highlight-color: @black;
+@tabs-ink-bar-color: @black;
+
+// Steps
+@steps-vertical-tail-width: 16px;
+@steps-icon-margin: 0 8px 0 0;
+@steps-icon-size: 28px;
+@steps-icon-font-size: @font-size-base;
+@steps-vertical-tail-width: 14px;
+
+// Media queries breakpoints
+// Extra small screen / phone
+@screen-xs: 480px;
+@screen-xs-min: @screen-xs;
+
+// Small screen / tablet
+@screen-sm: 576px;
+@screen-sm-min: @screen-sm;
+
+// Medium screen / desktop
+@screen-md: 768px;
+@screen-md-min: @screen-md;
+
+// Large screen / wide desktop
+@screen-lg: 992px;
+@screen-lg-min: @screen-lg;
+
+// Extra large screen / full hd
+@screen-xl: 1200px;
+@screen-xl-min: @screen-xl;
+
+// Extra extra large screen / large descktop
+@screen-xxl: 1440px;
+@screen-xxl-min: @screen-xxl;
+
+// provide a maximum
+@screen-xs-max: (@screen-sm-min - 1px);
+@screen-sm-max: (@screen-md-min - 1px);
+@screen-md-max: (@screen-lg-min - 1px);
+@screen-lg-max: (@screen-xl-min - 1px);
+@screen-xl-max: (@screen-xxl-min - 1px);
+
+@mobile: ~'only screen and (max-width: @{screen-sm-max})';
+@desktop: ~'only screen and (min-width: @{screen-lg})';
+@desktop-xl: ~'only screen and (min-width: @{screen-xl})';
+@desktop-xxl: ~'only screen and (min-width: @{screen-xxl})';
+
+// Defaults
+@default-padding: 20px;
+@default-padding-md: 30px;
+@default-padding-xl: 40px;
+@container-width: 1440px;
+@container-mini-width: 920px;
+@scroll-content-padding: 20px;
+@scroll-content-padding-md: 30px;
+@scroll-content-padding-xl: 60px;
+
+// Drawer
+@default-drawer-width: 550px;
+@drawer-bg: @chalk;
+
+// Topbar
+@top-bar-height: 50px;
+
+// Navbar
+@default-navbar-padding-horizontal-md: @default-padding-md;
+@default-navbar-padding-horizontal: @default-padding;
+@default-navbar-margin-vertical-md: @default-padding-md;
+@default-navbar-margin-vertical: @default-padding;
+
+// Z-Indexes
+@navbar-z-index: 300;
+@blur-alert-z-index: 220;
+@blur-alert-wrapper-z-index: 210;
+@blur-component-z-index: 200;
+@profile-sticky-navigation-z-index: 100;
+@cookie-overlay-z-index: 1000;
+@cookie-banner-z-index: 1100;

@@ -1,0 +1,20 @@
+fragment CompanyAction on CompanyAction {
+  contentId
+  description
+  id
+  heroImage {
+    id
+    url
+  }
+  categories {
+    name
+    id
+  }
+  requirements {
+    contentId
+    description
+    id
+    title
+  }
+  title
+}

@@ -1,0 +1,6 @@
+fragment CompanyListItem on Company {
+  id
+  logoUrl
+  micrositeSlug
+  name
+}

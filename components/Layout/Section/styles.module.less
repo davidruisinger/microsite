@@ -1,0 +1,31 @@
+.section {
+  padding: 60px 0;
+  color: @white;
+
+  @media (min-width: @screen-md) {
+    padding: 120px 0;
+  }
+  @media (min-width: @screen-xl) {
+    padding: 150px 0;
+  }
+
+  &[class~='white'] {
+    background: @white;
+    color: @black;
+  }
+  &[class~='yellow'] {
+    background: @yellow;
+  }
+  &[class~='wine'] {
+    background: @wine;
+    .dark-mode();
+  }
+  &[class~='blue'] {
+    background: @blue;
+    .dark-mode();
+  }
+  &[class~='green'] {
+    background: @green;
+    .dark-mode();
+  }
+}
