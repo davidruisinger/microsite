@@ -53,7 +53,7 @@ const CompanyPage = ({
     alertDisabledTitle: useBlockById('alert.disabled.title'),
     joinButtonPrimary: useBlockById('join.button.primary'),
     joinDescription: useBlockById('join.description', {
-      company: company.name || '',
+      company: company?.name || '',
     }),
     joinTitle: useBlockById('join.title'),
   }
