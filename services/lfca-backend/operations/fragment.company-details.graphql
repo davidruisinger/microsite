@@ -11,8 +11,15 @@ fragment CompanyDetails on Company {
     ...CompanyAction
   }
   id
+  users {
+    firstName
+    id
+    lastName
+    picture
+  }
   logoUrl
   micrositeSlug
+  websiteUrl
   name
   achievementContendIdsReachedOnce
   program {

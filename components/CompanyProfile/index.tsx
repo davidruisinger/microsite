@@ -1,4 +1,5 @@
-import { Avatar, Tabs } from 'antd'
+import { LinkOutlined } from '@ant-design/icons'
+import { Avatar, Popover, Tabs } from 'antd'
 import { useMemo, useState } from 'react'
 
 import { useBlockById } from '../../hooks'
@@ -99,57 +100,88 @@ export const CompanyProfile = ({
         ? company.aboutSections?.length > 0
         : false,
     },
+    {
+      children: (
+        <>
+          <div className="meta-title">Team</div>
+          <div className="team">
+            <Avatar.Group>
+              {company.users.map((user, i) => (
+                <Popover
+                  content={`${user.firstName} ${user.lastName}`}
+                  key={`team-${i}`}
+                >
+                  <Avatar size={50} src={user.picture} />
+                </Popover>
+              ))}
+            </Avatar.Group>
+          </div>
+        </>
+      ),
+      key: 'team',
+      label: 'Team',
+      renderCondition: true,
+    },
   ]
   // state to actively manage tabs
   const [activeNavItem, setActiveNavItem] = useState(sections[0].key)
 
   return (
-    <div className={styles['company-profile']}>
-      <header className="header">
-        <div className="header-meta">
-          <div className="super-title">{t.profileTitle}</div>
-          <div className="name">{company.name}</div>
+    <div className={styles['company-profile']} id="profile">
+      <div className="content-wrapper">
+        <header className="header">
+          <div className="header-meta">
+            <div className="super-title">{t.profileTitle}</div>
+            <div className="name">{company.name}</div>
+            {company.websiteUrl && (
+              <div className="link">
+                <a href={company.websiteUrl}>
+                  <LinkOutlined /> Website
+                </a>
+              </div>
+            )}
+          </div>
+          <Avatar
+            alt={company.name || 'logo'}
+            className="company-logo"
+            size={100}
+            src={company.logoUrl}
+          />
+        </header>
+
+        <div className="navigation">
+          <Tabs
+            activeKey={activeNavItem}
+            items={sections
+              .filter((i) => i.renderCondition)
+              .map((s) => ({ ...s, children: null }))}
+            onChange={(key) => scrollToId(key)}
+            tabBarExtraContent={
+              <PopoverFilter
+                activeRootCategories={activeRootCategories}
+                rootCategories={rootCategories}
+                setActiveRootCategories={setActiveRootCategories}
+              />
+            }
+          />
         </div>
-        <Avatar
-          alt={company.name || 'logo'}
-          className="company-logo"
-          size={100}
-          src={company.logoUrl}
-        />
-      </header>
 
-      <div className="navigation">
-        <Tabs
-          activeKey={activeNavItem}
-          items={sections
-            .filter((i) => i.renderCondition)
-            .map((s) => ({ ...s, children: null }))}
-          onChange={(key) => scrollToId(key)}
-          tabBarExtraContent={
-            <PopoverFilter
-              activeRootCategories={activeRootCategories}
-              rootCategories={rootCategories}
-              setActiveRootCategories={setActiveRootCategories}
-            />
-          }
-        />
-      </div>
+        {sections
+          .filter((i) => i.renderCondition)
+          .map((item) => (
+            <SectionWrapper
+              id={item.key}
+              key={item.key}
+              setActiveNavItem={setActiveNavItem}
+            >
+              {item.children}
+            </SectionWrapper>
+          ))}
 
-      {sections
-        .filter((i) => i.renderCondition)
-        .map((item) => (
-          <SectionWrapper
-            id={item.key}
-            key={item.key}
-            setActiveNavItem={setActiveNavItem}
-          >
-            {item.children}
-          </SectionWrapper>
-        ))}
-
-      <div className="disclaimer">
-        {t.disclaimerText}{' '}
-        <a href={`mailto:support@lfca.earth`}>support@lfca.earth</a>
+        <div className="disclaimer">
+          {t.disclaimerText}{' '}
+          <a href={`mailto:support@lfca.earth`}>support@lfca.earth</a>
+        </div>
       </div>
     </div>
   )

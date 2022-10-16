@@ -45,12 +45,16 @@ export const ContentProvider = ({
   )
 }
 
-export const useBlockById = (id: string, vars?: Record<string, string>) => {
+export const useBlockById = (
+  id: string,
+  vars?: Record<string, string>,
+  wrapVarInSpan = false
+) => {
   const context = useContext(ContentContext)
   const block = context.blocks.find((b) => b?.fields?.key === id)
   const value = block?.fields?.value || ''
 
-  if (vars) return replaceVars(value, vars)
+  if (vars) return replaceVars(value, vars, wrapVarInSpan)
   return value
 }
 

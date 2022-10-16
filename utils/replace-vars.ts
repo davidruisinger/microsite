@@ -1,7 +1,12 @@
-export const replaceVars = (string: string, vars: Record<string, string>) => {
+export const replaceVars = (
+  string: string,
+  vars: Record<string, string>,
+  wrapVarInSpan = false
+) => {
   for (const prop in vars) {
     if (!string) continue
-    string = string.replace(new RegExp('{{' + prop + '}}', 'g'), vars[prop])
+    const replaceVar = wrapVarInSpan ? `<span>${vars[prop]}</span>` : vars[prop]
+    string = string.replace(new RegExp('{{' + prop + '}}', 'g'), replaceVar)
   }
   return string
 }

@@ -1,6 +1,60 @@
+@hamburger-size: 62px;
+
 .page-header {
   display: flex;
   width: 100%;
+
+  :global {
+    .mini-profile {
+      display: flex;
+      align-items: center;
+      height: @hamburger-size;
+      border: none;
+      border-radius: calc(@hamburger-size / 2);
+      padding: 0;
+      background: fade(@white, 70%);
+      margin-right: 16px;
+      text-align: left;
+
+      @media (min-width: @screen-md) {
+        padding: 0 25px 0 10px;
+        border: 1px solid @border-color-default;
+      }
+
+      &:hover {
+        border-color: @yellow;
+      }
+
+      .logo-wrapper {
+        background: @white;
+        border: 1px solid @border-color-default;
+        border-radius: 50%;
+        img {
+          object-fit: contain;
+          padding: 2px;
+        }
+      }
+
+      .content-wrapper {
+        margin-left: 10px;
+        display: none;
+
+        @media (min-width: @screen-md) {
+          display: block;
+        }
+
+        .name {
+          .font-semi();
+          color: @black;
+          font-size: @font-size-xs;
+        }
+        .profile {
+          font-size: 12px;
+          color: @text-color;
+        }
+      }
+    }
+  }
 }
 
 // align hamburger to right
@@ -30,27 +84,18 @@
   align-self: flex-start;
   cursor: pointer;
   text-transform: none;
-  background-color: transparent;
+  background: fade(@white, 70%);
   border: 1px solid @border-color-default;
   border-radius: 8px;
   padding: 4px 10px;
-  background: @chalk;
   overflow: visible;
   display: inline-block;
   line-height: 48px;
-  height: 58px;
-  width: 58px;
+  height: @hamburger-size;
+  width: @hamburger-size;
 
   &:hover {
     background: lighten(@chalk, 5%);
-  }
-
-  @media (min-width: @screen-md) {
-    background: @main-color;
-    border: 1px solid @border-color-default-darkmode;
-    &:hover {
-      background: lighten(@black, 5%);
-    }
   }
 
   [class~='hamburger-box'] {
@@ -66,10 +111,6 @@
       border-radius: 0;
       position: absolute;
       background-color: @black;
-
-      @media (min-width: @screen-md) {
-        background-color: @white;
-      }
     }
 
     [class~='hamburger-inner'] {

@@ -15,14 +15,24 @@
 }
 
 .company-profile {
-  padding-top: 60px;
+  padding: 60px 0 40px;
+  background: @main-color;
+  background-image: url('/img/bg-white-circle.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-x: 100px;
 
   @media (min-width: @screen-md) {
-    padding-top: 140px;
+    padding: 100px 0 40px;
+  }
+
+  [class~='content-wrapper'] {
+    max-width: @container-mini-width;
+    margin: 0 auto;
+    padding: 0 @default-padding;
   }
 
   [class~='disclaimer'] {
-    .scroll-content-padding-horizontal();
     margin: 30px 0 40px;
     font-size: @font-size-xs;
     color: @text-color-darkmode;
@@ -31,19 +41,24 @@
     }
   }
 
+  [class~='ant-tabs-tab'] {
+    font-size: @font-size-xl;
+  }
+
   [class~='meta-title'] {
-    font-size: @font-size-lg;
+    font-size: 22px;
     color: @white;
     margin: 50px 0 0;
-    .scroll-content-padding-horizontal();
     .font-semi();
+  }
+
+  [class~='team'] {
+    margin: 20px 0 20px;
   }
 
   [class~='about-section'] {
     margin: 30px 0;
     color: @white;
-    .two-col-max-width-right();
-    .scroll-content-padding-horizontal();
 
     [class~='about-section-title'] {
       .font-semi();
@@ -70,8 +85,6 @@
     }
 
     [class~='ant-tabs'] {
-      .two-col-max-width-right();
-      .scroll-content-padding-horizontal();
       color: @white;
 
       [class~='ant-tabs-tab-btn'] {
@@ -101,8 +114,6 @@
     justify-content: space-between;
     align-items: center;
     margin: 0 0 30px;
-    .two-col-max-width-right();
-    .scroll-content-padding-horizontal();
 
     [class~='company-logo'] {
       background: @white;
@@ -119,12 +130,29 @@
       justify-content: center;
       color: @white;
 
+      [class~='link'] {
+        margin: 10px 0 0;
+        a {
+          color: @white;
+        }
+      }
+
       [class~='super-title'] {
-        margin-bottom: 10px;
+        margin-bottom: 0;
       }
 
       [class~='name'] {
-        .h2(@white);
+        color: @white;
+        .font-bold();
+        font-size: 26px;
+
+        @media (min-width: @screen-md) {
+          font-size: 34px;
+        }
+
+        @media (min-width: @screen-xl) {
+          font-size: 56px;
+        }
       }
     }
   }

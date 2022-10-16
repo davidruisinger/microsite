@@ -14,17 +14,17 @@ export const ScrollPageHero = ({ companyName, stats }: ScrollPageHeroProps) => {
   const t = {
     buttonPrimary: useBlockById('hero.button.primary'),
     subtitle: useBlockById('hero.subtitle', { company: companyName || '-' }),
-    title: useBlockById('hero.title', { company: companyName || '-' }),
+    title: useBlockById('hero.title', { company: companyName || '-' }, true),
   }
 
   return (
     <div className={styles['page-hero']}>
       <div className="content">
-        <h1>{t.title}</h1>
+        <h1 dangerouslySetInnerHTML={{ __html: t.title }} />
         <h2>{t.subtitle}</h2>
-        <Space align="center" size="large">
+        <Space size="large">
           <Button
-            onClick={() => scrollToId('share')}
+            onClick={() => scrollToId('profile')}
             size="large"
             type="primary"
           >

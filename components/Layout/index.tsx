@@ -1,5 +1,6 @@
 export * from './Block'
 export * from './DefaultLayout'
+export * from './Layout'
 export * from './MicrositeLayout'
 export * from './PageFooter'
 export * from './PageHeader'

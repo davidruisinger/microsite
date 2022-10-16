@@ -11,7 +11,7 @@ import {
   BlurComponent,
   CompanyProfile,
   FrameworkElements,
-  MicrositeLayout,
+  Layout,
   ScrollPageHero,
   Section,
 } from '../../components'
@@ -77,34 +77,30 @@ const CompanyPage = ({
   const isOnFreePlan = meta.subscriptionType === 'FREE'
 
   return (
-    <MicrositeLayout
-      company={company}
-      scrollableContent={
-        <BlurComponent
-          blurAlertProps={{
-            action: (
-              <a href={`mailto:${SUPPORT_MAIL}`}>
-                <Button icon={<QuestionCircleOutlined />} size="small">
-                  {t.alertDisabledButton}
-                </Button>
-              </a>
-            ),
-            description: t.alertDisabledDescription,
-            icon: <FieldTimeOutlined />,
-            title: t.alertDisabledTitle,
-          }}
-          isBlurred={!meta.hasReachedMicrositeOnce || isOnFreePlan}
-        >
-          <CompanyProfile
-            company={company}
-            rootCategoriesData={rootCategoriesData}
-          />
-        </BlurComponent>
-      }
-      staticContent={
-        <ScrollPageHero companyName={company.name} stats={stats} />
-      }
-    >
+    <Layout company={company}>
+      <ScrollPageHero companyName={company.name} stats={stats} />
+
+      <BlurComponent
+        blurAlertProps={{
+          action: (
+            <a href={`mailto:${SUPPORT_MAIL}`}>
+              <Button icon={<QuestionCircleOutlined />} size="small">
+                {t.alertDisabledButton}
+              </Button>
+            </a>
+          ),
+          description: t.alertDisabledDescription,
+          icon: <FieldTimeOutlined />,
+          title: t.alertDisabledTitle,
+        }}
+        isBlurred={!meta.hasReachedMicrositeOnce || isOnFreePlan}
+      >
+        <CompanyProfile
+          company={company}
+          rootCategoriesData={rootCategoriesData}
+        />
+      </BlurComponent>
+
       <Section id="framework">
         <FrameworkElements rootCategoriesData={rootCategoriesData} />
       </Section>
@@ -125,7 +121,7 @@ const CompanyPage = ({
           title={t.joinTitle}
         />
       </Section>
-    </MicrositeLayout>
+    </Layout>
   )
 }
 

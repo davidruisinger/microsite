@@ -749,6 +749,7 @@ export type SearchUserInput = {
 export type ServiceProvider = {
   __typename?: 'ServiceProvider';
   averageRating?: Maybe<Scalars['Float']>;
+  /** @deprecated Use `tags`. */
   certifications: Array<Tag>;
   description?: Maybe<Scalars['JSON']>;
   email?: Maybe<Scalars['String']>;
@@ -760,16 +761,21 @@ export type ServiceProvider = {
   highestPrice?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
   isPrivate: Scalars['Boolean'];
+  /** @deprecated Use `tags`. */
   languages: Array<Tag>;
   logo?: Maybe<ContentAsset>;
   lowestPrice?: Maybe<Scalars['Int']>;
   memberId?: Maybe<Scalars['String']>;
+  /** @deprecated Use `tags`. */
   model: Array<Tag>;
   name: Scalars['String'];
   reviewsCount: Scalars['Int'];
+  /** @deprecated Use `tags`. */
   services: Array<Tag>;
   size?: Maybe<Scalars['String']>;
+  /** @deprecated Use `tags`. */
   supplyChainComplexity: Array<Tag>;
+  tags: Array<Tag>;
   website?: Maybe<Scalars['String']>;
   year?: Maybe<Scalars['Int']>;
 };
@@ -861,6 +867,7 @@ export type ServiceProvidersInputFilter = {
 
 export type Tag = {
   __typename?: 'Tag';
+  categoryId: Scalars['String'];
   help?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
@@ -1009,7 +1016,7 @@ export type CompanyAchievementFragment = { __typename?: 'CompanyAchievement', co
 
 export type CompanyActionFragment = { __typename?: 'CompanyAction', contentId: string, description?: string | null, id: string, title?: string | null, heroImage?: { __typename?: 'ContentAsset', id: string, url?: string | null } | null, categories: Array<{ __typename?: 'Category', name?: string | null, id: string }>, requirements: Array<{ __typename?: 'CompanyActionRequirement', contentId: string, description?: string | null, id: string, title?: string | null }> };
 
-export type CompanyDetailsFragment = { __typename?: 'Company', id: string, logoUrl?: string | null, micrositeSlug?: string | null, name?: string | null, achievementContendIdsReachedOnce: Array<string>, subscriptionType: CompanySubscriptionType, aboutSections?: Array<{ __typename?: 'CompanyAboutSection', heading?: string | null, text?: string | null, imageUrl?: string | null } | null> | null, completedCompanyActions: Array<{ __typename?: 'CompanyAction', contentId: string, description?: string | null, id: string, title?: string | null, heroImage?: { __typename?: 'ContentAsset', id: string, url?: string | null } | null, categories: Array<{ __typename?: 'Category', name?: string | null, id: string }>, requirements: Array<{ __typename?: 'CompanyActionRequirement', contentId: string, description?: string | null, id: string, title?: string | null }> }>, plannedCompanyActions: Array<{ __typename?: 'CompanyAction', contentId: string, description?: string | null, id: string, title?: string | null, heroImage?: { __typename?: 'ContentAsset', id: string, url?: string | null } | null, categories: Array<{ __typename?: 'Category', name?: string | null, id: string }>, requirements: Array<{ __typename?: 'CompanyActionRequirement', contentId: string, description?: string | null, id: string, title?: string | null }> }>, program: { __typename?: 'CompanyProgram', contentId: string, achievements: Array<{ __typename?: 'CompanyAchievement', completedCompanyActionsCount: number, completedRequiredCompanyActionsCount: number, contentId: string, minCompletedCompanyActionsCount?: number | null, name: string, requiredActions: Array<{ __typename?: 'CompanyAction', id: string }> }> } };
+export type CompanyDetailsFragment = { __typename?: 'Company', id: string, logoUrl?: string | null, micrositeSlug?: string | null, websiteUrl?: string | null, name?: string | null, achievementContendIdsReachedOnce: Array<string>, subscriptionType: CompanySubscriptionType, aboutSections?: Array<{ __typename?: 'CompanyAboutSection', heading?: string | null, text?: string | null, imageUrl?: string | null } | null> | null, completedCompanyActions: Array<{ __typename?: 'CompanyAction', contentId: string, description?: string | null, id: string, title?: string | null, heroImage?: { __typename?: 'ContentAsset', id: string, url?: string | null } | null, categories: Array<{ __typename?: 'Category', name?: string | null, id: string }>, requirements: Array<{ __typename?: 'CompanyActionRequirement', contentId: string, description?: string | null, id: string, title?: string | null }> }>, plannedCompanyActions: Array<{ __typename?: 'CompanyAction', contentId: string, description?: string | null, id: string, title?: string | null, heroImage?: { __typename?: 'ContentAsset', id: string, url?: string | null } | null, categories: Array<{ __typename?: 'Category', name?: string | null, id: string }>, requirements: Array<{ __typename?: 'CompanyActionRequirement', contentId: string, description?: string | null, id: string, title?: string | null }> }>, users: Array<{ __typename?: 'User', firstName: string, id: string, lastName: string, picture?: string | null }>, program: { __typename?: 'CompanyProgram', contentId: string, achievements: Array<{ __typename?: 'CompanyAchievement', completedCompanyActionsCount: number, completedRequiredCompanyActionsCount: number, contentId: string, minCompletedCompanyActionsCount?: number | null, name: string, requiredActions: Array<{ __typename?: 'CompanyAction', id: string }> }> } };
 
 export type CompanyListItemFragment = { __typename?: 'Company', id: string, logoUrl?: string | null, micrositeSlug?: string | null, name?: string | null };
 
@@ -1027,7 +1034,7 @@ export type CompanyDetailsQueryVariables = Exact<{
 }>;
 
 
-export type CompanyDetailsQuery = { __typename?: 'Query', company: { __typename?: 'Company', id: string, logoUrl?: string | null, micrositeSlug?: string | null, name?: string | null, achievementContendIdsReachedOnce: Array<string>, subscriptionType: CompanySubscriptionType, aboutSections?: Array<{ __typename?: 'CompanyAboutSection', heading?: string | null, text?: string | null, imageUrl?: string | null } | null> | null, completedCompanyActions: Array<{ __typename?: 'CompanyAction', contentId: string, description?: string | null, id: string, title?: string | null, heroImage?: { __typename?: 'ContentAsset', id: string, url?: string | null } | null, categories: Array<{ __typename?: 'Category', name?: string | null, id: string }>, requirements: Array<{ __typename?: 'CompanyActionRequirement', contentId: string, description?: string | null, id: string, title?: string | null }> }>, plannedCompanyActions: Array<{ __typename?: 'CompanyAction', contentId: string, description?: string | null, id: string, title?: string | null, heroImage?: { __typename?: 'ContentAsset', id: string, url?: string | null } | null, categories: Array<{ __typename?: 'Category', name?: string | null, id: string }>, requirements: Array<{ __typename?: 'CompanyActionRequirement', contentId: string, description?: string | null, id: string, title?: string | null }> }>, program: { __typename?: 'CompanyProgram', contentId: string, achievements: Array<{ __typename?: 'CompanyAchievement', completedCompanyActionsCount: number, completedRequiredCompanyActionsCount: number, contentId: string, minCompletedCompanyActionsCount?: number | null, name: string, requiredActions: Array<{ __typename?: 'CompanyAction', id: string }> }> } } };
+export type CompanyDetailsQuery = { __typename?: 'Query', company: { __typename?: 'Company', id: string, logoUrl?: string | null, micrositeSlug?: string | null, websiteUrl?: string | null, name?: string | null, achievementContendIdsReachedOnce: Array<string>, subscriptionType: CompanySubscriptionType, aboutSections?: Array<{ __typename?: 'CompanyAboutSection', heading?: string | null, text?: string | null, imageUrl?: string | null } | null> | null, completedCompanyActions: Array<{ __typename?: 'CompanyAction', contentId: string, description?: string | null, id: string, title?: string | null, heroImage?: { __typename?: 'ContentAsset', id: string, url?: string | null } | null, categories: Array<{ __typename?: 'Category', name?: string | null, id: string }>, requirements: Array<{ __typename?: 'CompanyActionRequirement', contentId: string, description?: string | null, id: string, title?: string | null }> }>, plannedCompanyActions: Array<{ __typename?: 'CompanyAction', contentId: string, description?: string | null, id: string, title?: string | null, heroImage?: { __typename?: 'ContentAsset', id: string, url?: string | null } | null, categories: Array<{ __typename?: 'Category', name?: string | null, id: string }>, requirements: Array<{ __typename?: 'CompanyActionRequirement', contentId: string, description?: string | null, id: string, title?: string | null }> }>, users: Array<{ __typename?: 'User', firstName: string, id: string, lastName: string, picture?: string | null }>, program: { __typename?: 'CompanyProgram', contentId: string, achievements: Array<{ __typename?: 'CompanyAchievement', completedCompanyActionsCount: number, completedRequiredCompanyActionsCount: number, contentId: string, minCompletedCompanyActionsCount?: number | null, name: string, requiredActions: Array<{ __typename?: 'CompanyAction', id: string }> }> } } };
 
 export type CounterStatsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1082,8 +1089,15 @@ export const CompanyDetailsFragmentDoc = gql`
     ...CompanyAction
   }
   id
+  users {
+    firstName
+    id
+    lastName
+    picture
+  }
   logoUrl
   micrositeSlug
+  websiteUrl
   name
   achievementContendIdsReachedOnce
   program {
