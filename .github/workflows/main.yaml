@@ -31,7 +31,7 @@ jobs:
         uses: haya14busa/action-cond@v1
         id: vercel-args
         with:
-          cond: ${{ github.ref_name == 'master' }}
+          cond: ${{ github.ref_name == 'main' }}
           if_true: '--prod'
           if_false: ''
       - name: Deploy to Vercel
