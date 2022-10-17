@@ -107,7 +107,7 @@ export const CompanyProfile = ({
         <>
           <div className="meta-title">Team</div>
           <div className="team">
-            <Avatar.Group>
+            <Avatar.Group maxCount={6}>
               {company.users.map((user, i) => (
                 <Popover
                   content={`${user.firstName} ${user.lastName}`}
