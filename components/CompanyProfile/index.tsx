@@ -1,5 +1,5 @@
 import { LinkOutlined } from '@ant-design/icons'
-import { Avatar, Popover, Tabs } from 'antd'
+import { Avatar, Grid, Popover, Tabs } from 'antd'
 import { useMemo, useState } from 'react'
 
 import { useBlockById } from '../../hooks'
@@ -13,6 +13,8 @@ import { ActionsList } from '../ActionsList'
 import { scrollToId, SectionWrapper } from '../SectionWrapper'
 import { PopoverFilter } from './PopoverFilter'
 import styles from './styles.module.less'
+
+const { useBreakpoint } = Grid
 
 interface CompanyProfileProps {
   company: CompanyDetailsFragment
@@ -125,13 +127,14 @@ export const CompanyProfile = ({
   ]
   // state to actively manage tabs
   const [activeNavItem, setActiveNavItem] = useState(sections[0].key)
+  const isMobile = !useBreakpoint().md
 
   return (
     <div className={styles['company-profile']} id="profile">
-      <div className="content-wrapper">
+      <div className="content-wrapper container">
         <header className="header">
           <div className="header-meta">
-            <div className="super-title">{t.profileTitle}</div>
+            <div className="super-text">{t.profileTitle}</div>
             <div className="name">{company.name}</div>
             {company.websiteUrl && (
               <div className="link">
@@ -144,7 +147,7 @@ export const CompanyProfile = ({
           <Avatar
             alt={company.name || 'logo'}
             className="company-logo"
-            size={100}
+            size={isMobile ? 90 : 120}
             src={company.logoUrl}
           />
         </header>

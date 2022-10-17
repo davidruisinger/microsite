@@ -16,7 +16,7 @@
 
 .company-profile {
   padding: 60px 0 40px;
-  background: @main-color;
+  background: @white;
   background-image: url('/img/bg-white-circle.svg');
   background-repeat: no-repeat;
   background-size: contain;
@@ -26,19 +26,17 @@
     padding: 100px 0 40px;
   }
 
-  [class~='content-wrapper'] {
-    max-width: @container-mini-width;
-    margin: 0 auto;
-    padding: 0 @default-padding;
-  }
-
   [class~='disclaimer'] {
     margin: 30px 0 40px;
     font-size: @font-size-xs;
-    color: @text-color-darkmode;
+    color: @black;
     a {
-      color: @white;
+      color: @black;
     }
+  }
+
+  [class~='super-text'] {
+    color: @blue;
   }
 
   [class~='ant-tabs-tab'] {
@@ -47,7 +45,7 @@
 
   [class~='meta-title'] {
     font-size: 22px;
-    color: @white;
+    color: @black;
     margin: 50px 0 0;
     .font-semi();
   }
@@ -58,7 +56,15 @@
 
   [class~='about-section'] {
     margin: 30px 0;
-    color: @white;
+    color: @black;
+
+    @media (min-width: @screen-lg) {
+      padding-right: 100px;
+    }
+
+    @media (min-width: @screen-xl) {
+      padding-right: 240px;
+    }
 
     [class~='about-section-title'] {
       .font-semi();
@@ -66,33 +72,34 @@
     }
 
     [class~='about-section-text'] {
-      color: @text-color-darkmode;
+      color: @black;
     }
   }
 
   [class~='navigation'] {
     position: sticky;
     top: 0;
-    color: @white;
-    background: @main-color;
+    color: @black;
+    background: @white;
     z-index: @profile-sticky-navigation-z-index;
+    border-bottom: 1px solid @border-color-default;
 
     [class~='ant-btn'] {
       background: transparent;
       border-radius: 6px;
-      color: @white;
-      border-color: rgba(255, 255, 255, 0.2);
+      color: @black;
+      border-color: @border-color-default;
     }
 
     [class~='ant-tabs'] {
-      color: @white;
+      color: @black;
 
       [class~='ant-tabs-tab-btn'] {
-        color: @white;
+        color: @black;
       }
 
       [class~='ant-tabs-ink-bar'] {
-        background: @white;
+        background: @black;
       }
 
       [class~='ant-tabs-nav'] {
@@ -118,6 +125,8 @@
     [class~='company-logo'] {
       background: @white;
       padding: 10px;
+      border: 1px solid @border-color-default;
+
       img {
         object-fit: contain;
       }
@@ -128,12 +137,12 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      color: @white;
+      color: @black;
 
       [class~='link'] {
-        margin: 10px 0 0;
+        margin: 20px 0 0;
         a {
-          color: @white;
+          color: @black;
         }
       }
 
@@ -142,16 +151,18 @@
       }
 
       [class~='name'] {
-        color: @white;
+        color: @black;
         .font-bold();
-        font-size: 26px;
+        letter-spacing: -1px;
+        font-size: 32px;
+        line-height: 1;
 
         @media (min-width: @screen-md) {
-          font-size: 34px;
+          font-size: 50px;
         }
 
         @media (min-width: @screen-xl) {
-          font-size: 56px;
+          font-size: 62px;
         }
       }
     }

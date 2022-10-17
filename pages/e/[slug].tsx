@@ -101,7 +101,7 @@ const CompanyPage = ({
         />
       </BlurComponent>
 
-      <Section id="framework">
+      <Section color="wine" id="framework">
         <FrameworkElements rootCategoriesData={rootCategoriesData} />
       </Section>
       <Section color="blue" id="share">
@@ -116,7 +116,6 @@ const CompanyPage = ({
               <Button size="large">{t.joinButtonPrimary}</Button>
             </a>,
           ]}
-          containerWidth="mini"
           text={t.joinDescription}
           title={t.joinTitle}
         />

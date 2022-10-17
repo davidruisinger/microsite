@@ -1,4 +1,4 @@
-import { Collapse } from 'antd'
+import { Col, Collapse, Row } from 'antd'
 import { useMemo } from 'react'
 
 import { RootCategoriesDataProps } from '../../services/contentful/fetch-root-categories'
@@ -43,12 +43,7 @@ export const ActionsList = ({
   }, [actions, rootCategoriesData, rootCategoryOrder])
 
   return (
-    <Collapse
-      accordion
-      bordered={false}
-      className={styles['actions-list']}
-      expandIconPosition="end"
-    >
+    <Row className={styles['actions-list']} gutter={12}>
       {sortedActions.map((action) => {
         const rootCategoryMeta = getCategoryMeta(
           rootCategoriesData,
@@ -58,24 +53,28 @@ export const ActionsList = ({
         if (!rootCategoryMeta?.fields) return null
 
         return (
-          <Panel
-            header={
-              <ActionItemHeader
-                action={action}
-                rootCategoryMeta={rootCategoryMeta}
-              />
-            }
-            key={action.contentId}
-          >
-            <div className="requirements-title">What does this mean?</div>
-            <ul>
-              {action.requirements.map((requirement) => (
-                <li key={requirement.id}>{requirement.title}</li>
-              ))}
-            </ul>
-          </Panel>
+          <Col key={action.contentId} md={12} xs={24}>
+            <Collapse accordion bordered={false} expandIconPosition="end">
+              <Panel
+                header={
+                  <ActionItemHeader
+                    action={action}
+                    rootCategoryMeta={rootCategoryMeta}
+                  />
+                }
+                key={action.contentId}
+              >
+                <div className="requirements-title">What does this mean?</div>
+                <ul>
+                  {action.requirements.map((requirement) => (
+                    <li key={requirement.id}>{requirement.title}</li>
+                  ))}
+                </ul>
+              </Panel>
+            </Collapse>
+          </Col>
         )
       })}
-    </Collapse>
+    </Row>
   )
 }

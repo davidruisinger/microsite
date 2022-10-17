@@ -1,6 +1,6 @@
 .action-item-header {
   display: flex;
-  color: @text-color-strong-darkmode;
+  color: @text-color-strong;
 
   [class~='bg-image-wrapper'] {
     width: 55px;
@@ -18,47 +18,6 @@
       width: 100%;
       height: 100%;
       border-radius: @border-radius-sm;
-      filter: grayscale(100%);
-    }
-    [class~='icon-wrapper-big'] {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px;
-      font-size: 23px;
-
-      @media (min-width: @screen-md) {
-        padding: 28px;
-      }
-
-      &[class~='yellow'] {
-        background: fade(@yellow, 85%);
-      }
-      &[class~='blue'] {
-        background: fade(@blue, 85%);
-      }
-      &[class~='green'] {
-        background: fade(@green, 85%);
-      }
-      &[class~='wine'] {
-        background: fade(@wine, 85%);
-      }
-
-      [class~='icon'] {
-        height: 28px;
-        width: 28px;
-        background-color: @white;
-        mask-repeat: no-repeat;
-        -webkit-mask-repeat: no-repeat;
-        mask-size: contain;
-        -webkit-mask-size: contain;
-        mask-position: center;
-        -webkit-mask-position: center;
-      }
     }
   }
 
@@ -83,13 +42,15 @@
       }
     }
     [class~='category'] {
-      color: @text-color-darkmode;
+      color: @text-color;
       display: flex;
       font-size: 15px;
       margin-top: 6px;
 
       [class~='category-name'] {
         margin-left: 10px;
+        display: flex;
+        align-items: center;
       }
     }
   }

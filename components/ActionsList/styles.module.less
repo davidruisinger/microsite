@@ -1,25 +1,22 @@
 .actions-list {
-  border-radius: 0;
-  background-color: transparent;
-  padding-top: 10px;
+  margin-top: 15px;
 
   [class~='ant-collapse-item'] {
-    margin: 10px 0;
-    background: @main-color-dark;
+    margin: 6px 0;
     border-radius: @border-radius-base;
-    border: 1px solid @border-color-default-darkmode;
+    border: 1px solid @border-color-default;
 
     &:last-child {
       border-radius: @border-radius-base;
-      border-bottom: 1px solid @border-color-default-darkmode;
+      border-bottom: 1px solid @border-color-default;
     }
 
     &:hover {
-      background: lighten(@main-color-dark, 2%);
+      background: fade(@black, 5%);
     }
 
     [class~='requirements-title'] {
-      color: @white;
+      color: @black;
       .font-semi();
       margin: 0 0 10px;
     }
@@ -28,14 +25,18 @@
       padding-inline-start: 20px;
     }
 
+    [class~='ant-collapse-header'] {
+      padding: 14px;
+    }
+
     [class~='ant-collapse-content-box'],
     [class~='ant-collapse-header'] {
-      color: @text-color-darkmode;
+      color: @text-color;
     }
 
     [class~='ant-collapse-header'] {
       [class~='ant-collapse-expand-icon'] {
-        color: @text-color-darkmode;
+        color: @text-color;
       }
     }
   }

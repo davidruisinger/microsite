@@ -1,14 +1,10 @@
 .framework-elements {
-  max-width: @container-mini-width;
+  [class~='super-text'] {
+    color: fade(@white, 65%);
+  }
 
   h2 {
     .h1();
-  }
-
-  [class~='super-text'] {
-    .font-semi();
-    color: @wine;
-    margin: 0 0 10px;
   }
 
   [class~='description'] {
@@ -18,26 +14,18 @@
 }
 
 .framework-element {
-  background: fade(@black, 10%);
-  padding: 50px;
+  background: fade(@white, 10%);
+  padding: 20px;
   margin: 0 0 20px;
   border-radius: @border-radius-lg;
 
-  &[class~='wine'] {
-    background: fade(@wine, 10%);
-  }
-  &[class~='blue'] {
-    background: fade(@blue, 10%);
-  }
-  &[class~='green'] {
-    background: fade(@green, 10%);
-  }
-  &[class~='yellow'] {
-    background: fade(@yellow, 10%);
+  @media (min-width: @screen-md) {
+    padding: 50px;
   }
 
   [class~='title'] {
     .h3();
+    margin-top: 30px;
   }
 
   [class~='description'] {

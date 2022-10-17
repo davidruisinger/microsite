@@ -4,7 +4,10 @@ import { useMemo } from 'react'
 
 import { useBlockById } from '../../hooks'
 import { RootCategoriesDataProps } from '../../services/contentful/fetch-root-categories'
+import { RootCategoryIcon } from '../ActionsList/RootCategoryIcon'
 import styles from './styles.module.less'
+
+export type FrameworkElementColors = 'yellow' | 'wine' | 'blue' | 'green'
 
 interface FrameworkElementsProps {
   rootCategoriesData: RootCategoriesDataProps
@@ -17,7 +20,7 @@ interface FrameworkElementProps {
 }
 
 interface FrameworkElementWithMetaData extends FrameworkElementProps {
-  color: string
+  color: FrameworkElementColors
   iconUrl: string
   id: string
   name: string
@@ -64,12 +67,12 @@ const FrameworkElement = ({
 
   return (
     <div className={classNames(styles['framework-element'], element.color)}>
-      <div className="icon-wrapper">
-        <div
-          className="icon"
-          style={{ backgroundImage: `url(${element.iconUrl})` }}
-        />
-      </div>
+      <RootCategoryIcon
+        color={element.color}
+        iconUrl={element.iconUrl}
+        inverse
+        size="large"
+      />
       <div className="title">{t[element.titleKey]}</div>
       <div className="description">{t[element.descriptionKey]}</div>
     </div>

@@ -1,10 +1,8 @@
-import classNames from 'classnames'
 import { Entry } from 'contentful'
 import Image from 'next/image'
 
 import { ContentfulCategoryTree } from '../../../services/contentful/models/category-tree'
 import { CompanyActionFragment } from '../../../services/lfca-backend/api/generated'
-import { getContentfulAssetUrl } from '../../../utils'
 import { RootCategoryIcon } from '../RootCategoryIcon'
 import styles from './styles.module.less'
 
@@ -27,24 +25,6 @@ export const ActionItemHeader = ({
           objectFit="cover"
           src={action.heroImage?.url || ''}
         />
-        <div
-          className={classNames(
-            'icon-wrapper-big',
-            rootCategoryMeta?.fields.color
-          )}
-        >
-          <div
-            className="icon"
-            style={{
-              maskImage: `url(${getContentfulAssetUrl(
-                rootCategoryMeta?.fields.icon
-              )})`,
-              WebkitMaskImage: `url(${getContentfulAssetUrl(
-                rootCategoryMeta?.fields.icon
-              )})`,
-            }}
-          />
-        </div>
       </div>
 
       <div className="content">

@@ -19,7 +19,7 @@ export const ScrollPageHero = ({ companyName, stats }: ScrollPageHeroProps) => {
 
   return (
     <div className={styles['page-hero']}>
-      <div className="content">
+      <div className="content container">
         <h1 dangerouslySetInnerHTML={{ __html: t.title }} />
         <h2>{t.subtitle}</h2>
         <Space size="large">
